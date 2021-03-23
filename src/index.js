@@ -4,6 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import './fonts/Graphik-Font-Family/GraphikRegular.otf'
+import './fonts/Graphik-Font-Family/GraphikBold.otf'
+import './fonts/Graphik-Font-Family/GraphikLight.otf'
+import './fonts/Graphik-Font-Family/GraphikMedium.otf'
+import './fonts/Graphik-Font-Family/GraphikSemibold.otf'
+import './fonts/Graphik-Font-Family/GraphikThin.otf'
+
+// Importing the Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

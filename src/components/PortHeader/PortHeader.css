@@ -1,0 +1,49 @@
+.portfolio-big-window {
+  height: 75vh;
+}
+
+.frame-container {
+  height: 90%;
+  background-color: antiquewhite;
+  overflow-x: hidden;
+}
+
+.image-big-portfolio {
+  width: 100%;
+}
+
+.control-container {
+  height: 10%;
+  background-color: white;
+  display: flex;
+}
+
+.box1, .box2, .box3 {
+  margin: 1px 1px 1px 0px;
+  background-color: black;
+  color: white;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  font-weight:300;
+  font-size: 1rem;
+}
+
+.box3 {
+  margin-right: 0px;
+}
+
+.box1 {
+  flex-grow: 2;
+}
+.box2 {
+  flex-grow: 1;
+}
+.box3 {
+  flex-grow: 1;
+}
+
+.title {
+  font-weight: 400;
+}

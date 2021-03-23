@@ -1,13 +1,48 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
 
-code {
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+@font-face {
+  font-family: 'Graphik';
+  src: local('GraphikRegular'), url(./fonts/Graphik-Font-Family/GraphikRegular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  font-weight: 600;
+  src: local('Graphik'), url(./fonts/Graphik-Font-Family/GraphikBold.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  font-weight: 500;
+  src: local('Graphik'), url(./fonts/Graphik-Font-Family/GraphikSemibold.otf) format('opentype');
+}
+@font-face {
+  font-family: 'Graphik';
+  font-weight: 400;
+  src: local('Graphik'), url(./fonts/Graphik-Font-Family/GraphikMedium.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  font-weight: 300;
+  src: local('Graphik'), url(./fonts/Graphik-Font-Family/GraphikLight.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'Graphik';
+  font-weight: 200;
+  src: local('Graphik'), url(./fonts/Graphik-Font-Family/GraphikThin.otf) format('opentype');
+}
+
+body {
+  margin: 0;
+  font-family: 'Graphik', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

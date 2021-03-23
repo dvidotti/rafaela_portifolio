@@ -1,0 +1,72 @@
+.header-container { 
+  height: 25vh;
+}
+
+.header-top-container {
+  height: 23%;
+  background-color: white;
+  display: flex;
+}
+
+.title-box {
+  width:25%;
+}
+
+.title-link:hover {
+  text-decoration: none;
+}
+
+.title {
+  font-size: 1.8rem;
+  display: inline-flex;
+  padding: 20px 15px;
+  font-weight: medium;
+  color: black;
+}
+
+.text-two-container {
+  width: 43%;
+}
+
+.arrow-down-outer-container {
+  width: 5%;
+}
+
+.arrow-down-inner-container {
+  padding: 75px 0px 20px 0px;
+}
+
+.arrow-size {
+  width: 45px;
+}
+
+.header-right-container {
+  width:27%;
+  text-align: right;
+}
+
+.text-two-header {
+  font-size: 1.6rem;
+  display: inline-flex;
+  padding: 28px 0px 25px 5px;
+  font-weight: 300;
+}
+
+.about-menu {
+  font-size: 1.8rem;
+  display: inline-block;
+  padding: 28px;
+  padding-right: 20px;
+  font-weight: 300;
+  text-align: right;
+}
+
+@media screen and (max-width: 1400px) {
+  .title{
+    font-size: 1.7rem;
+   }
+ 
+   .text-two-header {
+     font-size: 1.5rem;
+   }
+  } 
