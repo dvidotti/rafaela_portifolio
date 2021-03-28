@@ -28,7 +28,7 @@ const Header = (props) => {
       <section className="header-top-container">
         <div className="title-box">
           <Link className="title-link" to="/">
-            <span onClick={() => props.handleArrow(true)} className="title">RAFAELA VINOTTI</span>
+            <span className="title">RAFAELA VINOTTI</span>
           </Link>
         </div>
         <div className="text-two-container">
@@ -48,15 +48,15 @@ const Header = (props) => {
         <div className="header-right-container">
           {props.showArrow  ?
             <Link className="no-link-decoration" to="/about">
-              <span onClick={() => props.handleArrow(!props.showArrow)} className="about-menu">ABOUT</span>
+              <span className="about-menu">ABOUT</span>
             </Link>
             : props.isProjectPage ? 
             <Link className="no-link-decoration" to="/about">
-              <span onClick={() => props.handleArrow(!props.showArrow)} className="about-menu">ABOUT</span>
+              <span className="about-menu">ABOUT</span>
             </Link>
             :
             <Link className="no-link-decoration" to={getFrom}>
-              <span onClick={() => props.handleArrow(!props.showArrow)} className="about-menu stroke-line">ABOUT</span>
+              <span className="about-menu stroke-line">ABOUT</span>
             </Link>
           }
         </div>

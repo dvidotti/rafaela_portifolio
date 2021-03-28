@@ -13,7 +13,6 @@ const ProjectPage = (props) => {
   let project = projects.filter(i => i.link === project_link)[0]
 
   useEffect(() => {
-    props.handleArrow(false)
     props.handleIsProjectPage(true)
     return function cleanup() {
       props.handleIsProjectPage(false)
