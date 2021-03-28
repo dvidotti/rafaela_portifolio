@@ -1,5 +1,7 @@
 .header-container { 
   height: 25vh;
+  width: 100%;
+  border-left: 4px solid black;
 }
 
 .header-top-container {
@@ -34,6 +36,7 @@
 
 .arrow-down-inner-container {
   padding: 75px 0px 20px 0px;
+  min-width: 45px;
 }
 
 .arrow-size {
@@ -56,9 +59,22 @@
   font-size: 1.8rem;
   display: inline-block;
   padding: 28px;
-  padding-right: 20px;
+  padding-right: 24px;
   font-weight: 300;
   text-align: right;
+}
+
+.stroke-line {
+  text-decoration-line: line-through;
+}
+
+.no-link-decoration {
+  color: black;
+}
+
+.no-link-decoration:hover {
+  text-decoration: none;
+  color: black;
 }
 
 @media screen and (max-width: 1400px) {

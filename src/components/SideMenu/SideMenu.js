@@ -1,30 +1,25 @@
-import React, {useState} from "react"
+import React, {useState} from "react";
+import { useHistory } from "react-router-dom";
 
 import './SideMenu.css'
 
-let projectList = [
-  "Caellum",
-  "Vooz",
-  "Curt's Table",
-  "Natura",
-  "Melissa",
-  "DaniloVidotti",
-  "Key",
-  "Fabula Sonora",
-  "Caellum",
-  "Vooz",
-  "Curt's Table",
-  "Natura",
-  "Melissa",
-  "DaniloVidotti",
-  "Key",
-  "Fabula Sonora"
-];
+import {projects} from "../../data/projects"
 
+
+let projectList = projects.map(i => i.name).sort()
 
 const SideMenu = (props) => {
 
-  
+  let history = useHistory()
+
+  const redirectTo = (projectName) => {
+    console.log(projectName)
+    const project = projects.filter(i => i.name === projectName)[0]
+    if(history.location.pathname.includes('projects')){
+      history.push(`${project.link}`)
+    } else history.push(`projects/${project.link}`)
+    props.handleOpen(false)
+  }
 
   const sideMenuClass = props.open === "off" ? 
     "" : 
@@ -52,8 +47,8 @@ const SideMenu = (props) => {
           <div className="side-menu-body">
             {projectList.map((i,idx) => {
               return (
-                <div className="side-menu-item-container">
-                  <button className="side-menu-item">
+                <div key={idx} className="side-menu-item-container">
+                  <button onClick={() => redirectTo(i)} className="side-menu-item">
                     {i}
                   </button>
                 </div>

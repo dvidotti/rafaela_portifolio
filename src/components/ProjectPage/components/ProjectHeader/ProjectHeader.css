@@ -27,7 +27,7 @@
 
 .project-header-description {
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: black;
 }
 
@@ -44,7 +44,7 @@
   display: flex;
   padding: 20px 0px;
   font-weight: 300;
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 
 .areas-container {
@@ -76,8 +76,8 @@
 .partnership-box {
   width: 70%;
   font-weight: 300;
-  font-size: 1rem;
-  padding: 20px 0px
+  font-size: 1.1rem;
+  padding: 16px 0px
 }
 
 .partnership-text {
@@ -91,4 +91,8 @@
 
 .arrow-image {
   width: 35px;
+}
+
+.date {
+text-decoration: underline;
 }

@@ -79,6 +79,10 @@
 
 .side-menu-item-container {
   border-top: 2px solid black;
+  border-bottom: 0px;
+}
+.side-menu-item-container:last-child {
+  border-bottom: 2px solid black;
 }
 
 
