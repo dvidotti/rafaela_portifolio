@@ -9,17 +9,13 @@ import ProjectPage from "../ProjectPage/ProjectPage"
 import About from "../About/About"
 
 import {
-  BrowserRouter as Router,
   Switch,
-  Route,
-  useParams,
-  Link
+  Route
 } from "react-router-dom";
 
 const Body = (props) => {
   const port = useRef(null)
   const [open, handleOpen] = useState("off")
-  const [showArrow, handleArrow] = useState(true)
   const [isProjectPage, handleIsProjectPage] = useState(false)
   const [isHome, handleIsHome] = useState(false)
 
@@ -45,7 +41,6 @@ const Body = (props) => {
           showArrow={isHome} 
           port={port} 
           scrollTo={scrollTo} 
-          handleArrow={handleArrow}
           isProjectPage={isProjectPage}
         />
 
@@ -67,7 +62,6 @@ const Body = (props) => {
               render={() => 
                 <ProjectPage 
                   handleIsProjectPage={handleIsProjectPage} 
-                  handleArrow={handleArrow}
                 />
               }
             />

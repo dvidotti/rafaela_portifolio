@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { BrowserRouter, Link, useHistory } from "react-router-dom";
+import {Link, useHistory } from "react-router-dom";
 
 import "./Header.css"
 

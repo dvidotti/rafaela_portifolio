@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import './SideMenu.css'
@@ -13,7 +13,6 @@ const SideMenu = (props) => {
   let history = useHistory()
 
   const redirectTo = (projectName) => {
-    console.log(projectName)
     const project = projects.filter(i => i.name === projectName)[0]
     if(history.location.pathname.includes('projects')){
       history.push(`${project.link}`)

@@ -1,19 +1,12 @@
-import React, {useState, useRef,  useEffect} from "react"
+import React, {useEffect} from "react"
 
 import "./Home.css"
 import PortFolio from "./components/PortFolio/PortFolio"
-import SideMenu from "../SideMenu/SideMenu"
 import PortHeader from "../PortHeader/PortHeader"
-import Footer from "../Footer/Footer"
-import Header from "../Header/Header"
 import ViewMore from "../ViewMore/ViewMore"
 
 
 const Home = (props) => {
-  // const port = props.port;
-  const [open, handleOpen] = useState("off")
-
-
 
   useEffect(() => {
     props.handleIsHome(true)
@@ -21,10 +14,6 @@ const Home = (props) => {
       props.handleIsHome(false)
     }
   })
-
-  // const scrollTo = (reference) => {
-  //   reference.current.scrollIntoView()
-  // } 
 
   return (
     <div>

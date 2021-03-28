@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
 import {projects} from "../../data/projects"
 
 import {useParams} from "react-router-dom";
@@ -9,7 +9,6 @@ import FullProjectPictures from "./components/FullProjectsPictures/FullProjectsP
 const ProjectPage = (props) => {
   let params = useParams()
   let project_link = params.project_name
-  console.log(projects)
   
   let project = projects.filter(i => i.link === project_link)[0]
 
