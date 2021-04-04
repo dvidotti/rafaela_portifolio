@@ -22,7 +22,7 @@
   font-size: 1.8rem;
   display: inline-flex;
   padding: 20px 15px;
-  font-weight: medium;
+  font-weight: 500;
   color: black;
 }
 
@@ -40,7 +40,8 @@
 }
 
 .arrow-size {
-  width: 45px;
+  width: 40px;
+  cursor: pointer;
 }
 
 .header-right-container {

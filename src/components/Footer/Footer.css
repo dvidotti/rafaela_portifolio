@@ -22,6 +22,7 @@
   font-weight: 300;
   display: "inline-flex";
   cursor: pointer;
+  color: black;
 }     
 
 .lower-footer-container {
@@ -76,8 +77,4 @@
 
 .map_image {
   width: 100%;
-}
-
-.line-through {
-  text-decoration-line: line-through;
 }

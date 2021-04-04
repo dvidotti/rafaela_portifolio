@@ -3,7 +3,16 @@ export const projects = [
     name: "VoOZ Music",
     type: "Brand + UX Design",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/vooz_cover.png",
+    cover: {
+      link: "/imgs/vooz_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "vooz_music",
     images: [
       {
@@ -24,7 +33,16 @@ export const projects = [
     name: "SPFW Journal",
     type: "Editorial",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/journal_SPFW_cover.png",
+    cover: {
+      link: "/imgs/journal_SPFW_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "journal_spfw",
     images: [
       {
@@ -45,7 +63,16 @@ export const projects = [
     name: "Alura Business",
     type: "UX/UI",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/alura_cover.png",
+    cover: {
+      link: "/imgs/alura_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "alura_business",
     images: [
       {
@@ -66,7 +93,16 @@ export const projects = [
     name: "Citroen Rio Summer",
     type: "Campaign",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/citroen_rio_cover.png",
+    cover: {
+      link: "/imgs/citroen_rio_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "citroen",
     images: [
       {
@@ -87,7 +123,16 @@ export const projects = [
     name: "Noocity",
     type: "Visual Communication",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/nocity_cover.png",
+    cover: {
+      link: "/imgs/nocity_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "noocity",
     images: [
       {
@@ -108,7 +153,16 @@ export const projects = [
     name: "Curt's Table",
     type: "Brand Design",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/Curts_Cover.png",
+    cover: {
+      link: "/imgs/Curts_Cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "curt_table",
     images: [
       {
@@ -129,7 +183,16 @@ export const projects = [
     name: "Eulíricas",
     type: "Strategy + UX/UI Design",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/euliricas_cover.png",
+    cover: {
+      link: "/imgs/euliricas_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "eulíricas",
     images: [
       {
@@ -150,7 +213,16 @@ export const projects = [
     name: "Dellis",
     type: "Brand Design",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/dellis_cover.png",
+    cover: {
+      link: "/imgs/dellis_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "dellis",
     images: [
       {
@@ -171,7 +243,16 @@ export const projects = [
     name: "Natura Humor",
     type: "Packaging Identity",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/natura_humor_cover.png",
+    cover: {
+      link: "/imgs/natura_humor_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "natura_humor",
     images: [
       {
@@ -192,7 +273,16 @@ export const projects = [
     name: "Clínica Moretti",
     type: "Branding + Waifinding",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/moretti_cover.png",
+    cover: {
+      link: "/imgs/moretti_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "clinica_moretti",
     images: [
       {
@@ -213,7 +303,16 @@ export const projects = [
     name: "Mellisa Dreams",
     type: "Editorial Design",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/plasticDreams_cover.png",
+    cover: {
+      link: "/imgs/plasticDreams_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "melissa",
     images: [
       {
@@ -234,7 +333,16 @@ export const projects = [
     name: "Index Book",
     type: "Visual Identity",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
-    cover: "/imgs/index_book_cover.png",
+    cover: {
+      link: "/imgs/index_book_cover.png",
+      alt: "Singer",
+      name: "Singer Picture"
+    },
+    headImg: {
+      link: "/imgs/curts_kale.png",
+      alt: "Kale",
+      name: "Kale"
+    },
     link: "index_book",
     images: [
       {
@@ -266,4 +374,8 @@ export const portfolio = [
   "Clínica Moretti",
   "Mellisa Dreams",
   "Index Book",
-]
+];
+
+
+
+

@@ -4,6 +4,7 @@ import React from "react";
 import "./ProjectHeader.css";
 
 const ProjectHeader = (props) => {
+  console.log("PROPS", props)
   const {project} = props;
 
   return ( 
@@ -35,12 +36,14 @@ const ProjectHeader = (props) => {
             <div className="partnership-text">{project.partnership}</div>
           </div>
           <div className="arrow-box">
-           <img className="arrow-image" src="/imgs/rv_icon_direction_down.svg" alt="Arrow Down"/>       
+            <span className="cursor-pointer" onClick={() => props.scrollTo(props.refProp)}>
+              <img className="arrow-image" src="/imgs/rv_icon_direction_down.svg" alt="Arrow Down"/>       
+            </span>
           </div>
         </div>
       </div>
       <div className="project-header-image-box">
-        <img className="project-header-image" src="/imgs/curts_kale.png"/>
+        <img className="project-header-image" src={props.project.headImg.link}/>
       </div>
     </section>
   )

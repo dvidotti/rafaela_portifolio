@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useRef} from "react";
 import {projects} from "../../data/projects"
 
 import {useParams} from "react-router-dom";
@@ -7,6 +7,7 @@ import ProjectHeader from "./components/ProjectHeader/ProjectHeader"
 import FullProjectPictures from "./components/FullProjectsPictures/FullProjectsPictures"
 
 const ProjectPage = (props) => {
+  const portPict = useRef(null)
   let params = useParams()
   let project_link = params.project_name
   
@@ -19,11 +20,15 @@ const ProjectPage = (props) => {
     }
   })
 
+  const scrollTo = (reference) => {
+    reference.current.scrollIntoView()
+  } 
+
   return (
     <div>
-      <ProjectHeader project={project}/>
+      <ProjectHeader scrollTo={scrollTo} project={project} refProp={portPict}/>
       <div id="projects" style={{height: "75px", width: "100%"}}></div>
-      <FullProjectPictures project={project}/>
+      <FullProjectPictures refProp={portPict} project={project}/>
       <div id="projects" style={{height: "75px", width: "100%"}}></div>
     </div>
   )

@@ -32,7 +32,7 @@ const SideMenu = (props) => {
         <div className="side-menu-inner-container">
           <div className="side-menu-header">
             <div>
-              <span className="header-font">RV</span>
+              <span className="header-font mini-title" onClick={() => history.push("/")}>RV</span>
             </div>
             <button 
               className="fake-button" 
@@ -62,7 +62,8 @@ const SideMenu = (props) => {
               <button 
                 className="fake-button" 
                 onClick={() => props.handleOpen(true)}
-                >PROJECTS
+                >
+                <span className="hover-bottom-border">PROJECTS</span>
               </button>
             </div>
           </div>

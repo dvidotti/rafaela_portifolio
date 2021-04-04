@@ -25,6 +25,7 @@
   font-weight: 300;
   transform: rotate(-90deg);
   font-size: 1.8rem;
+  color: #212529;
 }
 
 .toggled-side-menu {
@@ -51,11 +52,9 @@
   background-color: white;
   border: 0;
   font-weight: 300;
+  padding: 1px 0px;
 }
 
-.fake-button:hover {
-  text-decoration: underline;
-}
 
 .x-button {
  width: 77%;
@@ -102,6 +101,10 @@
 
 .side-menu-item:hover {
   border-top: 2px solid black;
+}
+
+.mini-title {
+  cursor: pointer;
 }
 
 @keyframes slideRight { 

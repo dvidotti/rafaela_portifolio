@@ -6,7 +6,7 @@ const FullProjectPictures = (props) => {
   const {project} = props;
 
   return ( 
-    <section className="full-pictures-container">
+    <section ref={props.refProp} className="full-pictures-container">
       {project.images.map((img, idx) => {
         return (
           <div className="full-pict-box"key={idx}>

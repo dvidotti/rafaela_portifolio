@@ -6,44 +6,137 @@
   height: 90%;
   background-color: antiquewhite;
   overflow-x: hidden;
+  position: relative;
 }
 
-.image-big-portfolio {
+.video-big-portfolio {
   width: 100%;
+  position: absolute;
+  bottom: 0%;
+  /* left: 0%; */
 }
 
 .control-container {
   height: 10%;
   background-color: white;
   display: flex;
+  padding-bottom: 2px;
 }
 
 .box1, .box2, .box3 {
   margin: 1px 1px 1px 0px;
   background-color: black;
   color: white;
-  padding-left: 20px;
   display: flex;
   align-items: center;
   height: 100%;
-  font-weight:300;
-  font-size: 1rem;
+  font-weight: 300;
+  font-size: 1.1rem;
+  flex-grow: 1;
+  flex-basis: 20%;
 }
 
 .box3 {
   margin-right: 0px;
 }
 
-.box1 {
-  flex-grow: 2;
+/* .box1 {
+  flex-grow: 1;
 }
 .box2 {
   flex-grow: 1;
 }
 .box3 {
   flex-grow: 1;
+} */
+
+
+.box-big {
+  animation: grow .6s linear;
+  flex-grow: 2;
+  position: relative;
 }
 
-.title {
-  font-weight: 400;
+.slide-video {
+  animation: caroussel .6s linear;
+}
+
+.slide-out {
+  animation: carousselOut .6s linear;
+  z-index: 0;
+}
+
+.inner-text-box {
+  animation: growSlow .6seg linear;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.overlay {
+  animation: growSlow 10s linear;
+  height: 100%;
+  background-color: white;
+  opacity: .2;
+  position:absolute;
+  display: inline-flex;
+}
+
+
+@keyframes growSlow {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.no-link-decoration--portHeader {
+  color: white;
+  height: 100%;
+  width: 100%;
+}
+
+
+.no-link-decoration--portHeader:hover {
+  text-decoration: none;
+  color: white;
+}
+
+
+.text-box-projects {
+  padding-left: 20px;
+}
+
+@keyframes caroussel {
+  from {
+    left: 100%;
+    z-index: 0;
+  }
+  to {
+    left: 0%;
+    z-index: 999;
+  }
+}
+
+@keyframes carousselOut {
+  from {
+    left: 0%;
+    z-index: 999;
+  }
+  to {
+    left: -100%;
+    z-index: 0;
+  }
+}
+
+@keyframes grow { 
+  from { 
+    flex-grow: 1;
+  } 
+  to { 
+    flex-grow: 2;
+  }  
 }

@@ -27,9 +27,13 @@ const Footer = () => {
     <section class="footer-container">
       <div class="footer-inner-container">
         {openFooter ? 
-          <span onClick={() => handleFooter(!openFooter)} className="footer-title line-through">LET'S TALK</span>
+          <span onClick={() => handleFooter(!openFooter)} className="footer-title">
+            <span className="line-through">LET'S TALK</span>
+          </span>
           :
-          <span onClick={() => handleFooter(!openFooter)} className="footer-title">LET'S TALK</span>
+          <span onClick={() => handleFooter(!openFooter)} className="footer-title">
+            <span className="hover-bottom-border">LET'S TALK</span>
+          </span>
 
         }
         <span onClick={() => window.scrollTo(0, 0)} className="arrow-box-footer">

@@ -48,15 +48,21 @@ const Header = (props) => {
         <div className="header-right-container">
           {props.showArrow  ?
             <Link className="no-link-decoration" to="/about">
-              <span className="about-menu">ABOUT</span>
+              <span className="about-menu">
+                <span className="hover-bottom-border">ABOUT</span>
+              </span>
             </Link>
             : props.isProjectPage ? 
             <Link className="no-link-decoration" to="/about">
-              <span className="about-menu">ABOUT</span>
+              <span className="about-menu">
+                <span className="hover-bottom-border">ABOUT</span>
+              </span>
             </Link>
             :
             <Link className="no-link-decoration" to={getFrom}>
-              <span className="about-menu stroke-line">ABOUT</span>
+              <span className="about-menu">
+                <span className="line-through">ABOUT</span>
+              </span>
             </Link>
           }
         </div>

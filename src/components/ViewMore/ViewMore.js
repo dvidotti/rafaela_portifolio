@@ -16,7 +16,7 @@ const ViewMore = (props) => {
         }}
         >
         <div>
-          <img className="arrow-size" src="imgs/rv_icon_direction_left.svg"/>
+          <img className="view-more-arrow" src="imgs/rv_icon_direction_left.svg"/>
         </div>
         <div 
           style={{

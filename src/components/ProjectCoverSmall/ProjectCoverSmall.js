@@ -7,7 +7,7 @@ const ProjectCoverSmall = (props) => {
     <a className="image-link" href={`projects/${props.project.link}`}>
       <div className="proj_cover_container">
         <div className="image-container">
-          <img className="image" src={project.cover} alt=""/>
+          <img className="image" src={project.cover.link} alt={project.cover.alt}/>
         </div>
         <div className="projec-legend-container">
           <div className="cover-title_1">{project.name}</div>
