@@ -24,8 +24,8 @@ const Footer = () => {
   }, [openFooter])
 
   return (
-    <section class="footer-container">
-      <div class="footer-inner-container">
+    <section className="footer-container">
+      <div className="footer-inner-container">
         {openFooter ? 
           <span onClick={() => handleFooter(!openFooter)} className="footer-title">
             <span className="line-through">LET'S TALK</span>

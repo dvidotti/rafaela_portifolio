@@ -53,13 +53,13 @@ const PortHeader = () => {
     <section className="portfolio-big-window">
       <div className="frame-container">
         <video className={`video-big-portfolio ${projectNumber === 1  ? "slide-video" : "slide-out"}`} autoPlay muted loop>
-          <source src="video/Manifesto_Caelum.mov"></source>
+          <source src="video/video1_sem_audio.mp4"></source>
         </video>
         <video className={`video-big-portfolio ${projectNumber === 2 ? "slide-video" : "slide-out"}`} autoPlay muted loop>
-          <source src="video/Manifesto_Caelum.mov"></source>
+          <source src="video/video2_sem_audio.mp4"></source>
         </video>
         <video className={`video-big-portfolio ${projectNumber === 3 ? "slide-video" : "slide-out"}`} autoPlay muted loop>
-          <source src="video/Manifesto_Caelum.mov"></source>
+          <source src="video/video3_sem_audio.mp4"></source>
         </video>
         {/* <img className="image-big-portfolio" src="imgs/Caellum_cover.png" alt="Caellum Cover"/> */}
       </div>
