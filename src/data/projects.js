@@ -154,7 +154,8 @@ export const projects = [
     type: "Brand Design",
     areas: ["Strategy", "Brand Design", "Visual Identity"],
     cover: {
-      link: "/imgs/Curts_Cover.png",
+      link: "https://res.cloudinary.com/dw1mohoww/image/upload/v1617614976/rafa_vinotti/Curts_Cover_a1b4ip.jpg",
+      // link: "/imgs/Curts_Cover.png",
       alt: "Singer",
       name: "Singer Picture"
     },
