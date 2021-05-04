@@ -1,0 +1,17 @@
+.dialog-control-container {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 35px;
+}
+
+.input-project{
+  height: 30px;
+  width: 300px;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.add-media-header {
+  margin-bottom: 50px;
+}

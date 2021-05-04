@@ -7,6 +7,7 @@ import Header from "../Header/Header"
 import Home from "../Home/Home"
 import ProjectPage from "../ProjectPage/ProjectPage"
 import About from "../About/About"
+import SignUp from "../SignUp/SignUp"
 
 import {
   Switch,
@@ -65,6 +66,7 @@ const Body = (props) => {
                 />
               }
             />
+            {/* <Route exact path="/signup" render={() => <SignUp/>} /> */}
           </Switch>
         </section>
         <Footer/>

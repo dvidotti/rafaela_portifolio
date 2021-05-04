@@ -3,11 +3,11 @@ import React from "react";
 import "./FullProjectsPictures.css";
 
 const FullProjectPictures = (props) => {
-  const {project} = props;
+  const imagesList = props.project;
 
   return ( 
     <section ref={props.refProp} className="full-pictures-container">
-      {project.images.map((img, idx) => {
+      {imagesList.images.map((img, idx) => {
         return (
           <div className="full-pict-box"key={idx}>
             <img className="full-img" src={img.link} alt={img.alt}/>
