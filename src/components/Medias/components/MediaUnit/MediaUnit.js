@@ -9,7 +9,7 @@ const url = '	http://api.cloudinary.com/v1_1/dw1mohoww/image/destroy'
 
 
 const MediaUnit = (props) => {
-  const {media} = props;
+  const {media, choseMedia} = props;
 
   const [open, handleOpen] = useState(false)
   let [editMediaOpen, handleEditMediaOpen] = useState(false)
@@ -61,28 +61,46 @@ const MediaUnit = (props) => {
         />
       }
     </Dialog>
-    <div className="media-container">
-      <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
-    </div>
-    <div className='media-bottom-container'>
-      <div className='media-name'>
-        {media.name}
-      </div>
-      <div className="media-control">
-        <div 
-          onClick={() => handleEditMediaOpen(true)}
-          className="clean-button"
-          >
-          <span>EDIT</span>
+    {choseMedia ? (
+      <div onClick={() => props.choseMedia(media._id)}>
+        <div className="media-container">
+          <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
         </div>
-        <div
-          onClick={() => handleOpen(true)}
-          className="clean-button"
-          >
-          <span>DELETE</span>
+        <div className='media-bottom-container'>
+          <div className='media-name'>
+            {media.name}
+          </div>
         </div>
       </div>
-    </div>
+      )
+      :
+      (
+      <React.Fragment>
+        <div className="media-container">
+          <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+        </div>
+        <div className='media-bottom-container'>
+          <div className='media-name'>
+            {media.name}
+          </div>
+          <div className="media-control">
+            <div 
+              onClick={() => handleEditMediaOpen(true)}
+              className="clean-button"
+              >
+              <span>EDIT</span>
+            </div>
+            <div
+              onClick={() => handleOpen(true)}
+              className="clean-button"
+              >
+              <span>DELETE</span>
+            </div>
+          </div>
+        </div>
+      </React.Fragment>
+      )
+    }
   </div>
   )
 }

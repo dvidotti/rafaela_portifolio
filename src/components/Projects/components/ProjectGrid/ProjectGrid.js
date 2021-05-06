@@ -10,7 +10,7 @@ const ProjectGrid = (props) => {
         <Row noGutters>
           {props.projects && props.projects.map((project, idx)=> (
             <Col key={idx} xs={12} md={4}>
-              <ProjectCoverSmall key={idx} project={project} isEdit={true}/>
+              <ProjectCoverSmall getProjects={props.getProjects} key={idx} project={project} isEdit={true}/>
             </Col>
           ))}
         </Row>

@@ -16,7 +16,7 @@ function AddProject(props) {
       name,
       type,
       areas: areaArr,
-      link
+      link,
     }
     try {
       let bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project`, {

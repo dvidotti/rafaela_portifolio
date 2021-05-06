@@ -21,6 +21,13 @@
   width: 100%;
 }
 
+.edit-cover-btn {
+  position : absolute;
+  z-index: 1;
+  top: 10px;
+  right: 10px;
+}
+
 .cover-title_1 {
   font-size: 1rem;
   padding: 5px 0px 1px;

@@ -60,7 +60,7 @@ function Projects(props) {
             <span onClick={() => handleOpen(true)} className="big-font">Add Project</span>
           </span>
         </div>
-        {/* <ProjectGrid projects={projects}/> */}
+        <ProjectGrid getProjects={getProjects} projects={projects}/>
       </section>
     </div>
   )

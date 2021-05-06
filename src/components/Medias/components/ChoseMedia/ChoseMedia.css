@@ -1,0 +1,8 @@
+.chose-media-container {
+  width: 100%;
+}
+
+.media-grid-container {
+  width: 100%;
+  overflow-y: scroll;
+}
