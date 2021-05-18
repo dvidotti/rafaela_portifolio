@@ -1,0 +1,22 @@
+.no-outline {
+  border: none;
+  outline: none;
+}
+
+.textarea {
+  height: 140px !important;
+  width: 100%;
+}
+
+.project-header-save-btn {
+  position: absolute;
+  top: 0;
+  left: 75%;
+}
+
+.project-header-delete-btn {
+  position: absolute;
+  top: 0;
+  left: 88%;
+}
+

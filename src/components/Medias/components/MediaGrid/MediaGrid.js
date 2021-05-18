@@ -12,7 +12,12 @@ const MediaGrid = (props) => {
           {mediaList.map((media, idx) => {
             return (
               <Col key={idx} xs={12} md={4}>
-                <MediaUnit choseMedia={choseMedia} handleFetchMedias={props.handleFetchMedias} media={media}/>
+                <MediaUnit 
+                  choseMedia={choseMedia} 
+                  handleFetchMedias={props.handleFetchMedias} 
+                  media={media}
+                  cover={props.cover}
+                  />
               </Col>
             )
           })}

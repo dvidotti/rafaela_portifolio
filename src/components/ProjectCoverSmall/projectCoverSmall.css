@@ -28,6 +28,13 @@
   right: 10px;
 }
 
+.edit-project-btn {
+  position : absolute;
+  z-index: 1;
+  bottom: 50px;
+  right: 20px;
+}
+
 .cover-title_1 {
   font-size: 1rem;
   padding: 5px 0px 1px;

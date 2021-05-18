@@ -56,3 +56,7 @@
 .dialog-subtitle {
   font-size: 1.2rem;
 }
+
+.selected-border {
+  border: 4px solid black;
+}

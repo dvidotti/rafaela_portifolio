@@ -44,7 +44,7 @@ const MediaUnit = (props) => {
 
 
   return  (
-  <div className="media-card">
+  <div className={`media-card ${props.cover === media._id ? "selected-border" : ""}`}>
     <Dialog open={open || editMediaOpen}>
       {!editMediaOpen ? 
         <DeleteDialog

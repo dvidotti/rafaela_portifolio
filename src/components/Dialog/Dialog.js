@@ -4,11 +4,13 @@ import './Dialog.css'
 
 const Dialog = (props) => {
   console.log('PROPS', props)
+  const {width} = props;
+  let widthClass = width === "big" ? "dialog-big" : "";
   return (
     <div>
       <div className={`overlay-dialog ${props.open ? "overlay-open" : "overlay-closed"}`}></div>
       <div className="dialog-container">
-        <div className={`dialog ${props.open ? "dialog-open" : "dialog-closed"}`}>
+        <div className={`dialog ${widthClass} ${props.open ? "dialog-open" : "dialog-closed"}`}>
           <div style={{widht: "100%", height: "100%"}}>
             {props.children}
           </div>

@@ -5,4 +5,13 @@
 .media-grid-container {
   width: 100%;
   overflow-y: scroll;
+  height: 75vh;
+}
+
+.margin-top15 {
+  margin-top: 15px;
+}
+
+.flex-end {
+  justify-content: flex-end;
 }

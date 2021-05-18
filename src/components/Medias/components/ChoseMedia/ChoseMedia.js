@@ -71,6 +71,7 @@ const ChoseMedia = (props) => {
   return props.open ? (
     <Dialog
       open={props.open}
+      width={"big"}
       >
       <div className='chose-media-container'>
         <div className="add-media-header">
@@ -81,10 +82,11 @@ const ChoseMedia = (props) => {
           <MediaGrid 
             mediaList={mediasCopy}
             choseMedia={choseMedia}
+            cover={mediaId}
           />
         </div>
-        <div className="add-media-control">
-          <div>
+        <div className="add-media-control flex-end">
+          <div className="margin-top15">
             <span 
               className="clean-button" 
               onClick={() => {

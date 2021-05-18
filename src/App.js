@@ -13,6 +13,7 @@ import Medias from "./components/Medias/Medias"
 import "./App.css"
 import ProjectEdit from './components/ProjectEdit/ProjectEdit';
 import Projects from './components/Projects/Projects';
+import ProjectEditor from './components/ProjectEditor/ProjectEditor'
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
        <Route exact path="/admin/medias" render={() => <Medias /> }/>
        <Route path="/admin/projects" render={() => <Projects/> }/>
        <Route path="/admin/project-edit" render={() => <ProjectEdit/> }/>
+       <Route path="/edit/:projectId" render={() => <ProjectEditor/>}/>
        <Body/>
       </Switch>
     </Router>
