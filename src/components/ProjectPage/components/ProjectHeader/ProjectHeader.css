@@ -34,6 +34,7 @@
 .project-header-image-box {
   width: 50%;
   overflow-y: hidden;
+  position: relative;
 }
 
 .project-header-image {

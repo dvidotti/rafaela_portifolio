@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import ChoseMedia from '../Medias/components/ChoseMedia/ChoseMedia'
 import "./projectCoverSmall.css"
 import {Link} from "react-router-dom";
@@ -18,14 +18,41 @@ const ProjectCoverSmall = (props) => {
   }
 
   let [openChoseCover, handleOpenChoseCover] = useState(false)
+  let [projectId, handleProjectId] = useState('')
+  let [mediaId, handleMediaId] = useState('')
+
+
+  const updateCoverImage = async () => {
+    const obj = {
+      cover: mediaId,
+      projectId: projectId
+    }
+    const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project`, {
+      method: "PUT",
+      headers: new Headers({
+        'content-type': 'application/json',
+        'Access-Control-Allow-Credentials': true
+      }),
+      mode: 'cors',
+      credentials: 'include',
+      body: JSON.stringify(obj)
+    })
+    props.getProjects()
+    handleOpenChoseCover()
+  }
+
+  useEffect(() => {
+    handleProjectId(project._id)
+  }, [])
+
   return isEdit ? (
     <React.Fragment>
       <ChoseMedia 
         open={openChoseCover}
-        title={'Chose project cover'}
+        title={'Chose media'}
+        getMediaId={handleMediaId}
+        postMedia={updateCoverImage}
         handleOpen={handleOpenChoseCover}
-        project={project}
-        getProjects={props.getProjects}
       />
       <div className="proj_cover_container">
         <div className="image-container">

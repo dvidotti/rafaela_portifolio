@@ -19,6 +19,7 @@ const ProjectEditor = (props) => {
   let [link, handleLink]= useState('')
   let [name, handleName]= useState('')
   let [type, handleType]= useState('')
+  let [count, handleCount] =useState(0)
 
   let [selectedModule, handleSelectModule] = useState("ProjectHeader")
   
@@ -33,8 +34,6 @@ const ProjectEditor = (props) => {
       })
       let resBck = await res.json();
       if(resBck.modules) {
-        console.log("GETPROJECT", resBck)
-        console.log("resBck.modules", resBck.modules)
         updateProjectMeta(resBck)
         handleModulesCollId(resBck.modules)
         getModulesCollection(resBck.modules)
@@ -59,27 +58,10 @@ const ProjectEditor = (props) => {
       if(resBck.success) {
         handleModules(resBck.data.modules)
       } else console.log("Failed to fetch modules collection")
-      console.log("MODules collection", resBck)
     } catch(errors) {
       console.log(errors)
     }
   }
-
-  // const addToModuleCollection = async (moduleId) => {
-  //   let moduleIdList = [...modules].map(i => i._id)
-  //   moduleIdList.push(moduleId)
-  //   let newList = {module_id_list: moduleIdList}
-    
-  //   try {
-  //     let res = await fetch("POST TO MODULES COLECTION/:modulesCollId", {
-  //       method: 'POST',
-
-  //       body: JSON.stringify(newList)
-  //     })
-  //   } catch(errors){
-  //     console.log(errors)
-  //   }
-  // }
 
   const updateProjectMeta = (project) => {
     handleName(project.name)
@@ -110,17 +92,18 @@ const ProjectEditor = (props) => {
   
   // From onModel property map to one of the project Components
   const mapModuleToComponents = (module, idx) => {
-    console.log("MODULE", module.onModel)
     let component = null;
     let moduleName = module.onModel ? module.onModel : module;
     switch(moduleName) {
       case 'ProjectHeader':
         component = 
         <ProjectHeaderEdit
-          key={idx}
+          key={module._id || idx}
+          id={module._id || idx}
           getProject={getProject} 
           module={(typeof module.onModel) === "undefined" ? [] : module}
           modulesCollId={modulesCollId}
+          removeComponentFromList={removeComponentFromList}
         />
         break;
     }
@@ -128,23 +111,42 @@ const ProjectEditor = (props) => {
   }
 
   const addComponentToList = () => {
-    console.log("HALLLLLOOOOOO")
-    let moduleToAdd = mapModuleToComponents(selectedModule);
-    console.log("COMPONENTTOADD", moduleToAdd)
-    let compListCopy = [...componentsList]
-    compListCopy.unshift(moduleToAdd)
-    handleCompList(compListCopy)
+    handleCount(count + 1)
+    let moduleToAdd = mapModuleToComponents(selectedModule, count);
+    // let compListCopy = [...componentsList]
+    // compListCopy.push(moduleToAdd)
+    componentsList.push(moduleToAdd)
+    console.log("INADDCOPYLIST", componentsList)
+    handleCompList(componentsList)
+  }
+
+  const removeComponentFromList = (id) => {
+    // console.log("ID", id)
+    // let compListCopy = JSON.parse(JSON.stringify(componentsList))
+    // console.log("COMPCOPYLIST", [...compListCopy])
+    let index = -1
+    componentsList.forEach((i, idx) => {
+      console.log("ITEM: ", i, " IDX: ", idx)
+      console.log("Condition: ", i.props.id == id)
+      if(i.props.id == id) {
+        index = idx
+      } 
+    })
+    console.log("INDEX", index)
+    let compoCopy = [...componentsList]
+    compoCopy.splice(index, 1)
+    handleCompList(compoCopy)
   }
 
   useEffect(() => {
-
+    console.log("COMPLIST", componentsList)
   }, [componentsList])
 
    
 
   return (
     <div>
-      <section style={{padding: "25px"}}>
+      <section style={{margin: "65px"}}>
         <h1>Project Infos</h1>
         <div style={{display: "flex", justifyContent: "space-between"}}>
           <div>
@@ -189,8 +191,14 @@ const ProjectEditor = (props) => {
           </div>
         </div>
       </section>
-      <section style={{padding: "25px"}}>
-        <h4>Add Module</h4>
+
+      <section>
+        {componentsList.map((component, idx) => component)}
+        {/* <ProjectHeaderEdit/> */}
+      </section>
+      <section style={{padding: "65px 65px 100px 65px"}}>
+        <h1 style={{paddingBottom: "50px"}}>ADD MODULE</h1>
+        <h4>Select a module in the list and click Add Module to add a new section.</h4>
         <select
           style={{height: "30px", width: "200px"}}
           name="module"
@@ -202,11 +210,6 @@ const ProjectEditor = (props) => {
           )}
         </select>
         <button onClick={() => addComponentToList()} className="clean-button">+ ADD MODULE</button>
-      </section>
-
-      <section>
-        {componentsList.map((component, idx) => component)}
-        {/* <ProjectHeaderEdit/> */}
       </section>
     </div>
   )

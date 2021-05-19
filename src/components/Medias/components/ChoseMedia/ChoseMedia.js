@@ -10,33 +10,10 @@ import MediaGrid from '../MediaGrid/MediaGrid'
 const ChoseMedia = (props) => {
 
   let [mediaId, handleMediaId] = useState('')
-  let [projectId, handleProjectId] = useState('')
   let [mediasOrig, handleMediaOrig] = useState([])
   let [mediasCopy, handleMediaCopy] = useState([])
 
 
-  const updateCoverImage = async () => {
-    const obj = {
-      name: props.project.name,
-      type: props.project.type,
-      areas: props.project.areas,
-      cover: mediaId,
-      link: props.project.link,
-      projectId: projectId
-    }
-    const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project`, {
-      method: "PUT",
-      headers: new Headers({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      }),
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify(obj)
-    })
-    props.getProjects()
-    props.handleOpen()
-  }
 
   const getMedias = async () => {
     try {
@@ -59,13 +36,12 @@ const ChoseMedia = (props) => {
   }
 
   const choseMedia = (mediaId) => {
+    props.getMediaId(mediaId)
     handleMediaId(mediaId)
   }
 
   useEffect(() => {
-    console.log("+++++", props)
     getMedias()
-    handleProjectId(props.project._id)
   }, [])
 
   return props.open ? (
@@ -90,6 +66,7 @@ const ChoseMedia = (props) => {
             <span 
               className="clean-button" 
               onClick={() => {
+                props.getMediaId(mediasOrig)
                 props.handleOpen(false)
               }}
               >
@@ -98,7 +75,8 @@ const ChoseMedia = (props) => {
             <span
               className={mediaId.length === 0 ? "disabled-btn" : "clean-button"}
               onClick={() => {
-                updateCoverImage()
+                {/* updateCoverImage() */}
+                props.postMedia()
                 props.handleOpen(false)
                 }
               }

@@ -20,3 +20,9 @@
   left: 88%;
 }
 
+.change-photo-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px
+}
+
