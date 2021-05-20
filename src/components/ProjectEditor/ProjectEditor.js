@@ -3,9 +3,10 @@ import React, {useEffect, useRef, useState} from "react";
 
 import {useParams} from "react-router-dom";
 import ProjectHeaderEdit from "./components/ProjectHeaderEdit/ProjectHeaderEdit"
+import FullProjectPicturesEditor from "./components/FullProjectPicturesEditor/FullProjectPicturesEditor"
 
 
-const modulesOptions = ["ProjectHeader", "FullImageContainer"]
+const modulesOptions = ["ProjectHeader", "FullImageModule"]
 const ProjectEditor = (props) => {
   const portPict = useRef(null)
   let params = useParams()
@@ -55,6 +56,7 @@ const ProjectEditor = (props) => {
         credentials: 'include',
       })
       let resBck = await res.json();
+      console.log("Collection: ", resBck)
       if(resBck.success) {
         handleModules(resBck.data.modules)
       } else console.log("Failed to fetch modules collection")
@@ -98,6 +100,17 @@ const ProjectEditor = (props) => {
       case 'ProjectHeader':
         component = 
         <ProjectHeaderEdit
+          key={module._id || idx}
+          id={module._id || idx}
+          getProject={getProject} 
+          module={(typeof module.onModel) === "undefined" ? [] : module}
+          modulesCollId={modulesCollId}
+          removeComponentFromList={removeComponentFromList}
+        />
+        break;
+      case "FullImageModule":
+        component = 
+        <FullProjectPicturesEditor
           key={module._id || idx}
           id={module._id || idx}
           getProject={getProject} 
