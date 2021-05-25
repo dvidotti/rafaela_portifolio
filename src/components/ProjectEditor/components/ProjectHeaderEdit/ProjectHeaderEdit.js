@@ -69,6 +69,7 @@ const ProjectHeaderEdit = (props) => {
 
   const deleteProjHeader = async () => {
     if(typeof props.module._id === "undefined") {
+      console.log("PROPSID", props.id)
       props.removeComponentFromList(props.id)
       return
     }
@@ -89,6 +90,8 @@ const ProjectHeaderEdit = (props) => {
       })
       let resBack = await res.json()
       if(resBack.success) {
+        console.log("RESFROMDELETE", resBack)
+        props.removeComponentFromList(resBack.data._id)
         props.getProject()
       }
     } catch(errors) {

@@ -21,12 +21,14 @@ const ProjectEditor = (props) => {
   let [name, handleName]= useState('')
   let [type, handleType]= useState('')
   let [count, handleCount] =useState(0)
+  let [loading, handleLoading]=useState(true)
 
   let [selectedModule, handleSelectModule] = useState("ProjectHeader")
   
   // let project = projects.filter(i => i.link === project_link)[0]
 
   const getProject = async () => {
+    handleLoading(true)
     try {
       let res = await fetch(`${process.env.REACT_APP_API_URL}/project/${projectId}`, {
         method: "GET",
@@ -35,6 +37,7 @@ const ProjectEditor = (props) => {
       })
       let resBck = await res.json();
       if(resBck.modules) {
+        console.log("PROJECT",resBck)
         updateProjectMeta(resBck)
         handleModulesCollId(resBck.modules)
         getModulesCollection(resBck.modules)
@@ -59,6 +62,7 @@ const ProjectEditor = (props) => {
       console.log("Collection: ", resBck)
       if(resBck.success) {
         handleModules(resBck.data.modules)
+        handleLoading(false)
       } else console.log("Failed to fetch modules collection")
     } catch(errors) {
       console.log(errors)
@@ -75,6 +79,10 @@ const ProjectEditor = (props) => {
   useEffect(() => {
    getProject()
   }, [])
+
+  useEffect(() => {
+    console.log("MODULES", modules)
+  })
 
 
   // From list of modules create a list of components and update modules state
@@ -148,6 +156,7 @@ const ProjectEditor = (props) => {
     console.log("INDEX", index)
     let compoCopy = [...componentsList]
     compoCopy.splice(index, 1)
+    console.log("COMPOCOPY", compoCopy)
     handleCompList(compoCopy)
   }
 
@@ -206,7 +215,7 @@ const ProjectEditor = (props) => {
       </section>
 
       <section>
-        {componentsList.map((component, idx) => component)}
+        {!loading && componentsList.map((component, idx) => component)}
         {/* <ProjectHeaderEdit/> */}
       </section>
       <section style={{padding: "65px 65px 100px 65px"}}>

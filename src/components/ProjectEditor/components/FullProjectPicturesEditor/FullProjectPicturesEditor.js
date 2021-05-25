@@ -9,16 +9,21 @@ const FullProjectPicturesEditor = (props) => {
 
   let [imageIdList, handleImageIdList] = useState([])
   let [open, handleOpen] = useState(false)
+  let [fullImageId, handleFullImageId] = useState(null)
+  let [isEdit, handleIsEdit] = useState(false)
 
 
-  const postImageIgList = async () => {
+  const postImageIdList = async () => {
+    let method = isEdit ? "PUT" : "POST"
+    // let method = "POST"
     let body = {
       images: imageIdList,
-      moduleId: props.modulesCollId
+      moduleId: props.modulesCollId,
+      fullImageModuleId: fullImageId
     }
     try{
       let res = await fetch(`${process.env.REACT_APP_API_URL}/full-image`, {
-        method:"POST",
+        method: method,
         headers: new Headers({
           'content-type': 'application/json',
           'Access-Control-Allow-Credentials': true
@@ -28,6 +33,8 @@ const FullProjectPicturesEditor = (props) => {
         body: JSON.stringify(body)
       })
       let resBkc = await res.json();
+      console.log("FULLIMAGERES",resBkc)
+      handleFullImageId(resBkc.data._id)
       props.getProject()
     } catch(errors) {
       console.log("Failed to post Image", errors)
@@ -42,7 +49,11 @@ const FullProjectPicturesEditor = (props) => {
 
   useEffect(() => {
     let imageIdList = imagesList.map((i, idx) => i._id)
-    handleImageIdList(imageIdList)    
+    console.log("PARAARAr", props)
+    let fullImageModuleId =  props.module.length > 0 ? props.module.module._id : null;
+    handleImageIdList(imageIdList)
+    handleIsEdit(imageIdList.length > 0)
+    handleFullImageId(fullImageModuleId)
   },[])
 
   return (
@@ -51,7 +62,7 @@ const FullProjectPicturesEditor = (props) => {
         open={open}
         title={'Chose media'}
         getMediaId={addToImageList}
-        postMedia={postImageIgList}
+        postMedia={postImageIdList}
         handleOpen={handleOpen}
       />
       <section ref={props.refProp} className="full-pictures-container">
