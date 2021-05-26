@@ -167,7 +167,7 @@ const ProjectEditor = (props) => {
    
 
   return (
-    <div>
+    <div style={{marginLeft: "60px"}}>
       <section style={{margin: "65px"}}>
         <h1>Project Infos</h1>
         <div style={{display: "flex", justifyContent: "space-between"}}>
@@ -218,7 +218,7 @@ const ProjectEditor = (props) => {
         {!loading && componentsList.map((component, idx) => component)}
         {/* <ProjectHeaderEdit/> */}
       </section>
-      <section style={{padding: "65px 65px 100px 65px"}}>
+      <section style={{padding: "65px 65px 100px 0px"}}>
         <h1 style={{paddingBottom: "50px"}}>ADD MODULE</h1>
         <h4>Select a module in the list and click Add Module to add a new section.</h4>
         <select

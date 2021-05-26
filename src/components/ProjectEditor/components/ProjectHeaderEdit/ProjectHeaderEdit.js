@@ -144,7 +144,7 @@ const ProjectHeaderEdit = (props) => {
           handleOpen={handleOpen}
         />
       }
-      <section style={{marginLeft: "60px"}}>
+      <section>
         <section className="project-header">
           <div className="project-header-content">
             <div className="project-header-top-container">
