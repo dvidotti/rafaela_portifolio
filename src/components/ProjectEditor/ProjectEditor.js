@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from "react";
 // import {projects} from "../../data/projects"
 
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import ProjectHeaderEdit from "./components/ProjectHeaderEdit/ProjectHeaderEdit"
 import FullProjectPicturesEditor from "./components/FullProjectPicturesEditor/FullProjectPicturesEditor"
 
@@ -11,6 +11,12 @@ const ProjectEditor = (props) => {
   const portPict = useRef(null)
   let params = useParams()
   let {projectId} = params;
+
+  const history = useHistory()
+
+  const backToProjects = () =>{ 
+    history.push('/admin/projects');
+  }
 
   let [modules, handleModules] = useState([])
   let [componentsList, handleCompList] = useState([])
@@ -102,6 +108,7 @@ const ProjectEditor = (props) => {
   
   // From onModel property map to one of the project Components
   const mapModuleToComponents = (module, idx) => {
+    console.log("MODULES", modules)
     let component = null;
     let moduleName = module.onModel ? module.onModel : module;
     switch(moduleName) {
@@ -165,11 +172,80 @@ const ProjectEditor = (props) => {
   }, [componentsList])
 
    
+  const deleteProject = async () => {
+    let obj = {
+      modCollId: modulesCollId
+    }
+    try {
+      let res = await fetch(`${process.env.REACT_APP_API_URL}/project/${projectId}`, {
+        method: "DELETE",
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify(obj)
+      })
+      let resBck = await res.json();
+      backToProjects()
+      
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  const updateProject = async () => {
+    
+    // let areaArr = []
+    // console.log("---->>>", areas)
+    // if(areas.length > 0) areaArr = areas.split(',')
+    const body = {
+      name,
+      type,
+      areas,
+      link,
+      projectId
+    }
+    try {
+      let res = await fetch(`${process.env.REACT_APP_API_URL}/project/`, {
+        method: "PUT",
+        mode: 'cors',
+        headers: new Headers({
+          'content-type': 'application/json',
+          'Access-Control-Allow-Credentials': true
+        }),
+        credentials: 'include',
+        body: JSON.stringify(body)
+      })
+      let resBck = await res.json();
+      getProject()
+      
+    } catch(error) {
+      console.log(error)
+    }
+  }
+   
 
   return (
     <div style={{marginLeft: "60px"}}>
-      <section style={{margin: "65px"}}>
-        <h1>Project Infos</h1>
+      <section style={{margin: "65px 65px 30px 15px"}}>
+        <div style={{display: "flex", justifyContent: "space-between"}}>
+          <div style={{display: "flex"}}>
+            <h1 style={{marginRight: 15}}>Project Infos</h1>
+            <button
+              onClick={() => backToProjects()}
+              >Back to Projects
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => updateProject()}
+              style={{marginRight: "20px"}}
+              >Save
+            </button>
+            <button
+              onClick={() => deleteProject()}
+              >Delete
+            </button>
+          </div>
+        </div>
         <div style={{display: "flex", justifyContent: "space-between"}}>
           <div>
             <label style={{display: "block"}} htmlFor="name">Name</label>

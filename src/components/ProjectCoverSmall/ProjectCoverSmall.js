@@ -27,7 +27,7 @@ const ProjectCoverSmall = (props) => {
       cover: mediaId,
       projectId: projectId
     }
-    const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project`, {
+    const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project-cover`, {
       method: "PUT",
       headers: new Headers({
         'content-type': 'application/json',

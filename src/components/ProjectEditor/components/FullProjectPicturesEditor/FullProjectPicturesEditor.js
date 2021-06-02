@@ -6,6 +6,7 @@ const imageKey = process.env.REACT_APP_IMAGE_USED
 
 const FullProjectPicturesEditor = (props) => {
   const addRef = useRef(false)
+  console.log("------>",props.module)
   const imagesList = typeof props.module.module !== "undefined" ? props.module.module.images : [];
 
   let [imageIdList, handleImageIdList] = useState([])
@@ -109,6 +110,32 @@ const FullProjectPicturesEditor = (props) => {
     handleAdd({bol: add, state: position})
   }
 
+  const deleteImageModule = async () => {
+    let body = {
+      // images: imageList,
+      modulesId: props.module._id,
+      fullImageModuleId: fullImageId
+    }
+    try{
+      let res = await fetch(`${process.env.REACT_APP_API_URL}/full-image`, {
+        method: "DELETE",
+        headers: new Headers({
+          'content-type': 'application/json',
+          'Access-Control-Allow-Credentials': true
+        }),
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify(body)
+      })
+      let resBkc = await res.json();
+      console.log("FULLIMAGERES",resBkc)
+      // handleFullImageId(resBkc.data._id)
+      props.getProject()
+    } catch(errors) {
+      console.log("Failed to delete Full Image Module", errors)
+    }
+  }
+
   useEffect(() => {
     if(addRef.current){
       handleOpen(true)
@@ -138,7 +165,10 @@ const FullProjectPicturesEditor = (props) => {
           handleOpen={handleOpen}
         />
        }
-      <section ref={props.refProp} className="full-pictures-container">
+      <section ref={props.refProp} className="full-pictures-container editable-module-box">
+        <div style={{padding: "15px 15px 0px", display: "flex", justifyContent: "center"}}>
+          <button onClick={() => deleteImageModule()}>DELETE FULL IMAGE MODULE</button>
+        </div>
         {imagesList.length > 0 && imagesList.map((img, idx) => {
           return (
             <div className="full-pict-box relative" key={idx}>
