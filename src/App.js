@@ -14,6 +14,7 @@ import "./App.css"
 import ProjectEdit from './components/ProjectEdit/ProjectEdit';
 import Projects from './components/Projects/Projects';
 import ProjectEditor from './components/ProjectEditor/ProjectEditor'
+import PortfolioEdit from './components/PortfolioEdit/PortFolioEdit'
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
        <Route exact path="/login" render={() => <Login/>}/>
        <Route exact path="/admin/dashboard" render={() => <DashBoard /> }/>
        <Route exact path="/admin/medias" render={() => <Medias /> }/>
+       <Route exact path="/admin/portfolio" render={() => <PortfolioEdit /> }/>
        <Route path="/admin/projects" render={() => <Projects/> }/>
        <Route path="/admin/project-edit" render={() => <ProjectEdit/> }/>
        <Route path="/edit/:projectId" render={() => <ProjectEditor/>}/>

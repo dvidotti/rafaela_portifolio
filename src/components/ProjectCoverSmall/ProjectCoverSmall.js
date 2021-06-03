@@ -45,6 +45,10 @@ const ProjectCoverSmall = (props) => {
     handleProjectId(project._id)
   }, [])
 
+  // useEffect(() => {
+  //   console.log
+  // })
+
   return isEdit ? (
     <React.Fragment>
       <ChoseMedia 
@@ -90,13 +94,30 @@ const ProjectCoverSmall = (props) => {
       </div>
     </React.Fragment>
     ) 
+    : props.isPortfolioEdit ? 
+    (
+    <div className="proj_cover_container">
+      <div className="image-container">
+        {project.cover ? 
+          <img className="image" src={project.cover[process.env.REACT_APP_IMAGE_USED]} alt={project.cover.alt}/>
+          :
+          <img className="image" src={'/imgs/default_media_image.png'} alt="Default Image" />
+        }
+        {/* <img className="image" src={project.cover.link2} alt={project.cover.alt}/> */}
+      </div>
+      <div className="projec-legend-container">
+        <div className="cover-title_1">{project.name}</div>
+        <div className="cover-title_2">{project.type}</div>
+      </div>
+    </div>
+    )
     :
     (
     <Link className="image-link" to={linkRef}>
       <div className="proj_cover_container">
         <div className="image-container">
           {project.cover ? 
-            <img className="image" src={project.cover.link} alt={project.cover.alt}/>
+            <img className="image" src={project.cover[process.env.REACT_APP_IMAGE_USED]} alt={project.cover.alt}/>
             :
             <img className="image" src={'/imgs/default_media_image.png'} alt="Default Image" />
           }
@@ -108,7 +129,9 @@ const ProjectCoverSmall = (props) => {
         </div>
       </div>
     </Link>
-  )
+    )
 }
 
 export default ProjectCoverSmall;
+
+{/* <img className="image" src={project.cover.link} alt={project.cover.alt}/> */}
