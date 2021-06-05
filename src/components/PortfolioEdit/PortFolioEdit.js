@@ -16,7 +16,10 @@ class PortFolioEdit extends Component {
     super(props);
     this.state = {
       portfolio: [],
-      loading: true
+      portfolioId: null,
+      loading: true,
+      sortedProjectsIds: []
+
     }
   }
   
@@ -37,8 +40,10 @@ class PortFolioEdit extends Component {
       })
       const res = await bckRes.json()
       console.log("PROJECTSSS", res)
-      if(res.success) this.handlePortfolio(res.data.portfolio)
-      else throw Error('Failed to fetch portfolio')
+      if(res.success) {
+        this.handlePortfolio(res.data.portfolio)
+        this.setState({portfolioId:res.data._id})
+      } else throw Error('Failed to fetch portfolio')
     } catch (error) {
       console.log(error)
     }
@@ -53,40 +58,84 @@ class PortFolioEdit extends Component {
     let layout = this.state.portfolio.map((i, idx) => {
       if(counter === 3) counter = 0
       let objProject = {
-        i: idx, x: Math.floor(idx/3), y: counter , w: 1, h:4, maxW: 1,
+        i: i.name, y: Math.floor(idx/3), x: counter , w: 1, h:1
+        // i: (idx + 1).toString(), x: Math.floor(idx/3), y: counter , w: 1, h:1, maxW: 1,
       }
       counter += 1;
       return objProject
     })
     console.log("LAYOUT", layout)
+    return layout
   }
-  
-  // useEffect(() => {
-  //   getPortfolio()
-  // },[])
-  
-  // useEffect(() => {
-  //   handleLoading(false)
-  //   console.log("PORTFOLIO", portfolio)
-  // }, [portfolio])
+
+  updateProjectsOrderIds = (layout) => {
+    let sortedLayout = []
+    let projectsSorted = []
+    layout.forEach((i, idx) => {
+      let oneLevelSorted = layout.filter(i => i.y === idx)
+      oneLevelSorted.sort((a,b) => a.x - b.x)
+      oneLevelSorted.forEach(i => {
+        sortedLayout.push(i)
+      })
+    })
+    let projectNamelist = sortedLayout.map(i => i.i)
+    projectNamelist.forEach(projectName => {
+      let portIdx = null;
+      this.state.portfolio.forEach((item, idx) => {
+        if(item.name === projectName) portIdx = idx
+      })
+      projectsSorted.push(this.state.portfolio[portIdx])
+    })
+    let sortedProjectsIds = projectsSorted.map(i => i._id)
+    this.setState({sortedProjectsIds})
+    console.log("SORTEDPROJECTs", projectsSorted)
+  }
+
+  savePortfolio = async () => {
+    try {
+      const bckRes = await fetch(`${apiUrl}/portfolio` , {
+        method: "PUT",
+        headers: new Headers({
+          'content-type': 'application/json',
+          'Access-Control-Allow-Credentials': true
+        }),
+        mode: 'cors',
+        credentials: 'include',
+        body: JSON.stringify({
+          portfolio: this.state.sortedProjectsIds,
+          portfolioId: this.state.portfolioId
+        })
+      })
+      let res = await bckRes.json()
+      console.log("PORTFOLIO-RES", res)
+    } catch(errors) {
+      console.log("Failed to save portfolio", errors)
+    }
+  }
+
  render() {
-    const layout = this.generateLayout()
-    // const layout = [
-    //   {i: 'a', x: 0, y: 0, w: 1, h: 2, static: true},
-    //   {i: 'b', x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4},
-    //   {i: 'c', x: 4, y: 0, w: 1, h: 2}
-    // ]
-
-
+  const layout = this.generateLayout()
 
   return !this.state.loading && this.state.portfolio.length > 0? (
-    <GridLayout className="layout portfolio" layout={layout} cols={3} rowHeight={290} width={1200} >
-      {this.state.portfolio.map((project, idx)=> (
-        <div key={idx}>
-          <ProjectCoverSmall project={project} isPortfolioEdit={true}/>
-        </div>
-      ))}
-    </GridLayout>
+    <React.Fragment>
+      <div>
+        <button onClick={() => this.savePortfolio()}>SAVE</button>
+      </div>
+      <GridLayout 
+        className="layout portfolio" 
+        layout={layout}
+        cols={3} 
+        rowHeight={260} 
+        width={1000}
+        onLayoutChange={(layout) => this.updateProjectsOrderIds(layout)}
+        >
+        {this.state.portfolio.map((project, idx)=> (
+          <div key={project.name}>
+            <ProjectCoverSmall project={project} isPortfolioEdit={true}/>
+          </div>
+        ))}
+      </GridLayout>
+    </React.Fragment>
   )
   :
   null
