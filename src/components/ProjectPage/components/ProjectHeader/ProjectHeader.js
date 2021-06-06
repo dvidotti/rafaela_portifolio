@@ -11,29 +11,29 @@ const ProjectHeader = (props) => {
     <section className="project-header">
       <div className="project-header-content">
         <div className="project-header-top-container">
-          <h2 className="project-title">{props.project.name}</h2>
-          <p className="project-header-description">{props.project.description}</p>
+          <h2 className="project-title">{props.project.module.name}</h2>
+          <p className="project-header-description">{props.project.module.description}</p>
         </div>
         <div className="tech-details-container">
           <div className="areas-container">
-            {project.areas.map((area, idx) => 
-              <div key={idx}>{project.areas[idx]}</div>
+            {project.module.areas.map((area, idx) => 
+              <div key={idx}>{project.module.areas[idx]}</div>
             )}
           </div>
           <div className="local-date-container">
             <div className="local">
-              {project.local}
+              {project.module.local}
             </div>
             <div className="div-line"></div>
             <div className="date">
-              {project.date}
+              {project.module.date}
             </div>
           </div>
         </div>
         <div className="project-header-lower-container">
           <div className="partnership-box">
             <div className="partnership-text">Partnership with:</div>
-            <div className="partnership-text">{project.partnership}</div>
+            <div className="partnership-text">{project.module.partnership}</div>
           </div>
           <div className="arrow-box">
             <span className="cursor-pointer" onClick={() => props.scrollTo(props.refProp)}>
@@ -43,7 +43,7 @@ const ProjectHeader = (props) => {
         </div>
       </div>
       <div className="project-header-image-box">
-        <img className="project-header-image" src={props.project.headImg.link}/>
+        <img className="project-header-image" src={props.project.module.headImg[process.env.REACT_APP_IMAGE_USED]}/>
       </div>
     </section>
   )

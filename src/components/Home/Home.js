@@ -16,10 +16,10 @@ const Home = (props) => {
   })
 
   return (
-    <div>
+    <div style={{width: "100%"}}>
       <PortHeader/>
       <div ref={props.refProp} style={{height: "75px", width: "100%"}}></div>
-      <PortFolio/>
+      <PortFolio projects={props.projects} loading={props.loading}/>
       <div style={{height: "15px", width: "100%"}}></div>
       <ViewMore openSide={props.openSide}/>
     </div> 
@@ -28,20 +28,3 @@ const Home = (props) => {
 
 
 export default Home;
-
-
-//   return (
-//     <div className="home-container">
-//       <SideMenu open={open} handleOpen={handleOpen} />
-//       <section className="site-body" onClick={(e) => openSide(e)}>
-//         <Header showArrow={true} port={port} scrollTo={scrollTo}/>
-//         <PortHeader/>
-//         <div ref={port} style={{height: "75px", width: "100%"}}></div>
-//         <PortFolio/>
-//         <div style={{height: "15px", width: "100%"}}></div>
-//         <ViewMore handleOpen={handleOpen} open={open}/>
-//         <Footer/>
-//       </section>
-//     </div>
-//   )
-// }

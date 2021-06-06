@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from "react";
-import {projects} from "../../data/projects"
+import React, {useEffect, useRef, useState} from "react";
+// import {projects} from "../../data/projects"
 
 import {useParams} from "react-router-dom";
 
@@ -10,26 +10,95 @@ const ProjectPage = (props) => {
   const portPict = useRef(null)
   let params = useParams()
   let project_link = params.project_name
+
+  let [modules, handleModules] = useState([]);
+  let [compList, handleCompList] = useState([]);
   
-  let project = projects.filter(i => i.link === project_link)[0]
+  let project = props.projects.filter(i => i.link === project_link)[0]
 
   useEffect(() => {
     props.handleIsProjectPage(true)
+    console.log("PROJECTSSSSSS", props.projects)
+    getModulesCollection()
     return function cleanup() {
       props.handleIsProjectPage(false)
     }
-  })
+  },[])
 
   const scrollTo = (reference) => {
     reference.current.scrollIntoView()
   } 
 
+  const getModulesCollection = async () => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/modules/${project.modules}`, {
+        method: "GET",
+        mode: 'cors',
+        credentials: 'include',
+      })
+      let resBck = await res.json();
+      console.log("Collection: ", resBck)
+      if(resBck.success) {
+        createComponentsList(resBck.data.modules)
+        console.log("MODULES", resBck)
+      } else console.log("Failed to fetch modules collection")
+    } catch(errors) {
+      console.log(errors)
+    }
+  }
+
+  const mapModuleToComponents = (module, idx) => {
+    console.log("MODULES", modules)
+    let component = null;
+    let moduleName = module.onModel ? module.onModel : module;
+    switch(moduleName) {
+      case 'ProjectHeader':
+        component = 
+        <ProjectHeader
+          key={module._id || idx}
+          id={module._id || idx}
+          refProp={portPict}
+          project={module}
+          scrollTo={scrollTo}
+        />
+        break;
+      case "FullImageModule":
+        component = 
+        <FullProjectPictures
+          key={module._id || idx}
+          id={module._id || idx}
+          project={module}
+          refProp={portPict}       
+        />
+        break;
+    }
+    return component
+  }
+
+  const createComponentsList = (modules) => {
+    console.log('------------------', modules)
+    let compList = []
+    modules.forEach((module, idx) => {
+      let component = mapModuleToComponents(module, idx)
+      compList.push(component)
+    })
+    handleCompList(compList)
+  }
+
   return (
-    <div>
-      <ProjectHeader scrollTo={scrollTo} project={project} refProp={portPict}/>
+    <div style={{width: "100%"}}>
+      {compList.length > 0 && compList.map(component => {
+        return (
+          <React.Fragment>
+            {component}
+            <div id="projects" style={{height: "75px", width: "100%"}}></div>
+          </React.Fragment>
+        )
+      })}
+      {/* <ProjectHeader scrollTo={scrollTo} project={project} refProp={portPict}/>
       <div id="projects" style={{height: "75px", width: "100%"}}></div>
       <FullProjectPictures refProp={portPict} project={project}/>
-      <div id="projects" style={{height: "75px", width: "100%"}}></div>
+      <div id="projects" style={{height: "75px", width: "100%"}}></div> */}
     </div>
   )
 }

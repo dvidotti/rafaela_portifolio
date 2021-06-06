@@ -3,17 +3,17 @@ import { useHistory } from "react-router-dom";
 
 import './SideMenu.css'
 
-import {projects} from "../../data/projects"
+// import {projects} from "../../data/projects"
 
 
-let projectList = projects.map(i => i.name).sort()
 
 const SideMenu = (props) => {
-
-  let history = useHistory()
+  
+  let projectList = props.projects.map(i => i.name).sort()
+  let history = useHistory({forceRefresh:true})
 
   const redirectTo = (projectName) => {
-    const project = projects.filter(i => i.name === projectName)[0]
+    const project = props.projects.filter(i => i.name === projectName)[0]
     if(history.location.pathname.includes('projects')){
       history.push(`${project.link}`)
     } else history.push(`projects/${project.link}`)
@@ -44,6 +44,7 @@ const SideMenu = (props) => {
             </button>
           </div>
           <div className="side-menu-body">
+            {/* {props.projects.map((i,idx) => { */}
             {projectList.map((i,idx) => {
               return (
                 <div key={idx} className="side-menu-item-container">

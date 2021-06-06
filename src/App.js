@@ -3,7 +3,8 @@ import Body from "../src/components/Body/Body"
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  useHistory
 } from "react-router-dom";
 import SignUp from "./components/SignUp/SignUp"
 import Login from "./components/Login/Login"
@@ -18,9 +19,9 @@ import PortfolioEdit from './components/PortfolioEdit/PortFolioEdit'
 
 
 function App() {
-
+  let history = useHistory()
   return (
-    <Router>
+    <Router history={history}>
       <Switch>
        <Route exact path="/signup" render={() => <SignUp/>}/>
        <Route exact path="/login" render={() => <Login/>}/>
