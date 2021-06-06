@@ -2,8 +2,8 @@ import React, {useState, useEffect} from "react";
 import {Link, useHistory} from "react-router-dom";
 import "./Login.css"
 const apiUrl  = process.env.REACT_APP_API_URL;
-let myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+// let myHeaders = new Headers();
+// myHeaders.append("Content-Type", "application/json");
 
 
 const Login = () => {
@@ -22,9 +22,14 @@ const Login = () => {
     let response = await fetch(`${apiUrl}/auth/login`, {
       method:"POST",
       body: body,
-      headers: myHeaders,
+      headers: new Headers({
+        'content-type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin':'https://suspicious-pare-3d027e.netlify.app'
+
+      }),
       mode: 'cors',
-      redirect: 'follow',
+      // redirect: 'follow',
       credentials: 'include'
     })
     const user = await response.json()
