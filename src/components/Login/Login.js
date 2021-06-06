@@ -29,7 +29,7 @@ const Login = () => {
 
       }),
       mode: 'cors',
-      // redirect: 'follow',
+      redirect: 'follow',
       credentials: 'include'
     })
     const user = await response.json()
