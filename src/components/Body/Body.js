@@ -44,6 +44,12 @@ const Body = (props) => {
     handleLoading(true)
     try {
       const bckRes = await fetch(`${apiUrl}/portfolio` , {
+        headers: new Headers({
+          'content-type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+          'Access-Control-Allow-Origin':'https://suspicious-pare-3d027e.netlify.app'
+
+        }),
         mode: 'cors',
         credentials: 'include'
       })
