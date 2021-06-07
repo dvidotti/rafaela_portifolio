@@ -22,12 +22,7 @@ function Projects(props) {
   const getProjects = async () => {
     try {
       const bckRes = await fetch(`${apiUrl}/portfolio` , {
-        headers: new Headers({
-          'content-type': 'application/json',
-          'Access-Control-Allow-Credentials': true
-        }),
         mode: 'cors',
-        credentials: 'include',
       })
       const res = await bckRes.json()
       console.log("PROJECTSSS", res)

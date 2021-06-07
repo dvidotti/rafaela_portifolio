@@ -25,12 +25,8 @@ const Login = () => {
       headers: new Headers({
         'content-type': 'application/json',
         'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin':'https://suspicious-pare-3d027e.netlify.app'
-
       }),
       mode: 'cors',
-      redirect: 'follow',
-      credentials: 'include'
     })
     const user = await response.json()
     console.log("RESPONSE=====>", user)

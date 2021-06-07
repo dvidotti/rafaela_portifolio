@@ -39,7 +39,6 @@ const ProjectEditor = (props) => {
       let res = await fetch(`${process.env.REACT_APP_API_URL}/project/${projectId}`, {
         method: "GET",
         mode: 'cors',
-        credentials: 'include',
       })
       let resBck = await res.json();
       if(resBck.modules) {
@@ -62,7 +61,6 @@ const ProjectEditor = (props) => {
       const res = await fetch(`${process.env.REACT_APP_API_URL}/modules/${modColId}`, {
         method: "GET",
         mode: 'cors',
-        credentials: 'include',
       })
       let resBck = await res.json();
       console.log("Collection: ", resBck)

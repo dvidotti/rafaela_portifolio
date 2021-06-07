@@ -47,11 +47,11 @@ const Body = (props) => {
         headers: new Headers({
           'content-type': 'application/json',
           'Access-Control-Allow-Credentials': true,
-          'Access-Control-Allow-Origin':'https://suspicious-pare-3d027e.netlify.app'
+          // 'Access-Control-Allow-Origin':'https://suspicious-pare-3d027e.netlify.app'
 
         }),
         mode: 'cors',
-        credentials: 'include'
+        // credentials: 'include'
       })
       const res = await bckRes.json()
       console.log("PROJECTSSS", res)
