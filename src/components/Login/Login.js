@@ -27,6 +27,7 @@ const Login = () => {
         'Access-Control-Allow-Credentials': true,
       }),
       mode: 'cors',
+      credentials: 'include'
     })
     const user = await response.json()
     console.log("RESPONSE=====>", user)
