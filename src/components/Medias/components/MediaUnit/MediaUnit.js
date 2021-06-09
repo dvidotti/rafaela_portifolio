@@ -18,7 +18,13 @@ const MediaUnit = (props) => {
     const options = {
       method: 'POST',
       body: {
-        "public_id": public_id
+        "public_id": public_id,
+      headers: new Headers({
+        'content-type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      }),
+      mode: 'cors',
+      credentials: 'include'
       }
     };
     try {

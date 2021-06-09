@@ -23,9 +23,12 @@ const SignUp = () => {
     let response = await fetch(`${apiUrl}/auth/signup`, {
       method:"POST",
       body: body,
-      headers: myHeaders,
+      headers: new Headers({
+        'content-type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+      }),
+      credentials: 'include',
       mode: 'cors',
-      redirect: 'follow'
     })
     const user = await response.json()
     if(user.success) {
