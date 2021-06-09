@@ -100,7 +100,7 @@ class PortFolioEdit extends Component {
           'Access-Control-Allow-Credentials': true
         }),
         mode: 'cors',
-        // credentials: 'include',
+        credentials: 'include',
         body: JSON.stringify({
           portfolio: this.state.sortedProjectsIds,
           portfolioId: this.state.portfolioId
