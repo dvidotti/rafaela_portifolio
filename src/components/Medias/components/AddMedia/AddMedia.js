@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './AddMedia.css';
 import {uploadFile} from 'react-s3';
 
-const url = '	http://api.cloudinary.com/v1_1/dw1mohoww/image/upload'
+const url = '	https://api.cloudinary.com/v1_1/dw1mohoww/image/upload'
 
 const AddMedia = (props) => {
   let [file, handleFile] = useState(null);
