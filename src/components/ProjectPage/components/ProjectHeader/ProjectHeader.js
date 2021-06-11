@@ -11,7 +11,7 @@ const ProjectHeader = (props) => {
     <section className="project-header">
       <div className="project-header-content">
         <div className="project-header-top-container">
-          <h2 className="project-title">{props.project.module.name}</h2>
+          <h2 className="project-title">{props.project.module.title}</h2>
           <p className="project-header-description">{props.project.module.description}</p>
         </div>
         <div className="tech-details-container">
