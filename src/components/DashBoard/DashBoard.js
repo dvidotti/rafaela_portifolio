@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../Header/Header'
+import HeaderAdmin from '../HeaderAdmin/HeaderAdmin'
 
 import {Link} from 'react-router-dom'
 
@@ -10,24 +10,10 @@ const DashBoard = (props) => {
   
   return (
     <div>
-      <Header 
+      <HeaderAdmin 
         showArrow={false} 
         isProjectPage={false}
       />
-      <div className="link-container">
-        <div className="link-box">
-          <Link to='/admin/medias'>Medias</Link>
-        </div>
-        <div className="link-box">
-          <Link to='/admin/projects'>Projects</Link>
-        </div>
-        <div className="link-box">
-          <Link to='/admin/portfolio'>Portfolio</Link>
-        </div>
-        <div className="link-box">
-          <Link to='/admin/about'>About</Link>
-        </div>
-      </div>
 
     </div>
   )

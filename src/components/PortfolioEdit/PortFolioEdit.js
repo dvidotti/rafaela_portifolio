@@ -6,6 +6,7 @@ import GridLayout from 'react-grid-layout';
 
 // import {projects, portfolio} from "../../../../data/projects"
 import './PortFolioEdit.css'
+import HeaderAdmin from "../HeaderAdmin/HeaderAdmin";
 
 const apiUrl  = process.env.REACT_APP_API_URL;
 
@@ -107,41 +108,48 @@ class PortFolioEdit extends Component {
         })
       })
       let res = await bckRes.json()
-      console.log("PORTFOLIO-RES", res)
     } catch(errors) {
       console.log("Failed to save portfolio", errors)
     }
   }
 
- render() {
-  const layout = this.generateLayout()
+  render() {
+    const layout = this.generateLayout()
 
-  return !this.state.loading && this.state.portfolio.length > 0? (
-    <React.Fragment>
-      <div>
-        <button onClick={() => this.savePortfolio()}>SAVE</button>
-      </div>
-      <GridLayout 
-        className="layout portfolio" 
-        layout={layout}
-        cols={3} 
-        rowHeight={260} 
-        width={1000}
-        onLayoutChange={(layout) => this.updateProjectsOrderIds(layout)}
-        >
-        {this.state.portfolio.map((project, idx)=> (
-          <div key={project.name}>
-            <ProjectCoverSmall project={project} isPortfolioEdit={true}/>
+    return (
+      <section>
+        <HeaderAdmin/>
+        {!this.state.loading && this.state.portfolio.length > 0 ? (
+          <div style={{padding: 20}}>
+            <div style={{display: "flex", justifyContent: "flex-end", paddingRight: 20}}>
+              <span onClick={() => this.savePortfolio()} className="clean-button force-big-padding">
+                <span className="big-font">SAVE</span>
+              </span>
+            </div>
+            <div style={{padding: "20px 50px"}}>
+              <GridLayout 
+                className="layout portfolio" 
+                layout={layout}
+                cols={3} 
+                rowHeight={270} 
+                width={1200}
+                onLayoutChange={(layout) => this.updateProjectsOrderIds(layout)}
+                >
+                {this.state.portfolio.map((project, idx)=> (
+                  <div key={project.name}>
+                    <ProjectCoverSmall project={project} isPortfolioEdit={true}/>
+                  </div>
+                ))}
+              </GridLayout>
+            </div>
           </div>
-        ))}
-      </GridLayout>
-    </React.Fragment>
-  )
-  :
-  null
- }
+        )
+        :
+        null
+      }
+      </section>
+    )
+  }
 }
 
-export default PortFolioEdit;
-
-// className="porfolio" 
+export default PortFolioEdit

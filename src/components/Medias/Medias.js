@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Header from '../Header/Header'
+import HeaderAdmin from '../HeaderAdmin/HeaderAdmin'
 import './Medias.css'
 import AddMedia from './components/AddMedia/AddMedia.js'
 import Dialog from '../Dialog/Dialog.js';
@@ -51,7 +51,7 @@ const Medias = (props) => {
           />
         }
       />
-      <Header 
+      <HeaderAdmin
           showArrow={false} 
           isProjectPage={false}
       />

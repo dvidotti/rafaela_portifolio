@@ -43,7 +43,11 @@ const ProjectHeader = (props) => {
         </div>
       </div>
       <div className="project-header-image-box">
-        <img className="project-header-image" src={props.project.module.headImg[process.env.REACT_APP_IMAGE_USED]}/>
+        {props.project.module.headImg ? 
+          <img className="project-header-image" src={props.project.module.headImg[process.env.REACT_APP_IMAGE_USED]}/>
+          :
+          <img className="project-header-image" src='/imgs/default_media_image.png' alt="default image"/>
+        }
       </div>
     </section>
   )

@@ -32,7 +32,7 @@ const Login = () => {
     const user = await response.json()
     console.log("RESPONSE=====>", user)
     if(user.success) {
-      history.push('/')
+      history.push('/admin/portfolio')
     } else {
       handleError(user.message)
     }

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 
-import Header from '../Header/Header'
+import HeaderAdmin from '../HeaderAdmin/HeaderAdmin'
 // import './Medias.css'
 import AddProject from './components/AddProject/AddProject'
 import Dialog from '../Dialog/Dialog';
@@ -45,14 +45,14 @@ function Projects(props) {
           />
         }
       />
-      <Header 
+      <HeaderAdmin
           showArrow={false} 
           isProjectPage={false}
       />
       <section className="media-section">
         <div className="margin-bottom-20 justify-flex-right padding-20">
-          <span className="clean-button force-big-padding">
-            <span onClick={() => handleOpen(true)} className="big-font">Add Project</span>
+          <span onClick={() => handleOpen(true)} className="clean-button force-big-padding">
+            <span className="big-font">Add Project</span>
           </span>
         </div>
         <ProjectGrid getProjects={getProjects} projects={projects}/>
