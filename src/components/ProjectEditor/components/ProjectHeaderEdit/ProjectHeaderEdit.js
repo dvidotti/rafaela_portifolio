@@ -6,7 +6,6 @@ import "./ProjectHeaderEdit.css";
 const imageKey = process.env.REACT_APP_IMAGE_USED
 
 const ProjectHeaderEdit = (props) => {
-  console.log("PROPS", props)
   const {project} = props;
 
   const didMountRef = useRef(false)
@@ -25,7 +24,6 @@ const ProjectHeaderEdit = (props) => {
 
 
   const saveProjectHeader = async (isEdit) => {
-    console.log("ISEDIT", isEdit)
     let obj = {
       title,
       description,
@@ -148,19 +146,20 @@ const ProjectHeaderEdit = (props) => {
         <section className="project-header">
           <div className="project-header-content">
             <div className="project-header-top-container">
-              <button
-                className="project-header-save-btn"
+              <span
+                className="project-header-save-btn clean-button white-bck"
                 onClick={() => saveProjectHeader(typeof props.module._id !== "undefined")}>
-                {props.module._id ? 'Edit Infos' : 'Save'}
-              </button>
-              <button
+                {'Save Changes'}
+                {/* {props.module._id ? 'Save Changes' : 'Save'} */}
+              </span>
+              <span
                 onClick={(e) => {
                   e.stopPropagation()
                   deleteProjHeader()
                 }}
-                className="project-header-delete-btn"
+                className="project-header-delete-btn clean-button white-bck"
                 >Delete
-              </button>
+              </span>
               <input
                 type="text"
                 value={title}
@@ -240,8 +239,8 @@ const ProjectHeaderEdit = (props) => {
           <div className="project-header-image-box">
             <button
               onClick={() => handleOpen(true)}
-              className="change-photo-btn"
-              >EDIT PHOTO
+              className="change-photo-btn clean-button"
+              >Edit Photo
             </button>
             {headImg ? 
             <img className="project-header-image" src={headImg[imageKey]} alt={headImg.alt}/>

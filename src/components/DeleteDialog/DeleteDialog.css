@@ -1,0 +1,12 @@
+.action-dialog {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dialog-body {
+  padding: 35px 0px;
+}
+
+.white-bck {
+  background: white;
+}

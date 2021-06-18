@@ -12,7 +12,6 @@ const AddMedia = (props) => {
   let [fileType, handleFileType] = useState(null)
   
   const checkMedia = () => {
-    console.log(" ------->>>>>>>+++++++",file)
     let type = null
     if(file) {
       if(file.type.includes('video')) type = 'video'

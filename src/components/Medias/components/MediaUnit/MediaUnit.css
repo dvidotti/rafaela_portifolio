@@ -40,10 +40,15 @@
   border: 1px black solid;
   border-radius: 3px;
   cursor: pointer;
+  box-shadow: 1px 1px gray;
 }
 
 .clean-button:hover {
   background-color: rgb(238, 238, 238);
+}
+
+button > .clean-button:hover {
+  background-color: blue !important;
 }
 
 .dialog-control {

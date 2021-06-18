@@ -61,14 +61,14 @@ const ProjectCoverSmall = (props) => {
       <div className="proj_cover_container">
         <div className="image-container">
           {isEdit && 
-            <span 
+            <button 
               onClick={(e) => {
                 e.stopPropagation()
                 handleOpenChoseCover(true)
               }}
               className="edit-cover-btn clean-button"
               >Edit Cover
-            </span>
+            </button>
           }
           {project.cover ? 
             <img className="image" src={project.cover[process.env.REACT_APP_IMAGE_USED]} alt={project.cover.alt}/>

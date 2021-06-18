@@ -3,7 +3,6 @@ import './Dialog.css'
 
 
 const Dialog = (props) => {
-  console.log('PROPS', props)
   const {width} = props;
   let widthClass = width === "big" ? "dialog-big" : "";
   return (

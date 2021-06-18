@@ -90,17 +90,13 @@ const FullProjectPicturesEditor = (props) => {
         imageList.splice(idx, 0, mediaId)
         break;
     }
-    console.log('----->', imageList)
     handleImageIdList(imageList)
   }
 
   const handleDelete = (mediaId) => {
-    console.log("MEDIAID", mediaId)
     let newImageIdList = [...imageIdList];
     let idx = newImageIdList.indexOf(mediaId)
-    console.log("before", newImageIdList)
     newImageIdList.splice(idx, 1)
-    console.log("after", newImageIdList)
     deleteImg(newImageIdList)
     handleImageIdList(newImageIdList)
   }
@@ -142,12 +138,10 @@ const FullProjectPicturesEditor = (props) => {
     } else {
       addRef.current = true
     }
-    console.log("open", open)
   },[add.bol])
 
   useEffect(() => {
     let imageIdList = imagesList.map((i, idx) => i._id)
-    console.log("PARAARAr", props)
     let fullImageModuleId = (typeof props.id === 'number') ? null : props.module.module._id;
     handleImageIdList(imageIdList)
     handleIsEdit(imageIdList.length > 0)
@@ -166,22 +160,61 @@ const FullProjectPicturesEditor = (props) => {
         />
        }
       <section ref={props.refProp} className="full-pictures-container editable-module-box">
-        <div style={{padding: "15px 15px 0px", display: "flex", justifyContent: "center"}}>
-          <button onClick={() => deleteImageModule()}>DELETE FULL IMAGE MODULE</button>
+        <div style={{padding: "15px 15px 15px", display: "flex", justifyContent: "center", borderBottom: '2px solid black'}}>
+          <span 
+            onClick={() => deleteImageModule()}
+            className="clean-button force-big-padding "
+            >DELETE FULL IMAGE MODULE
+          </span>
         </div>
         {imagesList.length > 0 && imagesList.map((img, idx) => {
           return (
             <div className="full-pict-box relative" key={idx}>
-              <button style={{position: "absolute", top: "35px", left: "35px"}} onClick={() => handleDelete(img._id)}>X Delete</button>
-              <button style={{position: "absolute", top: "35px", right: "35px"}} onClick={() => addMedia('before', img._id)}>+ Add Media Before</button>
-              <button style={{position: "absolute", bottom: "35px", right: "35px"}} onClick={() => addMedia('after', img._id)}>+ Add Media After</button>
+              <button
+                className="clean-button force-big-padding"
+                style={{
+                  position: "absolute", 
+                  top: "35px", 
+                  left: "35px"
+                }} 
+                onClick={() => handleDelete(img._id)}
+                >X Delete Media
+              </button>
+              <button
+                className="clean-button force-big-padding "
+                style={{
+                  position: "absolute", 
+                  top: "35px", 
+                  right: "35px"
+                }} onClick={() => addMedia('before', img._id)}
+                >+ Add Media Before
+              </button>
+              <button 
+                className="clean-button force-big-padding"
+                style={{
+                  position: "absolute", 
+                  bottom: "35px", 
+                  right: "35px"
+                }} 
+                onClick={() => addMedia('after', img._id)}
+                >+ Add Media After
+              </button>
               <img className="full-img" src={img[imageKey]} alt={img.alt}/>
             </div>
           )
         })}
         {!imagesList.length > 0 &&
           <div className="full-pict-box relative">
-            <button style={{position: "absolute", top: "35px", letf: "35px"}} onClick={() => addMedia("new")}>+ Add Media</button>
+            <button 
+              className="clean-button"
+              style={{
+                position: "absolute", 
+                top: "35px", 
+                letf: "35px"
+              }} 
+              onClick={() => addMedia("new")}
+              >+ Add Media
+            </button>
             <img className="full-img" src='/imgs/default_media_image.png' alt={"Default image"}/>
           </div>
         }

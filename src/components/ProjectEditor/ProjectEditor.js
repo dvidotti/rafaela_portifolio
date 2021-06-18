@@ -1,10 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
 // import {projects} from "../../data/projects"
+import Dialog from '../Dialog/Dialog'
+import DeleteDialog from '../DeleteDialog/DeleteDialog'
 
 import {useParams, useHistory} from "react-router-dom";
 import ProjectHeaderEdit from "./components/ProjectHeaderEdit/ProjectHeaderEdit"
 import FullProjectPicturesEditor from "./components/FullProjectPicturesEditor/FullProjectPicturesEditor"
-
+import './ProjectEditor.css'
 
 const modulesOptions = ["ProjectHeader", "FullImageModule"]
 const ProjectEditor = (props) => {
@@ -27,6 +29,7 @@ const ProjectEditor = (props) => {
   let [name, handleName]= useState('')
   let [type, handleType]= useState('')
   let [count, handleCount] =useState(0)
+  let [deleteDialog, handleDeleteDialog] =useState(false)
   let [loading, handleLoading]=useState(true)
 
   let [selectedModule, handleSelectModule] = useState("ProjectHeader")
@@ -106,7 +109,6 @@ const ProjectEditor = (props) => {
   
   // From onModel property map to one of the project Components
   const mapModuleToComponents = (module, idx) => {
-    console.log("MODULES", modules)
     let component = null;
     let moduleName = module.onModel ? module.onModel : module;
     switch(moduleName) {
@@ -152,16 +154,13 @@ const ProjectEditor = (props) => {
     // console.log("COMPCOPYLIST", [...compListCopy])
     let index = -1
     componentsList.forEach((i, idx) => {
-      console.log("ITEM: ", i, " IDX: ", idx)
       console.log("Condition: ", i.props.id == id)
       if(i.props.id == id) {
         index = idx
       } 
     })
-    console.log("INDEX", index)
     let compoCopy = [...componentsList]
     compoCopy.splice(index, 1)
-    console.log("COMPOCOPY", compoCopy)
     handleCompList(compoCopy)
   }
 
@@ -223,89 +222,124 @@ const ProjectEditor = (props) => {
 
   return (
     <div style={{marginLeft: "60px"}}>
-      <section style={{margin: "65px 65px 30px 15px"}}>
-        <div style={{display: "flex", justifyContent: "space-between"}}>
-          <div style={{display: "flex"}}>
-            <h1 style={{marginRight: 15}}>Project Infos</h1>
-            <button
-              onClick={() => backToProjects()}
-              >Back to Projects
-            </button>
+      <Dialog
+        open={deleteDialog}
+        children={
+          <DeleteDialog
+            title={'Delete Project'}
+            message={'Are you sure you want to delete this project'}
+            closeDialog={handleDeleteDialog}
+            deleteAction={deleteProject}
+          />
+        }
+        >
+
+
+      </Dialog>
+      <section style={{padding: "30px 65px 30px 15px", marginTop: 5, marginRight: 2, border: "4px solid black"}}>
+
+        <div style={{display: "flex", justifyContent: "space-between", paddingBottom: "25px"}}>
+          <h1 style={{marginRight: 15}}>Project Infos</h1>
+          <button
+            className="clean-button transparent-bck"
+            onClick={() => backToProjects()}
+            >Back to Projects
+          </button>
+        </div>
+        
+        <div style={{display: "flex"}}>
+          <div className="project-box-input">
+            <div className="horizontal-input">
+              <label className="horizontal-label" htmlFor="name">Name</label>
+              <input
+                id="name"
+                type="text"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => handleName(e.target.value)}
+              />
+            </div>
+            <div className="horizontal-input">
+              <label className="horizontal-label"  htmlFor="type">Type</label>
+              <input
+                id="type"
+                type="text"
+                placeholder="Type"
+                value={type}
+                onChange={(e) => handleType(e.target.value)}
+              />
+            </div>
           </div>
-          <div>
+
+          <div className="project-box-input">
+            <div className="horizontal-input">
+              <label className="horizontal-label"  htmlFor="areas">Areas</label>
+              <input
+                id="areas"
+                type="text"
+                placeholder="Areas"
+                value={areas}
+                onChange={(e) => handleAreas(e.target.value)}
+              />
+            </div>
+            <div className="horizontal-input">
+              <div>
+                <label className="horizontal-label"  htmlFor="link">Link</label>
+              </div>
+              <input
+                id="link"
+                type="text"
+                placeholder="Link"
+                value={link}
+                onChange={(e) => handleLink(e.target.value)}
+              />
+            </div>
+          </div>
+        <div>
+          <div style={{marginBottom: 13}}>
             <button
               onClick={() => updateProject()}
               style={{marginRight: "20px"}}
-              >Save
+              className="clean-button transparent-bck"
+              >Save Project
             </button>
+          </div>
+          <div>
             <button
-              onClick={() => deleteProject()}
-              >Delete
+              className="clean-button transparent-bck"
+              // onClick={() => deleteProject()}
+              onClick={() => handleDeleteDialog(true)}
+              >Delete Project
             </button>
           </div>
         </div>
-        <div style={{display: "flex", justifyContent: "space-between"}}>
-          <div>
-            <label style={{display: "block"}} htmlFor="name">Name</label>
-            <input
-              id="name"
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => handleName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label style={{display: "block"}} htmlFor="type">Type</label>
-            <input
-              id="type"
-              type="text"
-              placeholder="Type"
-              value={type}
-              onChange={(e) => handleType(e.target.value)}
-            />
-          </div>
-          <div>
-            <label style={{display: "block"}} htmlFor="areas">Areas</label>
-            <input
-              id="areas"
-              type="text"
-              placeholder="Areas"
-              value={areas}
-              onChange={(e) => handleAreas(e.target.value)}
-            />
-          </div>
-          <div>
-            <label style={{display: "block"}} htmlFor="link">Link</label>
-            <input
-              id="link"
-              type="text"
-              placeholder="Link"
-              value={link}
-              onChange={(e) => handleLink(e.target.value)}
-            />
-          </div>
         </div>
       </section>
 
-      <section>
+      <section style={{margin:"2px 2px 0px 0px", border: "4px solid black"}}>
         {!loading && componentsList.map((component, idx) => component)}
-        {/* <ProjectHeaderEdit/> */}
       </section>
-      <section style={{padding: "65px 65px 100px 0px"}}>
-        <h1 style={{paddingBottom: "50px"}}>ADD MODULE</h1>
-        <h4>Select a module in the list and click Add Module to add a new section.</h4>
-        <select
-          style={{height: "30px", width: "200px"}}
-          name="module"
-          onChange={(e) => handleSelectModule(e.target.value)}
-          >
-          {modulesOptions.map((i, idx) => (
-            <option key={idx} selected={i === selectedModule}>{i}</option>
-            )
-          )}
-        </select>
-        <button onClick={() => addComponentToList()} className="clean-button">+ ADD MODULE</button>
+
+      <section className="flex align-center" style={{padding: "65px 65px 100px 0px", border: "4px solid black", marginBottom: 50}}>
+        <h1 style={{paddingLeft: 40}}>Add Module</h1>
+          <div>
+            <select
+              style={{height: "60px", width: "400px", fontSize: "1.2rem", margin:"0px 70px 0px 70px", padding: 5}}
+              name="module"
+              onChange={(e) => handleSelectModule(e.target.value)}
+              >
+              {modulesOptions.map((i, idx) => (
+                <option key={idx} selected={i === selectedModule}>{i}</option>
+                )
+              )}
+            </select>
+            <button 
+              onClick={() => addComponentToList()} 
+              className="clean-button white-bck force-big-padding"
+              >+ ADD MODULE
+            </button>
+          </div>
+        {/* </div> */}
       </section>
     </div>
   )

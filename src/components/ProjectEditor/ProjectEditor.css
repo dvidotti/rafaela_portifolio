@@ -1,0 +1,38 @@
+.project-box-input {
+  margin-right: 50px;
+  /* width: 300px; */
+}
+
+.transparent-bck {
+  background-color: transparent;
+}
+
+.horizontal-input {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 260px;
+  margin-bottom: 10px;
+}
+
+.horizontal-label {
+}
+
+.flex{
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between
+}
+
+.align-center {
+  align-items:center;
+}
+.half-size-container {
+  width: 50%;
+}
+
+.pR100{
+  padding-right: 100px
+}
