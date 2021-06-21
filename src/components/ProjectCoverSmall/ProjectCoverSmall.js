@@ -70,6 +70,10 @@ const ProjectCoverSmall = (props) => {
               >Edit Cover
             </button>
           }
+          <span
+           className={project.published ? "badge-published" : "badge-unpublished"}
+          >{project.published ? "PUBLISHED" : "UNPUBLISHED"}</span>
+          
           {project.cover ? 
             <img className="image" src={project.cover[process.env.REACT_APP_IMAGE_USED]} alt={project.cover.alt}/>
             :

@@ -18,7 +18,7 @@ const ProjectPage = (props) => {
 
   useEffect(() => {
     props.handleIsProjectPage(true)
-    console.log("PROJECTSSSSSS", props.projects)
+    console.log("PROJECTSSSSSS0", props.projects)
     getModulesCollection()
     return function cleanup() {
       props.handleIsProjectPage(false)
@@ -76,7 +76,6 @@ const ProjectPage = (props) => {
   }
 
   const createComponentsList = (modules) => {
-    console.log('------------------', modules)
     let compList = []
     modules.forEach((module, idx) => {
       let component = mapModuleToComponents(module, idx)

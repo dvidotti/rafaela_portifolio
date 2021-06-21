@@ -20,7 +20,6 @@ const apiUrl  = process.env.REACT_APP_API_URL;
 const Body = (props) => {
 
   let history = useHistory()
-  console.log("HISTORY", history)
   const port = useRef(null)
   const [open, handleOpen] = useState("off")
   const [isProjectPage, handleIsProjectPage] = useState(false)
@@ -54,9 +53,11 @@ const Body = (props) => {
         // credentials: 'include'
       })
       const res = await bckRes.json()
-      console.log("PROJECTSSS", res)
       if(res.success) {
-        handleProjects(res.data.portfolio)
+        let portfolio = res.data.portfolio.filter(
+          project => typeof project.published !== 'undefined' &&  project.published === true
+        )
+        handleProjects(portfolio)
         handleLoading(false)
       } else throw Error('Failed to fetch portfolio')
     } catch (error) {

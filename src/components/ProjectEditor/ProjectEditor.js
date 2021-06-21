@@ -28,9 +28,11 @@ const ProjectEditor = (props) => {
   let [link, handleLink]= useState('')
   let [name, handleName]= useState('')
   let [type, handleType]= useState('')
+  let [published, handlePublished] = useState(false)
   let [count, handleCount] =useState(0)
   let [deleteDialog, handleDeleteDialog] =useState(false)
   let [loading, handleLoading]=useState(true)
+  let [saved, handleSaved] = useState(true)
 
   let [selectedModule, handleSelectModule] = useState("ProjectHeader")
   
@@ -49,6 +51,7 @@ const ProjectEditor = (props) => {
         updateProjectMeta(resBck)
         handleModulesCollId(resBck.modules)
         getModulesCollection(resBck.modules)
+        handleSaved(true)
       } else {
         console.log("Modules ID does not exist in the project")
       }
@@ -81,15 +84,18 @@ const ProjectEditor = (props) => {
     handleType(project.type)
     handleLink(project.link)
     handleAreas(project.areas)
+    handlePublished(project.published)
+    handleSaved(true)
   }
 
   useEffect(() => {
    getProject()
+   handleSaved(true)
   }, [])
 
   useEffect(() => {
-    console.log("MODULES", modules)
-  })
+    handleSaved(false)
+  }, [areas, link, name, type, published])
 
 
   // From list of modules create a list of components and update modules state
@@ -198,7 +204,8 @@ const ProjectEditor = (props) => {
       type,
       areas,
       link,
-      projectId
+      projectId,
+      published
     }
     try {
       let res = await fetch(`${process.env.REACT_APP_API_URL}/project/`, {
@@ -212,8 +219,7 @@ const ProjectEditor = (props) => {
         body: JSON.stringify(body)
       })
       let resBck = await res.json();
-      getProject()
-      
+      getProject()      
     } catch(error) {
       console.log(error)
     }
@@ -295,9 +301,25 @@ const ProjectEditor = (props) => {
               />
             </div>
           </div>
+
+          <div className="project-box-input">
+            <div className="horizontal-input-auto">
+              <input
+                id="published"
+                type="checkbox"
+                placeholder="Published"
+                checked={published}
+                value={published}
+                onChange={(e) => handlePublished(!published)}
+              />
+              <label className="horizontal-label"  htmlFor="published">Published</label>
+            </div>
+          </div>
+
         <div>
           <div style={{marginBottom: 13}}>
             <button
+              disabled={saved}
               onClick={() => updateProject()}
               style={{marginRight: "20px"}}
               className="clean-button transparent-bck"

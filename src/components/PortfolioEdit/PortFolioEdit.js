@@ -42,7 +42,10 @@ class PortFolioEdit extends Component {
       const res = await bckRes.json()
       console.log("PROJECTSSS", res)
       if(res.success) {
-        this.handlePortfolio(res.data.portfolio)
+        let portfolio = res.data.portfolio.filter(
+          project => typeof project.published !== 'undefined' &&  project.published === true
+        )
+        this.handlePortfolio(portfolio)
         this.setState({portfolioId:res.data._id})
       } else throw Error('Failed to fetch portfolio')
     } catch (error) {
@@ -65,7 +68,6 @@ class PortFolioEdit extends Component {
       counter += 1;
       return objProject
     })
-    console.log("LAYOUT", layout)
     return layout
   }
 

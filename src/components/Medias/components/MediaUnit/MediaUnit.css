@@ -47,6 +47,12 @@
   background-color: rgb(238, 238, 238);
 }
 
+.clean-button:disabled {
+  background-color: white;
+  box-shadow: none;
+  border: 1px solid lightgray;
+}
+
 button > .clean-button:hover {
   background-color: blue !important;
 }

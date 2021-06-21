@@ -7,12 +7,16 @@
   background-color: transparent;
 }
 
-.horizontal-input {
+.horizontal-input, .horizontal-input-auto {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   width: 260px;
   margin-bottom: 10px;
+}
+
+.horizontal-input-auto {
+  width: 100px;
 }
 
 .horizontal-label {
