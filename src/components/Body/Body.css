@@ -6,7 +6,7 @@
 .site-body {
   display: flex;
   width: 100%;
-  flex-direction: column;
+  /* flex-direction: column; */
   border-left: 4px solid black;
 }
 

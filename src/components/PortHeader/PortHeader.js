@@ -51,15 +51,21 @@ const PortHeader = () => {
   return (
     <section className="portfolio-big-window">
       <div className="frame-container">
-        <video className={`video-big-portfolio ${projectNumber === 1  ? "slide-video" : "slide-out"}`} autoPlay muted loop>
-          <source src="video/video1.mp4"></source>
-        </video>
-        <video className={`video-big-portfolio ${projectNumber === 2 ? "slide-video" : "slide-out"}`} autoPlay muted loop>
-          <source src="video/video2.mp4"></source>
-        </video>
-        <video className={`video-big-portfolio ${projectNumber === 3 ? "slide-video" : "slide-out"}`} autoPlay muted loop>
-          <source src="video/video3.mp4"></source>
-        </video>
+        <a href="/">
+          <video playsinline className={`video-big-portfolio ${projectNumber === 1  ? "slide-video" : "slide-out"}`} autoPlay muted loop>
+            <source src="video/video1.mp4"></source>
+          </video>
+        </a>
+        <a href="/">
+          <video playsinline className={`video-big-portfolio ${projectNumber === 2 ? "slide-video" : "slide-out"}`} autoPlay muted loop>
+            <source src="video/video2.mp4"></source>
+          </video>
+        </a>
+        <a href="/">
+          <video playsinline className={`video-big-portfolio ${projectNumber === 3 ? "slide-video" : "slide-out"}`} autoPlay muted loop>
+            <source src="video/video3.mp4"></source>
+          </video>
+        </a>
       </div>
       <div className="control-container">
         <div 

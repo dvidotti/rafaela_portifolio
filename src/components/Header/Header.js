@@ -24,21 +24,23 @@ const Header = (props) => {
   }
 
   return (
-    <section className="header-container">
+    <section 
+      className={history === "/" ? "header-container-home": "header-container"}>
       <section className="header-top-container">
         <div className="title-box">
           <Link className="title-link" to="/">
-            <span className="title">RAFAELA VINOTTI</span>
+            <span className={history === "/" ? "title-home": "title"}>RAFAELA VINOTTI</span>
           </Link>
         </div>
         <div className="text-two-container">
-          <span className="text-two-header"
+          <span className={history === "/" ? "text-two-header-home" :"text-two-header"}
             > Experienced in Strategy, Brand, Graphic<br></br> and Digital Design
           </span>
         </div>
         <div className="arrow-down-outer-container">
-          <div className="arrow-down-inner-container">
-              <span onClick={() => scrollToBottom()}>
+          <div className={history === "/" ?  "arrow-down-inner-container-home" : "arrow-down-inner-container"}>
+              <span
+                onClick={() => scrollToBottom()}>
                 {props.showArrow &&
                   <img className="arrow-size" src="/imgs/rv_icon_direction_down.svg" alt="Arrow Down"/>
                 }
@@ -48,19 +50,19 @@ const Header = (props) => {
         <div className="header-right-container">
           {props.showArrow  ?
             <Link className="no-link-decoration" to="/about">
-              <span className="about-menu">
+              <span className={history === "/" ? "about-menu-home":"about-menu"}>
                 <span className="hover-bottom-border">ABOUT</span>
               </span>
             </Link>
             : props.isProjectPage ? 
             <Link className="no-link-decoration" to="/about">
-              <span className="about-menu">
+              <span className={history === "/" ? "about-menu-home":"about-menu"}>
                 <span className="hover-bottom-border">ABOUT</span>
               </span>
             </Link>
             :
             <Link className="no-link-decoration" to={getFrom}>
-              <span className="about-menu">
+              <span className={history === "/" ? "about-menu-home":"about-menu"}>
                 <span className="line-through">ABOUT</span>
               </span>
             </Link>
