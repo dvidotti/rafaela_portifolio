@@ -1,4 +1,6 @@
-* {-webkit-font-smoothing: antialiased;}
+html {
+  -webkit-font-smoothing: antialiased;
+}
 
 @font-face {
   font-family: 'Graphik';
