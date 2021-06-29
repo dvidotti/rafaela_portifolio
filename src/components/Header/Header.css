@@ -8,11 +8,15 @@
   height: 8vh;
   width: 100%;
   border-left: 4px solid black;
-  animation: decreaseHeight 1.5s ease-in;
+  animation: decreaseHeight 2.5s ease-in;
+  
 }
 
 @keyframes decreaseHeight{
   0% {
+    height: 25vh;
+  }
+  40% {
     height: 25vh;
   }
   100% {
@@ -22,6 +26,9 @@
 
 @keyframes desapear {
   0% {
+    opacity: 1;
+  }
+  40% {
     opacity: 1;
   }
   100% {
@@ -53,12 +60,16 @@
 
 .title-home {
   font-size: 1.5rem;
-  animation: descreaseFont 1.5s ease-in;
+  animation: descreaseFont 2.5s ease-in;
+  
   
 }
 
 @keyframes descreaseFont {
   0% {
+    font-size: 1.8rem;
+  }
+  40% {
     font-size: 1.8rem;
   }
   100% {
@@ -78,7 +89,8 @@
   padding: 75px 0px 20px 0px;
   min-width: 45px;
   opacity: 0;
-  animation: desapear 1.5s ease-in;
+  animation: desapear 2.5s ease-in;
+  
 }
 
 .arrow-down-inner-container {
@@ -109,7 +121,8 @@
   padding: 28px 0px 25px 5px;
   font-weight: 300;
   opacity: 0;
-  animation: desapear 1.5s ease-in;
+  animation: desapear 2.5s ease-in;
+  
 }
 
 .about-menu, .about-menu-home {
@@ -123,7 +136,8 @@
 
 .about-menu-home {
   font-size: 1.5rem;
-  animation: descreaseFont 1.5s ease-in;
+  animation: descreaseFont 2.5s ease-in;
+  
 
 }
 
