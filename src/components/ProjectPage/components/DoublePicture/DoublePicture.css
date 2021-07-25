@@ -1,0 +1,25 @@
+.picture-double-container {
+  width: 100%;
+  padding: 15px 15px 0px 15px;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+}
+
+.left-pict, .right-pict {
+  width: 50%;
+  overflow: hidden;
+}
+
+
+@media screen and (max-width: 600px) {
+  .picture-double-container {
+    display: block;
+  }
+  .left-pict, .right-pict {
+    width: 100%;
+  }
+  .right-pict {
+    padding-top: 20px;
+  }
+}

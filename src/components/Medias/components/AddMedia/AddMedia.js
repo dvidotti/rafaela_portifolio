@@ -3,13 +3,14 @@ import './AddMedia.css';
 import {uploadFile} from 'react-s3';
 
 // const url = 'https://api.cloudinary.com/v1_1/dw1mohoww/image/upload'
-const url = process.env.REACT_APP_CLOUDINARY_URL
 
 const AddMedia = (props) => {
+  console.log("PROPS. ", props)
   let [file, handleFile] = useState(null);
   let [fileView, handleFileView] = useState(null);
   let [name, handleName] = useState('');
   let [fileType, handleFileType] = useState(null)
+  const url = fileType === "video" ? process.env.REACT_APP_CLOUDINARY_URL_VIDEO :process.env.REACT_APP_CLOUDINARY_URL
   
   const checkMedia = () => {
     let type = null
@@ -17,6 +18,7 @@ const AddMedia = (props) => {
       if(file.type.includes('video')) type = 'video'
       if(file.type.includes('image')) type = 'image'
     }
+    console.log("TYPE", type)
     handleFileType(type)
   }
 

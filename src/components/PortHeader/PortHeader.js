@@ -51,7 +51,7 @@ const PortHeader = () => {
   return (
     <section className="portfolio-big-window">
       <div className="frame-container">
-        <a href="/">
+        <a href="/projects/caelum">
           <video playsinline className={`video-big-portfolio ${projectNumber === 1  ? "slide-video" : "slide-out"}`} autoPlay muted loop>
             <source src="video/video1.mp4"></source>
           </video>
@@ -71,7 +71,7 @@ const PortHeader = () => {
         <div 
           className={`box1 ${projectNumber === 1 && isLoaded? "box-big": ""}`}
           >
-          <Link className="no-link-decoration--portHeader" to="projects/curt_table">
+          <Link className="no-link-decoration--portHeader" to="projects/caelum">
             <div className={`${projectNumber === 1 ? "overlay": "" }`}></div>
             <span className="inner-text-box">
               <div className="text-box-projects">Caelum _ Branding & Design</div>

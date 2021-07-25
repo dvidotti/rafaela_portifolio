@@ -124,3 +124,9 @@
     left: -50%; 
   }  
 }
+
+/* @media screen and (max-width: 800px) {
+  .side-menu-container {
+    display: none;
+  }
+} */

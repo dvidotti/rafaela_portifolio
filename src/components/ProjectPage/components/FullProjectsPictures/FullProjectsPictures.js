@@ -11,7 +11,12 @@ const FullProjectPictures = (props) => {
       {imagesList.map((img, idx) => {
         return (
           <div className="full-pict-box"key={idx}>
-            <img className="full-img" src={img[process.env.REACT_APP_IMAGE_USED]} alt={img.alt}/>
+            {img.media_type === "image" ? 
+              <img className="full-img" src={img[process.env.REACT_APP_IMAGE_USED]} alt={img.alt}/>
+            : img.media_type === "video" ?
+              <video autoPlay muted loop className="full-img" src={img[process.env.REACT_APP_IMAGE_USED]} alt={img.alt}/>
+            : null
+            }
           </div>
         )
       })}

@@ -122,6 +122,7 @@ const Body = (props) => {
                   handleIsProjectPage={handleIsProjectPage}
                   projects={projects}
                   key={history.location.pathname}
+                  getPortfolio={getPortfolio}
                 />
               }
             />

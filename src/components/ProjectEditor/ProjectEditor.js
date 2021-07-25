@@ -6,9 +6,10 @@ import DeleteDialog from '../DeleteDialog/DeleteDialog'
 import {useParams, useHistory} from "react-router-dom";
 import ProjectHeaderEdit from "./components/ProjectHeaderEdit/ProjectHeaderEdit"
 import FullProjectPicturesEditor from "./components/FullProjectPicturesEditor/FullProjectPicturesEditor"
+import DoublePictureEdit from "./components/DoublePictureEdit/DoublePictureEdit"
 import './ProjectEditor.css'
 
-const modulesOptions = ["ProjectHeader", "FullImageModule"]
+const modulesOptions = ["ProjectHeader", "FullImageModule", "DoublePicture"]
 const ProjectEditor = (props) => {
   const portPict = useRef(null)
   let params = useParams()
@@ -138,6 +139,17 @@ const ProjectEditor = (props) => {
           module={(typeof module.onModel) === "undefined" ? [] : module}
           modulesCollId={modulesCollId}
           removeComponentFromList={removeComponentFromList}
+        />
+        break;
+      case "DoublePicture":
+        component = 
+        <DoublePictureEdit
+          key={module._id || idx}
+          id={module._id || idx}
+          module={typeof module.onModel === "undefined" ? null  : module}
+          refProp={portPict}
+          modulesCollId={modulesCollId}
+          getProject={getProject} 
         />
         break;
     }

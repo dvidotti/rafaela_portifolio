@@ -154,6 +154,14 @@
   color: black;
 }
 
+.mobile {
+  display: none;
+}
+
+.non-mobile {
+  display: flex;
+}
+
 @media screen and (max-width: 1400px) {
   .title{
     font-size: 1.7rem;
@@ -162,4 +170,13 @@
    .text-two-header {
      font-size: 1.5rem;
    }
-  } 
+}
+
+@media screen and (max-width: 800px) {
+  .mobile {
+    display: flex;
+  }
+  .non-mobile {
+    display: none;
+  }
+}

@@ -3,11 +3,15 @@ import './EditMediaUnit.css'
 
 const EditMediaUnit = props => {
   const {media, handleEditMediaOpen} = props;
-
+  
   const [name, handleName] = useState('')
+  const [mediaType, handleMediaType] = useState(null)
+  console.log("MEDIAAAA", mediaType)
+  console.log("P----->", props.media.media_type)
 
   useEffect(() => {
     handleName(media.name)
+    handleMediaType(props.media.media_type)
   }, [])
 
   const handleUpdateMedia = async (id) => {
@@ -35,7 +39,12 @@ const EditMediaUnit = props => {
     <div>
       <h4>Edit Media</h4>
       <h4 className='edit-media-container'>
-        <img src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+        {mediaType == "image" ? 
+          <img src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+        : mediaType == "video" ?
+          <video className="video" controls src={media[process.env.REACT_APP_IMAGE_USED]}/>
+        : null
+        }
       </h4>
       <div>
         <div className='control-edit-media'>

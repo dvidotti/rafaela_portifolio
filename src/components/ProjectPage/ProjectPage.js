@@ -5,25 +5,36 @@ import {useParams} from "react-router-dom";
 
 import ProjectHeader from "./components/ProjectHeader/ProjectHeader"
 import FullProjectPictures from "./components/FullProjectsPictures/FullProjectsPictures"
+import DoublePicture from "./components/DoublePicture/DoublePicture"
 
 const ProjectPage = (props) => {
   const portPict = useRef(null)
   let params = useParams()
   let project_link = params.project_name
-
+  
   let [modules, handleModules] = useState([]);
   let [compList, handleCompList] = useState([]);
+  let [project, handleProject] = useState(null)
   
-  let project = props.projects.filter(i => i.link === project_link)[0]
-
+  
   useEffect(() => {
+    let projectFiltered = props.projects.filter(i => i.link === project_link)[0]
+    
+    console.log("projectFiltered", projectFiltered)
+    handleProject(projectFiltered)
+    
+    // if(typeof project === "undefined") {
+      // props.getPortfolio()
+    // }
     props.handleIsProjectPage(true)
-    console.log("PROJECTSSSSSS0", props.projects)
-    getModulesCollection()
     return function cleanup() {
       props.handleIsProjectPage(false)
     }
   },[])
+  
+  useEffect(() => {
+    getModulesCollection()
+  }, [project])
 
   const scrollTo = (reference) => {
     reference.current.scrollIntoView()
@@ -37,10 +48,8 @@ const ProjectPage = (props) => {
         credentials: 'include',
       })
       let resBck = await res.json();
-      console.log("Collection: ", resBck)
       if(resBck.success) {
         createComponentsList(resBck.data.modules)
-        console.log("MODULES", resBck)
       } else console.log("Failed to fetch modules collection")
     } catch(errors) {
       console.log(errors)
@@ -65,6 +74,15 @@ const ProjectPage = (props) => {
       case "FullImageModule":
         component = 
         <FullProjectPictures
+          key={module._id || idx}
+          id={module._id || idx}
+          project={module}
+          refProp={portPict}       
+        />
+        break;
+      case "DoublePicture":
+        component = 
+        <DoublePicture
           key={module._id || idx}
           id={module._id || idx}
           project={module}

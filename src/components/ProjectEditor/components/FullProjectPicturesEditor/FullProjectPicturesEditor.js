@@ -199,7 +199,12 @@ const FullProjectPicturesEditor = (props) => {
                 onClick={() => addMedia('after', img._id)}
                 >+ Add Media After
               </button>
-              <img className="full-img" src={img[imageKey]} alt={img.alt}/>
+              {img.media_type === "image" ? 
+                <img className="full-img" src={img[imageKey]} alt={img.alt}/>
+                : img.media_type === "video" ?
+                <video autoPlay muted loop className="full-img" src={img[imageKey]} alt={img.alt}/>
+                : null
+              }
             </div>
           )
         })}

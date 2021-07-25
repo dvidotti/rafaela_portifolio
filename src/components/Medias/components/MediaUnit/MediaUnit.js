@@ -70,7 +70,12 @@ const MediaUnit = (props) => {
     {choseMedia ? (
       <div onClick={() => props.choseMedia(media._id)}>
         <div className="media-container">
+          {media.media_type === "image" ?
           <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+          : media.media_type === "video" ?
+          <video controls className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+          : null
+          }
         </div>
         <div className='media-bottom-container'>
           <div className='media-name'>
@@ -83,7 +88,12 @@ const MediaUnit = (props) => {
       (
       <React.Fragment>
         <div className="media-container">
-          <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+          {media.media_type === "image" ?
+            <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+            : media.media_type === "video" ?
+            <video className="media-unit" controls src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>
+            : null
+          }        
         </div>
         <div className='media-bottom-container'>
           <div className='media-name'>
