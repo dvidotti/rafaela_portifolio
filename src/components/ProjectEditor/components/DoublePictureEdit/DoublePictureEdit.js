@@ -16,12 +16,21 @@ const DoublePictureEdit = (props) => {
 
 
 
-  const postImages = async () => {
+  const postImages = async (imageNumber) => {
     let method = isEdit ? "PUT" : "POST"
-    // let method = "POST"
+    let imageOne = imageOneId
+    let imageTwo = imageTwoId
+    if(imageNumber === "one") {
+      imageOne = null
+      handleImageOneId(null)
+    } else if(imageNumber === "two") {
+      imageTwo = null
+      handleImageTwoId(null)
+    }
+
     let body = {
-      imageOne: imageOneId,
-      imageTwo: imageTwoId,
+      imageOne,
+      imageTwo,
       moduleId: isEdit ? props.module.module._id : props.modulesCollId
     }
     try{
@@ -44,6 +53,7 @@ const DoublePictureEdit = (props) => {
     }
   }
 
+
   const deleteDoublePictureModule = async () => {
     let body = {
       // images: imageList,
@@ -62,8 +72,6 @@ const DoublePictureEdit = (props) => {
         body: JSON.stringify(body)
       })
       let resBkc = await res.json();
-      console.log("FULLIMAGERES",resBkc)
-      // handleFullImageId(resBkc.data._id)
       props.getProject()
     } catch(errors) {
       console.log("Failed to delete Full Image Module", errors)
@@ -76,7 +84,6 @@ const DoublePictureEdit = (props) => {
   }
 
   const getMediaId = mediaId => {
-    console.log("MERDIA", mediaId)
     if(isImageOne) {
       handleImageOneId(mediaId)
     } else handleImageTwoId(mediaId);
@@ -88,7 +95,7 @@ const DoublePictureEdit = (props) => {
       handleImageTwoId(null)
     } else {
       let imgOneFlag = props.module.module.imageOne === null
-      let imgTwoFlag = props.module.module.imageTwo === undefined
+      let imgTwoFlag = props.module.module.imageTwo === null
       handleImageOneId(imgOneFlag ? null : props.module.module.imageOne._id)
       handleImageTwoId(imgTwoFlag ? null : props.module.module.imageTwo._id)
     }
@@ -124,9 +131,17 @@ const DoublePictureEdit = (props) => {
                   >Edit Picture
                 </button>
                 <button className="left-top-btn"
+                  onClick={() => postImages("one")}
                   >Delete Picture
                 </button>
-                <img className="full-img" src={imageOne[process.env.REACT_APP_IMAGE_USED]} alt={imageOne.alt}/>
+                <img 
+                  className="full-img" 
+                  src={
+                    !imageOne[process.env.REACT_APP_IMAGE_USED] ?
+                     "/imgs/default_media_image.png" 
+                     : imageOne[process.env.REACT_APP_IMAGE_USED]
+                  } 
+                  alt={imageOne.alt}/>
               </div>
             :
               <div className="left-pict relative">
@@ -144,9 +159,17 @@ const DoublePictureEdit = (props) => {
                 >Edit Picture
               </button>
               <button className="left-top-btn"
+                onClick={() => postImages("two")}
                 >Delete Picture
               </button>
-              <img className="full-img" src={imageTwo[process.env.REACT_APP_IMAGE_USED]} alt={imageTwo.alt}/>
+              <img 
+                className="full-img" 
+                src={!imageTwo[process.env.REACT_APP_IMAGE_USED] ? 
+                  "/imgs/default_media_image.png" 
+                  : imageTwo[process.env.REACT_APP_IMAGE_USED]
+                } 
+                alt={imageTwo.alt}
+              />
             </div>
           :
             <div className="right-pict relative">
