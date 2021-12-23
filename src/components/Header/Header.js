@@ -29,8 +29,8 @@ const Header = (props) => {
       <section className="header-top-container">
         <div className="title-box">
           <Link className="title-link" to="/">   
-              <span className={history === "/" ? "title-home non-mobile": "title non-mobile"}>RAFAELA VINOTTI</span>
-              <span className={history === "/" ? "title-home mobile": "title mobile"}>RV</span>
+              <span className={history === "/" ? "title-home non-mobile": "title-home non-mobile"}>RAFAELA VINOTTI</span>
+              <span className={history === "/" ? "title-home mobile": "title-mobile mobile"}>RV</span>
           </Link>
         </div>
         <div className="text-two-container">
@@ -48,6 +48,15 @@ const Header = (props) => {
               </span>
           </div>
         </div>
+        {props.user && 
+          <div className="header-right-container">
+            <Link className="no-link-decoration" to="/admin/portfolio">
+              <span className={"about-menu-home"}>
+                <span className="hover-bottom-border">ADMIN</span>
+              </span>
+            </Link>
+          </div>
+        }
         <div className="header-right-container">
           {props.showArrow  ?
             <Link className="no-link-decoration" to="/about">

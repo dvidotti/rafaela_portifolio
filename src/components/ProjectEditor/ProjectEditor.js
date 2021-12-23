@@ -16,7 +16,6 @@ const ProjectEditor = (props) => {
   let {projectId} = params;
 
   const history = useHistory()
-
   const backToProjects = () =>{ 
     history.push('/admin/projects');
   }
@@ -251,8 +250,6 @@ const ProjectEditor = (props) => {
           />
         }
         >
-
-
       </Dialog>
       <section style={{padding: "30px 65px 30px 15px", marginTop: 5, marginRight: 2, border: "4px solid black"}}>
 

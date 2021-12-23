@@ -5,7 +5,7 @@ import "./ViewMore.css";
 const ViewMore = (props) => {
 
   return (
-    <div style={{paddingLeft: "10px", paddingBottom: "40px"}}>
+    <div className="view-more-container">
       <div 
         onClick={(e) => props.openSide(e)}
         style={{

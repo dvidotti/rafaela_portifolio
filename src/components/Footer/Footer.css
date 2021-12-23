@@ -78,3 +78,9 @@
 .map_image {
   width: 100%;
 }
+
+@media screen and (max-width: 800px) {
+  .footer-container {
+    border-left: none;
+  }
+}

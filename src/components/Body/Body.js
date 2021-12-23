@@ -7,7 +7,7 @@ import Header from "../Header/Header"
 import Home from "../Home/Home"
 import ProjectPage from "../ProjectPage/ProjectPage"
 import About from "../About/About"
-import SignUp from "../SignUp/SignUp"
+import PageNotFound from "../PageNotFound/PageNotFound"
 
 import {
   Switch,
@@ -98,6 +98,7 @@ const Body = (props) => {
           port={port} 
           scrollTo={scrollTo} 
           isProjectPage={isProjectPage}
+          user={props.user}
         />
 
         <section className="site-body" onClick={(e) => closeSide(e)}>
@@ -116,7 +117,7 @@ const Body = (props) => {
             />
             <Route exact path="/about" render={() => <About/>}/>
             <Route 
-              path="/projects/:project_name" 
+              exact path="/projects/:project_name" 
               render={() => 
                 <ProjectPage 
                   handleIsProjectPage={handleIsProjectPage}
@@ -126,7 +127,7 @@ const Body = (props) => {
                 />
               }
             />
-            {/* <Route exact path="/signup" render={() => <SignUp/>} /> */}
+            <Route path="*" component={PageNotFound}/>
           </Switch>
         </section>
         <Footer/>

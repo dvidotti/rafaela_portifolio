@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import { propTypes } from "react-bootstrap/esm/Image";
 import {Link, useHistory} from "react-router-dom";
 import "./Login.css"
 const apiUrl  = process.env.REACT_APP_API_URL;
@@ -6,7 +7,7 @@ const apiUrl  = process.env.REACT_APP_API_URL;
 // myHeaders.append("Content-Type", "application/json");
 
 
-const Login = () => {
+const Login = (props) => {
   let history = useHistory()
   let [email, handleEmail] = useState("")
   let [password, handlePassword] = useState("")
@@ -29,14 +30,13 @@ const Login = () => {
       mode: 'cors',
       credentials: 'include'
     })
-    const user = await response.json()
-    console.log("RESPONSE=====>", user)
-    if(user.success) {
-      history.push('/admin/portfolio')
+    const res = await response.json()
+    if(res.success) {
+      props.setUser(res.user)
+      history.push("/admin/portfolio")
     } else {
-      handleError(user.message)
+      handleError(res.message)
     }
-    console.log("User", user)
   }
 
   return (

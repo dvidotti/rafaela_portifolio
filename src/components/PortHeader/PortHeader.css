@@ -197,3 +197,12 @@
     flex-grow: 2;
   }  
 }
+
+
+@media screen and (max-width: 800px) {
+  .box1, .box2, .box3 {
+    font-size: 0.7rem;
+    flex-grow: 1;
+    flex-basis: 20%;
+  }
+}

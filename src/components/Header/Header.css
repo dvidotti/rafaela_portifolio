@@ -9,7 +9,6 @@
   width: 100%;
   border-left: 4px solid black;
   animation: decreaseHeight 2.5s ease-in;
-  
 }
 
 @keyframes decreaseHeight{
@@ -53,6 +52,13 @@
 .title, .title-home {
   font-size: 1.8rem;
   display: inline-flex;
+  padding: 20px 15px;
+  font-weight: 500;
+  color: black;
+}
+
+.title-mobile {
+  font-size: 1.8rem;
   padding: 20px 15px;
   font-weight: 500;
   color: black;
@@ -178,5 +184,28 @@
   }
   .non-mobile {
     display: none;
+  }
+  .title {
+    display: none
+  }
+  .text-two-container {
+    display: none
+  }
+  .header-container {
+    height: 8vh;
+  }
+  .header-top-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .header-container-home, .header-container {
+    border-left: none;
+  }
+  .about-menu-home, .about-menu  {
+    padding: 20px 0px;
+  }
+  .header-right-container {
+    padding-right: 15px;
   }
 }

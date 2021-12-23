@@ -12,3 +12,9 @@
 .row-container {
   width: max-content
 }
+
+@media screen and (max-width: 800px) {
+  .site-body {
+    border-left: none;
+  }
+}
