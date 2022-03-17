@@ -5,11 +5,11 @@ import {uploadFile} from 'react-s3';
 // const url = 'https://api.cloudinary.com/v1_1/dw1mohoww/image/upload'
 
 const AddMedia = (props) => {
-  console.log("PROPS. ", props)
   let [file, handleFile] = useState(null);
   let [fileView, handleFileView] = useState(null);
   let [name, handleName] = useState('');
   let [fileType, handleFileType] = useState(null)
+  let [loading, handleLoading ] = useState(false)
   const url = fileType === "video" ? process.env.REACT_APP_CLOUDINARY_URL_VIDEO :process.env.REACT_APP_CLOUDINARY_URL
   
   const checkMedia = () => {
@@ -18,7 +18,6 @@ const AddMedia = (props) => {
       if(file.type.includes('video')) type = 'video'
       if(file.type.includes('image')) type = 'image'
     }
-    console.log("TYPE", type)
     handleFileType(type)
   }
 
@@ -45,6 +44,7 @@ const AddMedia = (props) => {
   }
 
   const handlePostImage = async () => {
+    handleLoading(true)
     const formData = new FormData();
     formData.append("file", file);
     formData.append('upload_preset', process.env.REACT_APP_CLOUDINARY_PRESET);
@@ -85,6 +85,7 @@ const AddMedia = (props) => {
     handleFileView(null)
     handleFile(null)
     handleName("")
+    handleLoading(false)
   }
 
   useEffect(() => {
@@ -96,11 +97,19 @@ const AddMedia = (props) => {
       <div className="add-media-header">
         <h4>Add Media</h4>
         <div>
-          <span onClick={(e) => handleClick(e)} className="clean-button">Choose file</span>
+          <span 
+            onClick={(e) => handleClick(e)} 
+            className={ loading ? "disabled-btn" : "clean-button"}
+          >Choose file
+          </span>
         </div>
       </div>
       <div className="add-media-pict-container">
-        {fileType === null ? 
+        {loading ?
+          <div className="loading-box">
+            <span className="add-image-pict loading-text">Saving ... </span>
+          </div>
+          : fileType === null ? 
           <img className="add-image-pict" src="/imgs/default_media_image.png"/>
           : fileType === "image" ?
           <img className="add-image-pict" src={fileView}/>
@@ -129,7 +138,7 @@ const AddMedia = (props) => {
         </div>
         <div>
           <span 
-            className="clean-button" 
+            className={loading ? "disabled-btn" : "clean-button" }
             onClick={() => {
               props.handleAddMediaOpen(false)
               handleName("")
@@ -140,7 +149,7 @@ const AddMedia = (props) => {
             Cancel
           </span>
           <span
-            className={(file === null || name === "") ? "disabled-btn" : "clean-button"}
+            className={(file === null || name === "" || loading) ? "disabled-btn" : "clean-button"}
             onClick={() => {
                 if(file === null || name === "") return
                 handlePostImage()

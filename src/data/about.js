@@ -5,15 +5,16 @@ export const aboutInfo = {
   summary: [
     {
       name: "Education",
-      list: ["BA Graphic Design", "MA Visual Identity", ["Interface Design Service", "Design"]]
+      list: ["BA Graphic Design", "MA Visual Identity", "Interface Design", "Service Design"]
     },
     {
       name:"Skilled",
-      list: ["Brand Design", "User Experience", ["Strategy","Visual Design"]]
+      list: ["Brand Design", "User Experience", "Strategy","Visual Design"]
     },
     {
       name: "Marketplace",
-      list: ["Education", "Business", ["E-commerce", "Fashion"]]
+      list: ["Education", "Business", "E-commerce", "Fashion"]
     }
   ]
+
 }

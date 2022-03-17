@@ -7,31 +7,17 @@ import Dialog from '../Dialog/Dialog';
 import ProjectGrid from './components/ProjectGrid/ProjectGrid';
 // import MediaGrid from './components/MediaGrid/MediaGrid'
 
+import { useGetPortfolio } from "hooks/useGetPorfolio"
+
+
 const apiUrl  = process.env.REACT_APP_API_URL;
 
 
 function Projects(props) {
 
-  let [projects, handleProjects] = useState([]);
   let [openAddProject, handleOpen] = useState(false)
 
-  useEffect(() => {
-    getProjects()
-  }, [])
-
-  const getProjects = async () => {
-    try {
-      const bckRes = await fetch(`${apiUrl}/portfolio` , {
-        mode: 'cors',
-      })
-      const res = await bckRes.json()
-      console.log("PROJECTSSS", res)
-      if(res.success) handleProjects(res.data.portfolio)
-      else throw Error('Failed to fetch portfolio')
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const {loading, projects, getPortfolio } = useGetPortfolio()
 
   return (
     <div>
@@ -41,7 +27,7 @@ function Projects(props) {
           <AddProject
             openAddProject={openAddProject}
             handleOpen={handleOpen}
-            getProjects={getProjects}
+            getProjects={getPortfolio}
           />
         }
       />
@@ -55,7 +41,7 @@ function Projects(props) {
             <span className="big-font">Add Project</span>
           </span>
         </div>
-        <ProjectGrid getProjects={getProjects} projects={projects}/>
+        <ProjectGrid getProjects={getPortfolio} projects={projects}/>
       </section>
     </div>
   )

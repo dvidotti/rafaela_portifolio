@@ -42,3 +42,14 @@
 .video{
   width: 100%;
 }
+
+.loading-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-text {
+  width: auto;
+  font-size: 2rem;
+}

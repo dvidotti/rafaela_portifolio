@@ -1,91 +1,75 @@
 import React, {useState} from "react"
 
-import {aboutInfo} from "../../data/about.js"
+import {aboutInfo} from "data/about.js"
 import "./About.css"
 
 const About = () => {
-  let [openEducation , handleEducation] = useState(false)
-  let [openSkilled , handleSkilled] = useState(false)
-  let [openMarketplace , handleMarketplace] = useState(false)
+  let [menuStatus, handleMenuStatus ] = useState({
+    openEducation: true,
+    openSkilled: false,
+    openMarketplace: false
+  })
+
+  const handleDropDowns = (idx) => {
+    switch (idx) {
+      case 0: 
+        handleMenuStatus({
+          openEducation: !menuStatus.openEducation,
+          openSkilled: menuStatus.openEducation,
+          openMarketplace: menuStatus.openEducation
+        })
+        break;
+      case 1:
+        handleMenuStatus({
+          openEducation: menuStatus.openSkilled,
+          openSkilled: !menuStatus.openSkilled,
+          openMarketplace: menuStatus.openSkilled
+        })
+        break;
+      case 2:
+        handleMenuStatus({
+          openEducation: menuStatus.openMarketplace,
+          openSkilled: menuStatus.openMarketplace,
+          openMarketplace: !menuStatus.openMarketplace,
+      
+        })
+        break;
+    }
+  }
+
+  const getOpenStatus = (idx) => {
+    switch (idx) {
+      case 0:
+        return menuStatus.openEducation;
+        case 1:
+        return menuStatus.openSkilled;
+        case 2:
+        return menuStatus.openMarketplace;
+    }
+  }
 
 
   return (
-     <div className="about-info-container">
+    <div className="about-info-container">
       <div className="about-title">Summary</div>
       <div className="description-box">{aboutInfo.bio}</div>
       <div className="summary-box">
-        <div className="summary-item-box">
-          <div onClick={() => handleEducation(!openEducation)}  className="summary-item-title">
-            <span className="summary-item-title-text" >Education</span>
-          </div>
-          {openEducation &&
-            <div className="summary-item-list">
-              <div className="summary-subitem-box">
-                <span>BA Graphic Design</span>
-              </div>
-              <div className="summary-subitem-box">
-                <span>MA Visual Identity</span>
-              </div>
-              <div className="summary-subitem-box">
-                <div className="">
-                  <span>Interface Design</span>
-                </div>
-                <div >
-                  <span>ServiceDesign</span>
-                </div>
-              </div>
+        {aboutInfo.summary.map((item, idx) => (
+          <div key={item.name} className="summary-item-box">
+            <div onClick={() => handleDropDowns(idx)} className="summary-item-title">
+              <span className="summary-item-title-text">{item.name}</span>
             </div>
-          }
-        </div>
-        <div className="summary-item-box">
-          <div onClick={() => handleSkilled(!openSkilled)} className="summary-item-title">
-            <span className="summary-item-text">Skilled</span>
+            {getOpenStatus(idx) &&
+              <div className="summary-item-list">
+                {item.list.map(i => (
+                  <div key={i} className="summary-subitem-box">
+                    <span>{i}</span>
+                  </div>
+                ))}
+              </div>
+            }
           </div>
-          {openSkilled &&
-            <div className="summary-item-list">
-              <div className="summary-subitem-box">
-                <span>Brand Design</span>
-              </div>
-              <div className="summary-subitem-box">
-                <span>User Experience</span>
-              </div>
-              <div className="summary-subitem-box">
-                <div className="">
-                  <span>Strategy</span>
-                </div>
-                <div >
-                  <span>Visual Design</span>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
-        <div className="summary-item-box">
-          <div 
-            className="summary-item-title"
-            onClick={() => handleMarketplace(!openMarketplace)}
-            >
-            <span  className="summary-item-text">Marketplace</span>
-          </div>
-          {openMarketplace &&
-            <div className="summary-item-list">
-              <div className="summary-subitem-box">
-                <span>BA Graphic Design</span>
-              </div>
-              <div className="summary-subitem-box">
-                <span>MA Visual Identity</span>
-              </div>
-              <div className="summary-subitem-box">
-                <div className="">
-                  <span>Interface Design</span>
-                </div>
-                <div >
-                  <span>ServiceDesign</span>
-                </div>
-              </div>
-            </div>
-          }
-        </div>
+      ))}
       </div>
       <div className="image-box">
         <img className="image-about"src={aboutInfo.img_link} alt={aboutInfo.alt}></img>

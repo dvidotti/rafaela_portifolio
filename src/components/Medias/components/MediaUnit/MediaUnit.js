@@ -68,7 +68,7 @@ const MediaUnit = (props) => {
       }
     </Dialog>
     {choseMedia ? (
-      <div onClick={() => props.choseMedia(media._id)}>
+      <div onClick={() => props.choseMedia(media)}>
         <div className="media-container">
           {media.media_type === "image" ?
           <img className="media-unit" src={media[process.env.REACT_APP_IMAGE_USED]} alt={media.name}/>

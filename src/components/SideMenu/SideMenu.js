@@ -9,7 +9,8 @@ import './SideMenu.css'
 
 const SideMenu = (props) => {
   
-  let projectList = props.projects.map(i => i.name).sort()
+  let projectList = props.projects.filter(i => !!i.published)
+  projectList = projectList.map(i => i.name).sort()
   let history = useHistory({forceRefresh:true})
 
   const redirectTo = (projectName) => {

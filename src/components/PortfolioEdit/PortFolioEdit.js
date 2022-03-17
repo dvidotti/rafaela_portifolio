@@ -37,19 +37,16 @@ class PortFolioEdit extends Component {
           'Access-Control-Allow-Credentials': true
         }),
         mode: 'cors',
-        // credentials: 'include',
       })
       const res = await bckRes.json()
-      console.log("PROJECTSSS", res)
       if(res.success) {
-        let portfolio = res.data.portfolio.filter(
-          project => typeof project.published !== 'undefined' &&  project.published === true
-        )
+        let portfolio = res.data.portfolio.filter(project => !!project.published)
         this.handlePortfolio(portfolio)
-        this.setState({portfolioId:res.data._id})
+        this.setState({portfolioId:res.data._id, loading: false})
       } else throw Error('Failed to fetch portfolio')
     } catch (error) {
-      console.log(error)
+      this.setState({loading: false})
+      console.error(error)
     }
   }
 
@@ -91,7 +88,6 @@ class PortFolioEdit extends Component {
     })
     let sortedProjectsIds = projectsSorted.map(i => i._id)
     this.setState({sortedProjectsIds})
-    console.log("SORTEDPROJECTs", projectsSorted)
   }
 
   savePortfolio = async () => {

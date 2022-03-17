@@ -6,10 +6,10 @@ const imageKey = process.env.REACT_APP_IMAGE_USED
 
 const FullProjectPicturesEditor = (props) => {
   const addRef = useRef(false)
-  console.log("------>",props.module)
-  const imagesList = typeof props.module.module !== "undefined" ? props.module.module.images : [];
+  // let imagesList = !props.module.module ? [] : props.module.module.images;
 
   let [imageIdList, handleImageIdList] = useState([])
+  let [imagesList, handleImagesList] = useState([])
   let [open, handleOpen] = useState(false)
   let [fullImageId, handleFullImageId] = useState(null)
   let [isEdit, handleIsEdit] = useState(false)
@@ -22,7 +22,7 @@ const FullProjectPicturesEditor = (props) => {
     // let method = "POST"
     let body = {
       images: imageIdList,
-      moduleId: props.modulesCollId,
+      moduleId: props.componentsCollectionId,
       fullImageModuleId: fullImageId
     }
     try{
@@ -37,20 +37,17 @@ const FullProjectPicturesEditor = (props) => {
         body: JSON.stringify(body)
       })
       let resBkc = await res.json();
-      console.log("FULLIMAGERES",resBkc)
       handleFullImageId(resBkc.data._id)
       props.getProject()
-    } catch(errors) {
-      console.log("Failed to post Image", errors)
+    } catch(error) {
+      console.error(error)
     }
   }
 
   const deleteImg = async (imageList) => {
-    // let method = isEdit ? "PUT" : "POST"
-    // let method = "POST"
     let body = {
       images: imageList,
-      moduleId: props.modulesCollId,
+      moduleId: props.componentsCollectionId,
       fullImageModuleId: fullImageId
     }
     try{
@@ -67,14 +64,14 @@ const FullProjectPicturesEditor = (props) => {
       let resBkc = await res.json();
       console.log("FULLIMAGERES",resBkc)
       handleFullImageId(resBkc.data._id)
-      props.getProject()
-    } catch(errors) {
-      console.log("Failed to post Image", errors)
+      // props.getProject()
+    } catch(error) {
+      console.error(error)
     }
   }
 
   const editImageList = (mediaId) => {
-    let imageList = [...imageIdList];
+    let imageList = [...imagesList];
     let idx = 0
     console.log("ADD", add.state)
     switch(add.state){
@@ -90,15 +87,21 @@ const FullProjectPicturesEditor = (props) => {
         imageList.splice(idx, 0, mediaId)
         break;
     }
-    handleImageIdList(imageList)
+    handleImageIdList(imageList.map(i=>i._id))
+    handleImagesList(imageList)
   }
 
   const handleDelete = (mediaId) => {
-    let newImageIdList = [...imageIdList];
-    let idx = newImageIdList.indexOf(mediaId)
-    newImageIdList.splice(idx, 1)
-    deleteImg(newImageIdList)
-    handleImageIdList(newImageIdList)
+    let idx = imageIdList.indexOf(mediaId)
+    if(imageIdList.length === 1) {
+      deleteImageModule()
+      return;
+    }
+    let imageIdList = [...imageIdList].splice(idx, 1)
+    let imagesList = [...imagesList].splice(idx,1)
+    deleteImg(imageIdList)
+    handleImageIdList(imageIdList)
+    handleImagesList(imagesList)
   }
 
   const addMedia = (position, target) => {
@@ -108,7 +111,6 @@ const FullProjectPicturesEditor = (props) => {
 
   const deleteImageModule = async () => {
     let body = {
-      // images: imageList,
       modulesId: props.module._id,
       fullImageModuleId: fullImageId
     }
@@ -125,7 +127,6 @@ const FullProjectPicturesEditor = (props) => {
       })
       let resBkc = await res.json();
       console.log("FULLIMAGERES",resBkc)
-      // handleFullImageId(resBkc.data._id)
       props.getProject()
     } catch(errors) {
       console.log("Failed to delete Full Image Module", errors)
@@ -141,12 +142,14 @@ const FullProjectPicturesEditor = (props) => {
   },[add.bol])
 
   useEffect(() => {
-    let imageIdList = imagesList.map((i, idx) => i._id)
-    let fullImageModuleId = (typeof props.id === 'number') ? null : props.module.module._id;
+    let imagesList = !props.module.module ? [] : props.module.module.images;
+    let imageIdList = imagesList.map(i => i._id)
+    let fullImageModuleId = !props.id ? null : props.module.module._id
+    handleImagesList(imagesList)
     handleImageIdList(imageIdList)
     handleIsEdit(imageIdList.length > 0)
     handleFullImageId(fullImageModuleId)
-  },[])
+  },[props.module])
   
   return (
     <React.Fragment>

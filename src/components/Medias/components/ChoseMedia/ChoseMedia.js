@@ -9,7 +9,7 @@ import MediaGrid from '../MediaGrid/MediaGrid'
 
 const ChoseMedia = (props) => {
 
-  let [mediaId, handleMediaId] = useState('')
+  let [media, handleMedia] = useState('')
   let [mediasOrig, handleMediaOrig] = useState([])
   let [mediasCopy, handleMediaCopy] = useState([])
 
@@ -27,7 +27,6 @@ const ChoseMedia = (props) => {
         credentials: 'include',
       })
       let res = await bckRes.json()
-      console.log("RESMEDIAS", res)
       handleMediaOrig(res)
       handleMediaCopy(res)
     } catch(error) {
@@ -35,9 +34,10 @@ const ChoseMedia = (props) => {
     }
   }
 
-  const choseMedia = (mediaId) => {
-    props.getMediaId(mediaId)
-    handleMediaId(mediaId)
+  const choseMedia = (media) => {
+    console.log("MEDIIIIA", media)
+    props.getMediaId(media)
+    handleMedia(media)
   }
 
   useEffect(() => {
@@ -58,7 +58,7 @@ const ChoseMedia = (props) => {
           <MediaGrid 
             mediaList={mediasCopy}
             choseMedia={choseMedia}
-            cover={mediaId}
+            cover={media._id}
           />
         </div>
         <div className="add-media-control flex-end">
@@ -66,14 +66,14 @@ const ChoseMedia = (props) => {
             <span 
               className="clean-button" 
               onClick={() => {
-                props.getMediaId(mediasOrig)
+                props.getMedia(props.mediaOriginal)
                 props.handleOpen(false)
               }}
               >
               Cancel
             </span>
             <span
-              className={mediaId.length === 0 ? "disabled-btn" : "clean-button"}
+              className={!media ? "disabled-btn" : "clean-button"}
               onClick={() => {
                 {/* updateCoverImage() */}
                 props.postMedia()

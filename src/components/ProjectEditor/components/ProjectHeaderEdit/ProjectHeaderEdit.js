@@ -1,135 +1,37 @@
-import React, {useState, useEffect, useRef} from "react";
-import ChoseMedia from '../../../Medias/components/ChoseMedia/ChoseMedia'
+import React, { useRef, useEffect } from "react";
+import ChoseMedia from 'components/Medias/components/ChoseMedia/ChoseMedia'
+import { useHandleProjectHeader } from "./useHandleProjectHeader";
 
 import "./ProjectHeaderEdit.css";
 
 const imageKey = process.env.REACT_APP_IMAGE_USED
 
 const ProjectHeaderEdit = (props) => {
-  const {project} = props;
 
-  const didMountRef = useRef(false)
-
-  let [title, handleTitle] = useState("");
-  let [description, handleDescription] = useState("")
-  let [areas, handleAreas] = useState(["", "", ""]);
-  let [local, handleLocal] = useState("");
-  let [date, handleDate] = useState("");
-  let [partnership, handlePartnership] = useState("");
-  let [headImg, handleHeadImg] = useState("")
-  let [headImgId, handleHeadImgId] = useState(null)
-  // let [headImgId, handleHeadImgId] = useState("60800487e0595115ce2944ad")
-
-  let [open, handleOpen] = useState(false)
-
-
-  const saveProjectHeader = async (isEdit) => {
-    let obj = {
-      title,
-      description,
-      areas,
-      local,
-      date,
-      partnership,
-      headImg: headImgId,
-      // headImg: isEdit ? props.module.module.headImg._id : headImg,
-      moduleId: props.modulesCollId
-    }
-    if(isEdit) {
-      obj.projectHeaderId = props.module.module._id;
-    }
-
-    let method = isEdit ? "PUT" : "POST"
-    let options = {
-      method: method,
-      headers: new Headers({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      }),
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify(obj)
-    }
-
-    try {
-      let res = await fetch(`${process.env.REACT_APP_API_URL}/project-header`, options)
-      let resBck = await res.json()
-      console.log("00000000>>>>", resBck)
-      props.getProject()
-    } catch(errors) {
-      console.log(errors)
-    }
-  }
-
-  const updateMedia = () => {
-    saveProjectHeader(typeof props.module._id !== "undefined")
-  }
-
-  const deleteProjHeader = async () => {
-    if(typeof props.module._id === "undefined") {
-      console.log("PROPSID", props.id)
-      props.removeComponentFromList(props.id)
-      return
-    }
-    try {
-      let res = await fetch(`${process.env.REACT_APP_API_URL}/project-header`, {
-          method: "DELETE",
-          headers: new Headers({
-            'content-type': 'application/json',
-            'Access-Control-Allow-Credentials': true
-          }),
-          mode: 'cors',
-          credentials: 'include',
-          body: JSON.stringify({
-            projectHeaderId: props.module.module._id,
-            moduleId: props.module._id,
-            modulesCollId: props.modulesCollId
-          })
-      })
-      let resBack = await res.json()
-      if(resBack.success) {
-        console.log("RESFROMDELETE", resBack)
-        props.removeComponentFromList(resBack.data._id)
-        props.getProject()
-      }
-    } catch(errors) {
-      console.log("Fail to delete modulel: ", errors)
-    }
-  }
-
-  const changeArea = (e, idx) => {
-    let areasCopy = [...areas];
-    areasCopy[idx] = e.target.value
-    handleAreas(areasCopy)
-  }
-
+  const {
+    headImg, 
+    handleHeadImg,
+    formData,
+    open,
+    handleOpen,
+    headImgOriginal,
+    areas, 
+    saveProjectHeader,
+    updateMedia,
+    deleteProjHeader,
+    changeArea,
+    updateFormData,
+    parseUpdateFormData,
+    componentId
+  } = useHandleProjectHeader(
+    props.componentsCollectionId, 
+    props.removeComponentFromList,  
+    props.handleComponents
+  )
+  
   useEffect(() => {
-    const {module} = props
-    if(typeof props.module._id !== "undefined") {
-      handleTitle(module.module.title)
-      handleDescription(module.module.description)
-      handleAreas(module.module.areas)
-      handleLocal(module.module.local)
-      if(module.module.headImg) {
-        handleHeadImgId(module.module.headImg._id)
-      }
-      handleHeadImg(module.module.headImg)
-      handleDate(module.module.date)
-      handlePartnership(module.module.partnership)
-      handleHeadImg(module.module.headImg)
-    } 
-  },[])
-
-  // Simulating a componentDidUpdate
-  useEffect(() => {
-    if(didMountRef.current) {
-      if(typeof props.module._id !== "undefined") {
-        if(headImg !== props.module.module.headImg) {
-          handleHeadImg(props.module.module.headImg)
-        }
-      }
-    } else didMountRef.current = true;
-  })
+    updateFormData(props.component)
+  },[props.component])
 
   return (
     <React.Fragment>
@@ -137,9 +39,10 @@ const ProjectHeaderEdit = (props) => {
         <ChoseMedia 
           open={open}
           title={'Chose media'}
-          getMediaId={handleHeadImgId}
+          getMedia={handleHeadImg}
           postMedia={updateMedia}
           handleOpen={handleOpen}
+          mediaOriginal={headImgOriginal}
         />
       }
       <section>
@@ -148,32 +51,30 @@ const ProjectHeaderEdit = (props) => {
             <div className="project-header-top-container">
               <span
                 className="project-header-save-btn clean-button white-bck"
-                onClick={() => saveProjectHeader(typeof props.module._id !== "undefined")}>
+                onClick={() => saveProjectHeader(!!componentId)}>
                 {'Save Changes'}
-                {/* {props.module._id ? 'Save Changes' : 'Save'} */}
               </span>
-              <span
-                onClick={(e) => {
-                  e.stopPropagation()
-                  deleteProjHeader()
-                }}
+              <span 
+                onClick={() => deleteProjHeader()}
                 className="project-header-delete-btn clean-button white-bck"
                 >Delete
               </span>
               <input
                 type="text"
-                value={title}
+                name="title"
+                value={formData.title}
                 placeholder="Project Title"
                 className="project-title no-outline"
-                onChange={(e) => handleTitle(e.target.value)}
+                onChange={parseUpdateFormData}
               />
               <div>
                 <textarea
                   type="textarea"
-                  value={description}
+                  name="description"
+                  value={formData.description}
                   placeholder="Describe your project, take care with the length of the text"
                   className="project-header-description no-outline textarea"
-                  onChange={(e) => handleDescription(e.target.value)}
+                  onChange={parseUpdateFormData}
                 />   
               </div>
             </div>
@@ -202,19 +103,21 @@ const ProjectHeaderEdit = (props) => {
               <div className="local-date-container">
                 <input
                   type="text"
+                  name="local"
                   className="local no-outline"
-                  value={local}
+                  value={formData.local}
                   placeholder="Local"
-                  onChange={(e) => handleLocal(e.target.value)}
+                  onChange={parseUpdateFormData}
 
                 />
                 <div className="div-line"></div>
                 <input
                   type="text"
+                  name="date"
                   className="date no-outline"
-                  value={date}
+                  value={formData.date}
                   placeholder="e.g 2020/2021"
-                  onChange={(e) => handleDate(e.target.value)}
+                  onChange={parseUpdateFormData}
                 />
               </div>
             </div>
@@ -224,15 +127,11 @@ const ProjectHeaderEdit = (props) => {
                 <input 
                   className="partnership-text no-outline"
                   type="text"
-                  value={partnership}
+                  name="partnership"
+                  value={formData.partnership}
                   placeholder="Partnership"
-                  onChange={(e) => handlePartnership(e.target.value)}
+                  onChange={parseUpdateFormData}
                   />
-              </div>
-              <div className="arrow-box">
-                {/* <span className="cursor-pointer" onClick={() => props.scrollTo(props.refProp)}>
-                  <img className="arrow-image" src="/imgs/rv_icon_direction_down.svg" alt="Arrow Down"/>       
-                </span> */}
               </div>
             </div>
           </div>

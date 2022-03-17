@@ -1,12 +1,8 @@
 import React from "react"
 import {Container, Row, Col} from 'react-bootstrap'
-import ProjectCoverSmall from "../../../ProjectCoverSmall/ProjectCoverSmall"
-// import {projects, portfolio} from "../../../../data/projects"
+import ProjectCoverSmall from "components/ProjectCoverSmall/ProjectCoverSmall"
 
 import './PortFolio.css'
-
-
-
 
 const PortFolio = (props) => {
   

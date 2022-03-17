@@ -17,9 +17,9 @@ const ProjectCoverSmall = (props) => {
     history.push(path);
   }
 
-  let [openChoseCover, handleOpenChoseCover] = useState(false)
-  let [projectId, handleProjectId] = useState('')
-  let [mediaId, handleMediaId] = useState('')
+  let [openChoseCover, setOpenChoseCover] = useState(false)
+  let [projectId, setProjectId] = useState('')
+  let [mediaId, setMediaId] = useState('')
 
 
   const updateCoverImage = async () => {
@@ -38,25 +38,22 @@ const ProjectCoverSmall = (props) => {
       body: JSON.stringify(obj)
     })
     props.getProjects()
-    handleOpenChoseCover()
+    setOpenChoseCover()
   }
 
   useEffect(() => {
-    handleProjectId(project._id)
+    setProjectId(project._id)
   }, [])
 
-  // useEffect(() => {
-  //   console.log
-  // })
 
   return isEdit ? (
     <React.Fragment>
       <ChoseMedia 
         open={openChoseCover}
         title={'Chose media'}
-        getMediaId={handleMediaId}
+        getMediaId={setMediaId}
         postMedia={updateCoverImage}
-        handleOpen={handleOpenChoseCover}
+        handleOpen={setOpenChoseCover}
       />
       <div className="proj_cover_container">
         <div className="image-container">
@@ -64,7 +61,7 @@ const ProjectCoverSmall = (props) => {
             <button 
               onClick={(e) => {
                 e.stopPropagation()
-                handleOpenChoseCover(true)
+                setOpenChoseCover(true)
               }}
               className="edit-cover-btn clean-button"
               >Edit Cover

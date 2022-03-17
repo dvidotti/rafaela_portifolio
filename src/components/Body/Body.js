@@ -1,13 +1,13 @@
 import React, {useState, useRef, useEffect} from "react"
 
 import "./Body.css"
-import SideMenu from "../SideMenu/SideMenu"
-import Footer from "../Footer/Footer"
-import Header from "../Header/Header"
-import Home from "../Home/Home"
-import ProjectPage from "../ProjectPage/ProjectPage"
-import About from "../About/About"
-import PageNotFound from "../PageNotFound/PageNotFound"
+import SideMenu from "components/SideMenu/SideMenu"
+import Footer from "components/Footer/Footer"
+import Header from "components/Header/Header"
+import Home from "components/Home/Home"
+import ProjectPage from "components/ProjectPage/ProjectPage"
+import About from "components/About/About"
+import PageNotFound from "components/PageNotFound/PageNotFound"
 
 import {
   Switch,
@@ -15,7 +15,7 @@ import {
   useHistory
 } from "react-router-dom";
 
-const apiUrl  = process.env.REACT_APP_API_URL;
+import { useGetPortfolio } from "hooks/useGetPorfolio"
 
 const Body = (props) => {
 
@@ -24,50 +24,9 @@ const Body = (props) => {
   const [open, handleOpen] = useState("off")
   const [isProjectPage, handleIsProjectPage] = useState(false)
   const [isHome, handleIsHome] = useState(false)
-  let [projects, handleProjects] = useState([])
-  let [loading, handleLoading] = useState(true);
 
-
-
-  // const sortProjects = (portfolio) => {
-  //   let sortedProjects = []
-  //   portfolio.forEach(i => {
-  //     let project = portfolio.filter(proj => proj.name === i)[0];
-  //     sortedProjects.push(project)
-  //   })
-  //   handleProjects(sortedProjects)
-  //   handleLoading(false)
-  // }
-
-  const getPortfolio = async () => {
-    handleLoading(true)
-    try {
-      const bckRes = await fetch(`${apiUrl}/portfolio` , {
-        headers: new Headers({
-          'content-type': 'application/json',
-          'Access-Control-Allow-Credentials': true,
-          // 'Access-Control-Allow-Origin':'https://suspicious-pare-3d027e.netlify.app'
-
-        }),
-        mode: 'cors',
-        // credentials: 'include'
-      })
-      const res = await bckRes.json()
-      if(res.success) {
-        let portfolio = res.data.portfolio.filter(
-          project => typeof project.published !== 'undefined' &&  project.published === true
-        )
-        handleProjects(portfolio)
-        handleLoading(false)
-      } else throw Error('Failed to fetch portfolio')
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  useEffect(() => {
-    getPortfolio()
-  },[])
+  const {loading, projects, getPortfolio } = useGetPortfolio()
+  console.log("PROJECTS", projects)
 
   const closeSide = (e) => {
     e.stopPropagation();
@@ -82,6 +41,14 @@ const Body = (props) => {
   const scrollTo = (reference) => {
     reference.current.scrollIntoView()
   } 
+
+  useEffect(() => {
+    console.log("Is HOMMI ???? ---->", isHome)
+  },[isHome])
+
+  useEffect(() => {
+    console.log("Is isProjectPage ???? ---->", isProjectPage)
+  },[isProjectPage])
 
   return (
     <div className="body-container">
