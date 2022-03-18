@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import Dialog from '../Dialog/Dialog'
-import DeleteDialog from '../DeleteDialog/DeleteDialog'
+import Dialog from 'components/Dialog/Dialog'
+import DeleteDialog from 'components/DeleteDialog/DeleteDialog'
 
 import {useParams, useHistory} from "react-router-dom";
 import './ProjectEditor.css'
@@ -26,7 +26,7 @@ const ProjectEditor = () => {
     history.push('/admin/projects');
   }
 
-  let [deleteDialog, handleDeleteDialog] = useState(false)
+  let [deleteDialog, setDeleteDialog] = useState(false)
   let [parsedComponentList, setParsedComponentList] = useState([])
 
   const { 
@@ -49,24 +49,23 @@ const ProjectEditor = () => {
    
 
   return (
-    <div style={{marginLeft: "60px"}}>
+    <div className="mgLeft60">
       <Dialog
         open={deleteDialog}
         children={
           <DeleteDialog
             title={'Delete Project'}
             message={'Are you sure you want to delete this project'}
-            closeDialog={handleDeleteDialog}
+            closeDialog={setDeleteDialog}
             deleteAction={deleteProject}
           />
         }
         >
       </Dialog>
 
-      <section style={{padding: "30px 65px 30px 15px", marginTop: 5, marginRight: 2, border: "4px solid black"}}>
-
-        <div style={{display: "flex", justifyContent: "space-between", paddingBottom: "25px"}}>
-          <h1 style={{marginRight: 15}}>Project Infos</h1>
+      <section className="top-control-container">
+        <div className="top-control-header">
+          <h1 className="mgRight15">Project Infos</h1>
           <button
             className="clean-button transparent-bck"
             onClick={() => backToProjects()}
@@ -155,7 +154,7 @@ const ProjectEditor = () => {
           <div>
             <button
               className="clean-button transparent-bck"
-              onClick={() => handleDeleteDialog(true)}
+              onClick={() => setDeleteDialog(true)}
               >Delete Project
             </button>
           </div>
@@ -163,37 +162,35 @@ const ProjectEditor = () => {
         </div>
       </section>
 
-      <section style={{margin:"2px 2px 0px 0px", border: "4px solid black"}}>
+      <section className="component-list-container">
         {parsedComponentList}
       </section>
 
       {/* TODO: Break bellow into a new component <ComponentsEditor/>*/}
-      <section className="flex align-center" style={{padding: "65px 65px 100px 0px", border: "4px solid black", marginBottom: 50}}>
-        <h1 style={{paddingLeft: 40}}>Add Component</h1>
-          <div>
-            <select
-              style={{
-                height: "60px",
-                 width: "400px",
-                 fontSize: "1.2rem",
-                 margin:"0px 70px 0px 70px",
-                padding: 5
-              }}
-              name="module"
-              onChange={(e) => handleSelectedComponent(e)}
+      <section className="bottom-control-container">
+        <h1 className="pdLeft40">Add Component</h1>
+        <div>
+          <select
+            className="select-component"
+            name="module"
+            onChange={(e) => handleSelectedComponent(e)}
+            >
+            {componentsOptions.map((i, idx) => (
+              <option 
+                key={idx} 
+                selected={i.onModel === selectedComponent.onModel}
               >
-              {componentsOptions.map((i, idx) => (
-                <option key={idx} selected={i.onModel === selectedComponent.onModel}>{i.onModel}</option>
-                )
-              )}
-            </select>
-            <button 
-              onClick={() => addComponentToList()} 
-              className="clean-button white-bck force-big-padding"
-              >+ ADD COMPONENT
-            </button>
-          </div>
-        {/* </div> */}
+                {i.onModel}
+              </option>
+              )
+            )}
+          </select>
+          <button 
+            onClick={() => addComponentToList()} 
+            className="clean-button white-bck force-big-padding"
+            >+ ADD COMPONENT
+          </button>
+        </div>
       </section>
     </div>
   )

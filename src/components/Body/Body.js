@@ -17,55 +17,46 @@ import {
 
 import { useGetPortfolio } from "hooks/useGetPorfolio"
 
-const Body = (props) => {
+const Body = ({user}) => {
 
   let history = useHistory()
   const port = useRef(null)
-  const [open, handleOpen] = useState("off")
-  const [isProjectPage, handleIsProjectPage] = useState(false)
-  const [isHome, handleIsHome] = useState(false)
+  const [open, setOpen] = useState("off")
+  const [isProjectPage, setIsProjectPage] = useState(false)
+  const [isHome, setIsHome] = useState(false)
 
   const {loading, projects, getPortfolio } = useGetPortfolio()
-  console.log("PROJECTS", projects)
 
   const closeSide = (e) => {
     e.stopPropagation();
-    if(open === true) handleOpen(false);
+    if(open === true) setOpen(false);
   }
 
   const openSide = (e) => {
     e.stopPropagation();
-    if(open === false) handleOpen(true);
+    if(open === false) setOpen(true);
   }
 
   const scrollTo = (reference) => {
     reference.current.scrollIntoView()
   } 
 
-  useEffect(() => {
-    console.log("Is HOMMI ???? ---->", isHome)
-  },[isHome])
-
-  useEffect(() => {
-    console.log("Is isProjectPage ???? ---->", isProjectPage)
-  },[isProjectPage])
-
   return (
     <div className="body-container">
       {!loading && 
         <SideMenu 
           open={open} 
-          handleOpen={handleOpen} 
+          handleOpen={setOpen} 
           projects={projects}
         />
       }
-      <div style={{width: "100%"}}>
+      <div className="header-outer-container">
         <Header 
           showArrow={isHome} 
           port={port} 
           scrollTo={scrollTo} 
           isProjectPage={isProjectPage}
-          user={props.user}
+          user={user}
         />
 
         <section className="site-body" onClick={(e) => closeSide(e)}>
@@ -75,7 +66,7 @@ const Body = (props) => {
               render={() =>
                 <Home 
                   refProp={port} 
-                  handleIsHome={handleIsHome} 
+                  handleIsHome={setIsHome} 
                   openSide={openSide}
                   projects={projects}
                   loading={loading}
@@ -87,7 +78,7 @@ const Body = (props) => {
               exact path="/projects/:project_name" 
               render={() => 
                 <ProjectPage 
-                  handleIsProjectPage={handleIsProjectPage}
+                  handleIsProjectPage={setIsProjectPage}
                   projects={projects}
                   key={history.location.pathname}
                   getPortfolio={getPortfolio}

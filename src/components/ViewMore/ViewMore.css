@@ -7,6 +7,18 @@
   width: 45px;
 }
 
+.view-more-box {
+  padding-left: 8px;
+  padding-bottom: 3px;
+}
+
+.view-more-inner-container {
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  width: 18%;
+}
+
 
 @media screen and (max-width: 800px) {
   .view-more-container {

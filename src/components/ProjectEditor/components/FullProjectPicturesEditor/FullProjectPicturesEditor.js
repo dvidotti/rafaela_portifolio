@@ -157,7 +157,7 @@ const FullProjectPicturesEditor = (props) => {
         <ChoseMedia
           open={open}
           title={'Chose media'}
-          getMediaId={editImageList}
+          getMedia={editImageList}
           postMedia={postImageIdList}
           handleOpen={handleOpen}
         />

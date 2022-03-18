@@ -1,31 +1,27 @@
-import React, {Component, useState, useEffect} from "react"
-import {Container, Row, Col} from 'react-bootstrap'
-import ProjectCoverSmall from "../ProjectCoverSmall/ProjectCoverSmall"
+import React, { Component } from "react"
+import ProjectCoverSmall from "components/ProjectCoverSmall/ProjectCoverSmall"
 import GridLayout from 'react-grid-layout';
 
-
-// import {projects, portfolio} from "../../../../data/projects"
 import './PortFolioEdit.css'
-import HeaderAdmin from "../HeaderAdmin/HeaderAdmin";
+import HeaderAdmin from "components/HeaderAdmin/HeaderAdmin";
 
 const apiUrl  = process.env.REACT_APP_API_URL;
 
-
-
+//TODO: Check react-grid-layout already has hooks implementation. Refact
 class PortFolioEdit extends Component {
   constructor(props) {
     super(props);
     this.state = {
       portfolio: [],
       portfolioId: null,
+      notPublishedProjectListIds: [],
       loading: true,
       sortedProjectsIds: []
-
     }
   }
   
-  handlePortfolio = (portfolio) => {
-    this.setState({portfolio}, () => this.setState({loading: false}))
+  handlePortfolio = (portfolio, notPublishedProjectListIds) => {
+    this.setState({portfolio, notPublishedProjectListIds}, () => this.setState({loading: false}))
   }
 
   getPortfolio = async () => {
@@ -41,7 +37,9 @@ class PortFolioEdit extends Component {
       const res = await bckRes.json()
       if(res.success) {
         let portfolio = res.data.portfolio.filter(project => !!project.published)
-        this.handlePortfolio(portfolio)
+        let notPublishedProjects = res.data.portfolio.filter(project => !project.published)
+        let notPublishedProjectListIds= notPublishedProjects.map(i => i._id)
+        this.handlePortfolio(portfolio, notPublishedProjectListIds)
         this.setState({portfolioId:res.data._id, loading: false})
       } else throw Error('Failed to fetch portfolio')
     } catch (error) {
@@ -60,7 +58,6 @@ class PortFolioEdit extends Component {
       if(counter === 3) counter = 0
       let objProject = {
         i: i.name, y: Math.floor(idx/3), x: counter , w: 1, h:1
-        // i: (idx + 1).toString(), x: Math.floor(idx/3), y: counter , w: 1, h:1, maxW: 1,
       }
       counter += 1;
       return objProject
@@ -91,6 +88,10 @@ class PortFolioEdit extends Component {
   }
 
   savePortfolio = async () => {
+    let projectsIdsJoinedList = [...this.state.sortedProjectsIds]
+    this.state.notPublishedProjectListIds.forEach(i => {
+      projectsIdsJoinedList.push(i)
+    })
     try {
       const bckRes = await fetch(`${apiUrl}/portfolio` , {
         method: "PUT",
@@ -101,7 +102,7 @@ class PortFolioEdit extends Component {
         mode: 'cors',
         credentials: 'include',
         body: JSON.stringify({
-          portfolio: this.state.sortedProjectsIds,
+          portfolio: projectsIdsJoinedList,
           portfolioId: this.state.portfolioId
         })
       })
@@ -118,8 +119,8 @@ class PortFolioEdit extends Component {
       <section>
         <HeaderAdmin/>
         {!this.state.loading && this.state.portfolio.length > 0 ? (
-          <div style={{padding: 20}}>
-            <div style={{display: "flex", justifyContent: "flex-end", paddingRight: 20}}>
+          <div className="portfolio-outer-container">
+            <div className="control-container">
               <span onClick={() => this.savePortfolio()} className="clean-button force-big-padding">
                 <span className="big-font">SAVE</span>
               </span>

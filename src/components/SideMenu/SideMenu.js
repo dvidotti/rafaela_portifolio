@@ -3,10 +3,6 @@ import { useHistory } from "react-router-dom";
 
 import './SideMenu.css'
 
-// import {projects} from "../../data/projects"
-
-
-
 const SideMenu = (props) => {
   
   let projectList = props.projects.filter(i => !!i.published)
@@ -45,7 +41,6 @@ const SideMenu = (props) => {
             </button>
           </div>
           <div className="side-menu-body">
-            {/* {props.projects.map((i,idx) => { */}
             {projectList.map((i,idx) => {
               return (
                 <div key={idx} className="side-menu-item-container">

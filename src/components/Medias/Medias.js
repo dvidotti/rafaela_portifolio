@@ -1,44 +1,27 @@
 import React, {useState, useEffect} from 'react'
-import HeaderAdmin from '../HeaderAdmin/HeaderAdmin'
-import './Medias.css'
-import AddMedia from './components/AddMedia/AddMedia.js'
-import Dialog from '../Dialog/Dialog.js';
-import MediaGrid from './components/MediaGrid/MediaGrid'
-
-const apiUrl  = process.env.REACT_APP_API_URL;
-let myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+import HeaderAdmin from 'components/HeaderAdmin/HeaderAdmin'
+import 'components/Medias/Medias.css'
+import AddMedia from 'components/Medias/components/AddMedia/AddMedia.js'
+import Dialog from 'components/Dialog/Dialog.js';
+import MediaGrid from 'components/Medias/components/MediaGrid/MediaGrid'
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
 
-const Medias = (props) => {
-  let [mediaList, handleMedias] = useState([])
-  let [addMediaOpen, handleAddMediaOpen] = useState(false)
-  let [fecthMedias, handleFetchMedias] = useState(false)
+const Medias = () => {
+  const { fetchAPI } = useFetchAPI()
+
+  let [mediaList, setMediasList] = useState([])
+  let [addMediaOpen, setAddMediaOpen] = useState(false)
 
   const getMedias = async () => {
-    const response = await fetch(`${apiUrl}/medias`, {
-      method: 'GET',
-      headers: myHeaders
-    })
-    const medias = await response.json()
-    console.log(medias)
-    handleMedias(medias)
+    const medias = await fetchAPI(`/medias`)
+    setMediasList(medias)
   }
 
   useEffect(() => {
     getMedias()
   }, [])
 
-  useEffect(() => {
-    if(fecthMedias) {
-      getMedias();
-      handleFetchMedias(false)
-    }
-  }, [fecthMedias])
-
-  useEffect(() => {
-    console.log("---->",mediaList)
-  })
 
   return (
     <div>
@@ -46,8 +29,8 @@ const Medias = (props) => {
         open={addMediaOpen}
         children={
           <AddMedia 
-            handleAddMediaOpen={handleAddMediaOpen} 
-            handleFetchMedias={handleFetchMedias}
+            handleAddMediaOpen={setAddMediaOpen} 
+            getMedias={getMedias}
           />
         }
       />
@@ -57,12 +40,15 @@ const Medias = (props) => {
       />
       <section className="media-section">
         <div className="margin-bottom-20 justify-flex-right padding-20">
-          <span className="clean-button force-big-padding" onClick={() => handleAddMediaOpen(true)}>
+          <span 
+            className="clean-button force-big-padding" 
+            onClick={() => setAddMediaOpen(true)}
+            >
             <span className="big-font">Add Media</span>
           </span>
         </div>
         <MediaGrid 
-          handleFetchMedias={handleFetchMedias}
+          getMedias={getMedias}
           mediaList={mediaList}/>
       </section>
     </div>

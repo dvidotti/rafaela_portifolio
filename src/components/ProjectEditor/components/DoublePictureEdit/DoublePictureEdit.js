@@ -83,7 +83,7 @@ const DoublePictureEdit = (props) => {
     handleOpen(true)
   }
 
-  const getMediaId = mediaId => {
+  const getMedia = mediaId => {
     if(isImageOne) {
       handleImageOneId(mediaId)
     } else handleImageTwoId(mediaId);
@@ -110,7 +110,7 @@ const DoublePictureEdit = (props) => {
         <ChoseMedia
           open={open}
           title={'Chose media'}
-          getMediaId={getMediaId}
+          getMedia={getMedia}
           postMedia={postImages}
           handleOpen={handleOpen}
         />

@@ -1,42 +1,34 @@
-import React, {useState, useEffect} from "react";
-import {Link, useHistory} from "react-router-dom";
-import "./SignUp.css"
-const apiUrl  = process.env.REACT_APP_API_URL;
-let myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
+import "./SignUp.css"
 
 const SignUp = () => {
+  const { fetchAPI } = useFetchAPI()
+
   let history = useHistory()
-  let [email, handleEmail] = useState("")
-  let [password, handlePassword] = useState("")
-  let [secret, handleSecret] = useState("")
-  let [errorMessage, handleError] = useState(false)
+  let [email, setEmail] = useState("")
+  let [password, setPassword] = useState("")
+  let [secret, setSecret] = useState("")
+  let [errorMessage, setError] = useState(false)
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let body = {
-      email, password, secret
+    const options = {
+      body : {
+        email, password, secret
+      },
+      method: "POST"
     }
-    body = JSON.stringify(body);
-    let response = await fetch(`${apiUrl}/auth/signup`, {
-      method:"POST",
-      body: body,
-      headers: new Headers({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-      }),
-      credentials: 'include',
-      mode: 'cors',
-    })
-    const user = await response.json()
+
+    let user = await fetchAPI(`/auth/signup`, options)
     if(user.success) {
       history.push('/login')
     } else {
-      handleError(user.message)
+      setError(user.message)
     }
-    console.log("User", user)
   }
 
   return (
@@ -48,7 +40,7 @@ const SignUp = () => {
             id='email' 
             value={email} 
             type='text'
-            onChange={(e) => handleEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         <label htmlFor='password'>Password</label>
           <input
@@ -56,7 +48,7 @@ const SignUp = () => {
             id="password"
             value={password}
             type='password'
-            onChange={(e) => handlePassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
         <label htmlFor='secret'>Secret</label>
           <input 
@@ -64,7 +56,7 @@ const SignUp = () => {
             id="secret" 
             type='password' 
             value={secret}
-            onChange={(e) => handleSecret(e.target.value)}
+            onChange={(e) => setSecret(e.target.value)}
           />
           {errorMessage &&
             <h4 className='error-message'>{errorMessage}</h4>

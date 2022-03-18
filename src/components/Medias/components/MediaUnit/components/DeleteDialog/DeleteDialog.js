@@ -1,7 +1,6 @@
 import React from 'react'
 
-const DeleteDialog = (props) => {
-  const {media, handleOpen, deleteMedia} = props;
+const DeleteDialog = ({media, handleOpen, deleteMedia}) => {
   return (
     <div>
       <div className="dialog-subtitle">Please press DELETE to confirm delete</div>

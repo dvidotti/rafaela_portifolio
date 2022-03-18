@@ -1,21 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 
-import HeaderAdmin from '../HeaderAdmin/HeaderAdmin'
-// import './Medias.css'
-import AddProject from './components/AddProject/AddProject'
-import Dialog from '../Dialog/Dialog';
-import ProjectGrid from './components/ProjectGrid/ProjectGrid';
-// import MediaGrid from './components/MediaGrid/MediaGrid'
+import HeaderAdmin from 'components/HeaderAdmin/HeaderAdmin'
+import AddProject from 'components/Projects/components/AddProject/AddProject'
+import Dialog from 'components/Dialog/Dialog';
+import ProjectGrid from 'components/Projects/components/ProjectGrid/ProjectGrid';
 
 import { useGetPortfolio } from "hooks/useGetPorfolio"
 
+function Projects() {
 
-const apiUrl  = process.env.REACT_APP_API_URL;
-
-
-function Projects(props) {
-
-  let [openAddProject, handleOpen] = useState(false)
+  let [openAddProject, setOpen] = useState(false)
 
   const {loading, projects, getPortfolio } = useGetPortfolio()
 
@@ -26,7 +20,7 @@ function Projects(props) {
         children={
           <AddProject
             openAddProject={openAddProject}
-            handleOpen={handleOpen}
+            handleOpen={setOpen}
             getProjects={getPortfolio}
           />
         }
@@ -37,7 +31,7 @@ function Projects(props) {
       />
       <section className="media-section">
         <div className="margin-bottom-20 justify-flex-right padding-20">
-          <span onClick={() => handleOpen(true)} className="clean-button force-big-padding">
+          <span onClick={() => setOpen(true)} className="clean-button force-big-padding">
             <span className="big-font">Add Project</span>
           </span>
         </div>

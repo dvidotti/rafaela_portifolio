@@ -6,7 +6,7 @@ import { useGetRendersHelper } from "hooks/useGetRendersHelper";
 const ProjectPage = React.memo(({projects, getPortfolio, handleIsProjectPage}) => {
   useGetRendersHelper()
   
-  let [ project, handleProject] = useState(null)
+  let [ project, setProject] = useState(null)
   
   let params = useParams()
   let project_link = params.project_name
@@ -29,7 +29,7 @@ const ProjectPage = React.memo(({projects, getPortfolio, handleIsProjectPage}) =
 
   const filterProject = (projects) => {
     let projectFiltered = projects.filter(i => i.link === project_link)[0]
-    handleProject(projectFiltered) 
+    setProject(projectFiltered) 
   }
 
   useEffect(() => {

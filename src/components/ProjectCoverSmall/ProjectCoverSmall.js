@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from "react";
-import ChoseMedia from '../Medias/components/ChoseMedia/ChoseMedia'
+import ChoseMedia from 'components/Medias/components/ChoseMedia/ChoseMedia'
 import "./projectCoverSmall.css"
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
 
-const ProjectCoverSmall = (props) => {
-  const {project, isEdit} = props;
+const ProjectCoverSmall = ({project, isEdit, getProjects, isPortfolioEdit }) => {
+  const { fetchAPI } = useFetchAPI()
   const linkRef = isEdit ? 
-  `/edit/${props.project._id}` 
-  : `/projects/${props.project.link}`
+  `/edit/${project._id}` 
+  : `/projects/${project.link}`
 
   const history = useHistory()
 
@@ -19,25 +20,19 @@ const ProjectCoverSmall = (props) => {
 
   let [openChoseCover, setOpenChoseCover] = useState(false)
   let [projectId, setProjectId] = useState('')
-  let [mediaId, setMediaId] = useState('')
+  let [media, setMedia] = useState('')
 
 
   const updateCoverImage = async () => {
-    const obj = {
-      cover: mediaId,
-      projectId: projectId
-    }
-    const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project-cover`, {
+    const options = {
       method: "PUT",
-      headers: new Headers({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      }),
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify(obj)
-    })
-    props.getProjects()
+      body : {
+        cover: media,
+        projectId: projectId
+      }
+    }
+    await fetchAPI(`/project-cover`, options)
+    getProjects()
     setOpenChoseCover()
   }
 
@@ -51,7 +46,7 @@ const ProjectCoverSmall = (props) => {
       <ChoseMedia 
         open={openChoseCover}
         title={'Chose media'}
-        getMediaId={setMediaId}
+        getMedia={setMedia}
         postMedia={updateCoverImage}
         handleOpen={setOpenChoseCover}
       />
@@ -76,7 +71,6 @@ const ProjectCoverSmall = (props) => {
             :
             <img className="image" src={'/imgs/default_media_image.png'} alt="Default Image" />
           }
-          {/* <img className="image" src={project.cover.link2} alt={project.cover.alt}/> */}
         </div>
         <div className="projec-legend-container">
           <div className="cover-title_1">{project.name}</div>
@@ -95,7 +89,7 @@ const ProjectCoverSmall = (props) => {
       </div>
     </React.Fragment>
     ) 
-    : props.isPortfolioEdit ? 
+    : isPortfolioEdit ? 
     (
     <div className="proj_cover_container">
       <div className="image-container">
@@ -104,7 +98,6 @@ const ProjectCoverSmall = (props) => {
           :
           <img className="image" src={'/imgs/default_media_image.png'} alt="Default Image" />
         }
-        {/* <img className="image" src={project.cover.link2} alt={project.cover.alt}/> */}
       </div>
       <div className="projec-legend-container">
         <div className="cover-title_1">{project.name}</div>
@@ -122,7 +115,6 @@ const ProjectCoverSmall = (props) => {
             :
             <img className="image" src={'/imgs/default_media_image.png'} alt="Default Image" />
           }
-          {/* <img className="image" src={project.cover.link2} alt={project.cover.alt}/> */}
         </div>
         <div className="projec-legend-container">
           <div className="cover-title_1">{project.name}</div>
@@ -134,5 +126,3 @@ const ProjectCoverSmall = (props) => {
 }
 
 export default ProjectCoverSmall;
-
-{/* <img className="image" src={project.cover.link} alt={project.cover.alt}/> */}

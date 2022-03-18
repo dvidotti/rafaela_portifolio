@@ -1,38 +1,30 @@
 import React , {useState, useEffect} from 'react';
 import './EditMediaUnit.css'
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
-const EditMediaUnit = props => {
-  const {media, handleEditMediaOpen} = props;
+const EditMediaUnit = ({media, handleEditMediaOpen, getMedias}) => {
+  const { fetchAPI } = useFetchAPI()
   
-  const [name, handleName] = useState('')
-  const [mediaType, handleMediaType] = useState(null)
-  console.log("MEDIAAAA", mediaType)
-  console.log("P----->", props.media.media_type)
+  const [name, setName] = useState('')
+  const [mediaType, setMediaType] = useState(null)
 
   useEffect(() => {
-    handleName(media.name)
-    handleMediaType(props.media.media_type)
+    setName(media.name)
+    setMediaType(media.media_type)
   }, [])
 
   const handleUpdateMedia = async (id) => {
-    let body = {
-      name,
-      mediaId: id
-    }
-    const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/media`, {
+    const options = {
       method: "PUT",
-      headers: new Headers({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Credentials': true
-      }),
-      mode: 'cors',
-      credentials: 'include',
-      body: JSON.stringify(body)
-    })
-    handleEditMediaOpen(false)
-    props.handleFetchMedias(true)
+      body: {
+        name,
+        mediaId: id
+      }
+    }
 
-    console.log(bckRes)
+    const bckRes = await fetchAPI(`/media`, options)
+    handleEditMediaOpen(false)
+    getMedias()
   }
 
   return (
@@ -54,7 +46,7 @@ const EditMediaUnit = props => {
               className="block"
               id="media-name"
               type="text" 
-              onChange={(e) => handleName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               value={name}
             />
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Container, Row, Col} from 'react-bootstrap'
-import ProjectCoverSmall from '../../../ProjectCoverSmall/ProjectCoverSmall';
+import ProjectCoverSmall from 'components/ProjectCoverSmall/ProjectCoverSmall';
 
 
 const ProjectGrid = (props) => {

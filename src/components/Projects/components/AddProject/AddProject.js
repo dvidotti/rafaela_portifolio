@@ -1,49 +1,47 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
 import './AddProject.css'
 
+let initialBody = {
+  name:'',
+  type: '',
+  areas:'',
+  link: ''
+}
+
 function AddProject(props) {
-  let [name, handleName] = useState('');
-  let [type, handleType] = useState('')
-  let [areas, handleAreas] = useState([])
-  let [link, handleLink] = useState('')
+  const { fetchAPI } = useFetchAPI()
 
-  
+  let [body, setBody ] = useState(initialBody)
 
+  const handleBody = (e) => {
+    setBody(b => ({
+      ...b,
+      [e.target.name]:e.target.value
+    }))
+
+  }
+ 
   const postProject = async () => {
-    let areaArr = areas.split(',')
-    const body = {
-      name,
-      type,
-      areas: areaArr,
-      link,
+    let areaArr = body.areas.split(',')
+    let postBody = {
+      ...body,
+      areas: areaArr
     }
+    const options = {
+      body: postBody,
+      method: "POST"
+    } 
     try {
-      let bckRes = await fetch(`${process.env.REACT_APP_API_URL}/project`, {
-        method: "POST",
-        headers: new Headers({
-          'content-type': 'application/json',
-          'Access-Control-Allow-Credentials': true
-        }),
-        mode: 'cors',
-        credentials: 'include',
-        body: JSON.stringify(body)
-      })
-      bckRes = await bckRes.json()
-      console.log("PROJECT-BACK-RES", bckRes)
-      handleAreas("")
-      handleType("")
-      handleName("")
-      handleLink("")
+      await fetchAPI(`/project`, options)
+      setBody(initialBody)
       props.getProjects();
       props.handleOpen(false);
     } catch(error) {
-      console.log("Failed to create project", error)
+      console.error(error)
     }
   }
-
-  useEffect(() => {
-  }, [])
 
   return (
     <div className='add-media-container'>
@@ -55,33 +53,37 @@ function AddProject(props) {
         <div>
           <input 
             placeholder="Project Name"
-            onChange={(e) => handleName(e.target.value)}
+            name="name"
+            onChange={(e) => handleBody(e)}
             className="input-project" 
             type="text"
-            value={name}
+            value={body.name}
           />
           <input 
             placeholder="Project Type"
-            onChange={(e) => handleType(e.target.value)}
+            name="type"
+            onChange={(e) => handleBody(e)}
             className="input-project" 
             type="text"
-            value={type}
+            value={body.type}
           />
         </div>
         <div>
           <input 
             placeholder="Areas (use comas e.g. Branding, Editorial)"
-            onChange={(e) => handleAreas(e.target.value)}
+            name="areas"
+            onChange={(e) => handleBody(e)}
             className="input-project" 
             type="text"
-            value={areas}
+            value={body.areas}
           />
-          <input 
+          <input
+            name="link"
             placeholder="Project Link (e.g. danilo-vidotti)"
-            onChange={(e) => handleLink(e.target.value)}
+            onChange={(e) => handleBody(e)}
             className="input-project" 
             type="text"
-            value={link}
+            value={body.link}
           />
         </div>
  
@@ -92,10 +94,7 @@ function AddProject(props) {
             className="clean-button" 
             onClick={() => {
               props.handleOpen(false)
-              handleAreas("")
-              handleName("")
-              handleLink("")
-              handleType("")
+              setBody(initialBody)
             }}
             >
             Cancel

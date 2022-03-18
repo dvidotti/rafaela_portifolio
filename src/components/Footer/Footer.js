@@ -2,18 +2,16 @@ import React, {useState, useRef, useEffect} from "react";
 
 import "./Footer.css"
 
-
-
 const Footer = () => {
   const copyright = useRef(null)
-  let [openFooter, handleOpenFooter] = useState(false)  
+  let [openFooter, setOpenFooter] = useState(false)
   
   const executeScroll = () => {
     if(openFooter) copyright.current.scrollIntoView()
   }
 
   const handleFooter = () => {
-    handleOpenFooter(!openFooter);
+    setOpenFooter(!openFooter);
     if(openFooter) {
       executeScroll();
     }
@@ -37,7 +35,7 @@ const Footer = () => {
 
         }
         <span onClick={() => window.scrollTo(0, 0)} className="arrow-box-footer">
-          <img style={{height: "70%"}} src="/imgs/rv_icon_direction_up.svg"/>
+          <img className="arrowIcon" src="/imgs/rv_icon_direction_up.svg"/>
         </span>
       </div>
       {openFooter &&

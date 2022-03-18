@@ -2,8 +2,6 @@
 export const useFetchAPI = () => {
 
   const fetchAPI = async (url, options) => {
-    console.log("OPTIONS", options)
-    console.log("EXIST OPTIONS", !!options)
     let parsedOptions = {
       method: "GET",
       mode: "cors",

@@ -1,17 +1,20 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import './MediaUnit.css'
-import Dialog from '../../../Dialog/Dialog'
+import Dialog from 'components/Dialog/Dialog'
 import DeleteDialog from './components/DeleteDialog/DeleteDialog'
 import EditMediaUnit from './components/EditMediaUnit/EditMediaUnit'
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
+// TODO: put in ENV (not deleting ATM Cloudnary => statusText: "Unauthorized")
+// TODO: include delete in AWS also
 const url = '	http://api.cloudinary.com/v1_1/dw1mohoww/image/destroy'
 
-
-
 const MediaUnit = (props) => {
+  const { fetchAPI } = useFetchAPI()
+
   const {media, choseMedia} = props;
 
-  const [open, handleOpen] = useState(false)
+  const [open, setOpen] = useState(false)
   let [editMediaOpen, handleEditMediaOpen] = useState(false)
 
   const deleteMedia = async (id, public_id) => {
@@ -28,23 +31,12 @@ const MediaUnit = (props) => {
       }
     };
     try {
-      const cldRes = await fetch(url, options)
-      console.log("------>",cldRes)
-  
-      const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/media/${id}`, {
-        method: "DELETE",
-        headers: new Headers({
-          'content-type': 'application/json',
-          'Access-Control-Allow-Credentials': true
-        }),
-        mode: 'cors',
-        credentials: 'include',
-      })
-      handleOpen(false)
-      console.log("=======>",bckRes)
-      props.handleFetchMedias(true)
+      const cldRes = await fetch(url, options)  
+      const bckRes = await fetchAPI(`/media/${id}`, { method: "DELETE"})
+      setOpen(false)
+      props.getMedias()
     } catch(error) {
-      console.log("Error saving picture: => ", error)
+      console.error(error)
     }
   }
 
@@ -56,14 +48,14 @@ const MediaUnit = (props) => {
         <DeleteDialog
           deleteMedia={deleteMedia}
           media={media}
-          handleOpen={handleOpen}
+          handleOpen={setOpen}
         />
         :
         <EditMediaUnit
           handleEditMediaOpen={handleEditMediaOpen}
           editMediaOpen={editMediaOpen}
           media={media}
-          handleFetchMedias={props.handleFetchMedias}
+          getMedias={props.getMedias}
         />
       }
     </Dialog>
@@ -107,7 +99,7 @@ const MediaUnit = (props) => {
               <span>EDIT</span>
             </div>
             <div
-              onClick={() => handleOpen(true)}
+              onClick={() => setOpen(true)}
               className="clean-button"
               >
               <span>DELETE</span>

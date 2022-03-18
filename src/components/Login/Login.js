@@ -1,41 +1,32 @@
-import React, {useState, useEffect} from "react";
-import { propTypes } from "react-bootstrap/esm/Image";
-import {Link, useHistory} from "react-router-dom";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import "./Login.css"
-const apiUrl  = process.env.REACT_APP_API_URL;
-// let myHeaders = new Headers();
-// myHeaders.append("Content-Type", "application/json");
-
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
 const Login = (props) => {
+  const { fetchAPI } = useFetchAPI()
+
   let history = useHistory()
-  let [email, handleEmail] = useState("")
-  let [password, handlePassword] = useState("")
-  let [errorMessage, handleError] = useState(false)
+  let [email, setEmail] = useState("")
+  let [password, setPassword] = useState("")
+  let [errorMessage, setError] = useState(false)
 
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    let body = {
-      email, password
+    let option = {
+      method: "POST",
+      body:{
+        email, 
+        password
+      }
     }
-    body = JSON.stringify(body);
-    let response = await fetch(`${apiUrl}/auth/login`, {
-      method:"POST",
-      body: body,
-      headers: new Headers({
-        'content-type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-      }),
-      mode: 'cors',
-      credentials: 'include'
-    })
-    const res = await response.json()
+    let res = await fetchAPI(`/auth/login`, option)
     if(res.success) {
       props.setUser(res.user)
       history.push("/admin/portfolio")
     } else {
-      handleError(res.message)
+      setError(res.errors.message)
     }
   }
 
@@ -48,7 +39,7 @@ const Login = (props) => {
             id='email' 
             value={email} 
             type='text'
-            onChange={(e) => handleEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           />
         <label htmlFor='password'>Password</label>
           <input
@@ -56,14 +47,14 @@ const Login = (props) => {
             id="password"
             value={password}
             type='password'
-            onChange={(e) => handlePassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
           />
-          {errorMessage &&
-            <h4 className='error-message'>{errorMessage}</h4>
-          }
 
         <input className="button" type="submit" value="Login"/>
       </form>
+      {errorMessage &&
+        <h4 className='error-message'>{errorMessage}</h4>
+      }
     </div>
   )
 }

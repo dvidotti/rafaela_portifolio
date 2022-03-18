@@ -70,13 +70,12 @@
   transform: translate(50%, -50%);
 } */
 
-.control-container {
+.control-header-container {
   height: 8%;
   background-color: white;
   display: flex;
   padding-bottom: 2px;
   animation: decreasePercHeight 2.5s ease-in;
-  
 }
 
 .box1, .box2, .box3 {

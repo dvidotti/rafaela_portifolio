@@ -4,7 +4,7 @@ import {aboutInfo} from "data/about.js"
 import "./About.css"
 
 const About = () => {
-  let [menuStatus, handleMenuStatus ] = useState({
+  let [menuStatus, setMenuStatus ] = useState({
     openEducation: true,
     openSkilled: false,
     openMarketplace: false
@@ -13,21 +13,21 @@ const About = () => {
   const handleDropDowns = (idx) => {
     switch (idx) {
       case 0: 
-        handleMenuStatus({
+        setMenuStatus({
           openEducation: !menuStatus.openEducation,
           openSkilled: menuStatus.openEducation,
           openMarketplace: menuStatus.openEducation
         })
         break;
       case 1:
-        handleMenuStatus({
+        setMenuStatus({
           openEducation: menuStatus.openSkilled,
           openSkilled: !menuStatus.openSkilled,
           openMarketplace: menuStatus.openSkilled
         })
         break;
       case 2:
-        handleMenuStatus({
+        setMenuStatus({
           openEducation: menuStatus.openMarketplace,
           openSkilled: menuStatus.openMarketplace,
           openMarketplace: !menuStatus.openMarketplace,

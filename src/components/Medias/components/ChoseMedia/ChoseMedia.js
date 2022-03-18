@@ -1,43 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import '../AddMedia/AddMedia.css';
-import './ChoseMedia.css'
+import 'components/Medias/components/AddMedia/AddMedia.css';
+import 'components/Medias/components/ChoseMedia/ChoseMedia.css'
 
-import Dialog from '../../../Dialog/Dialog'
-import MediaGrid from '../MediaGrid/MediaGrid'
-
-
+import Dialog from 'components/Dialog/Dialog'
+import MediaGrid from 'components/Medias/components/MediaGrid/MediaGrid'
+import { useFetchAPI } from 'hooks/useFetchAPI'
 
 const ChoseMedia = (props) => {
+  const { fetchAPI } = useFetchAPI()
 
-  let [media, handleMedia] = useState('')
-  let [mediasOrig, handleMediaOrig] = useState([])
-  let [mediasCopy, handleMediaCopy] = useState([])
-
+  let [media, setMedia] = useState('')
+  let [mediasOrig, setMediaOrig] = useState([])
+  let [mediasCopy, setMediaCopy] = useState([])
 
 
   const getMedias = async () => {
     try {
-      const bckRes = await fetch(`${process.env.REACT_APP_API_URL}/medias`, {
-        method: "GET",
-        headers: new Headers({
-          'content-type': 'application/json',
-          'Access-Control-Allow-Credentials': true
-        }),
-        mode: 'cors',
-        credentials: 'include',
-      })
-      let res = await bckRes.json()
-      handleMediaOrig(res)
-      handleMediaCopy(res)
+      const res = await fetchAPI(`/medias`)
+      setMediaOrig(res)
+      setMediaCopy(res)
     } catch(error) {
-      console.log("Failed to get medias", error)
+      console.error(error)
     }
   }
 
   const choseMedia = (media) => {
-    console.log("MEDIIIIA", media)
-    props.getMediaId(media)
-    handleMedia(media)
+    props.getMedia(media)
+    setMedia(media)
   }
 
   useEffect(() => {
@@ -75,7 +64,6 @@ const ChoseMedia = (props) => {
             <span
               className={!media ? "disabled-btn" : "clean-button"}
               onClick={() => {
-                {/* updateCoverImage() */}
                 props.postMedia()
                 props.handleOpen(false)
                 }
