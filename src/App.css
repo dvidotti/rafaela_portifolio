@@ -1,37 +1,23 @@
-.App {
-  font-family: Graphik;
+.clean-button {
+  padding: 3px 15px;;
+  margin-left: 10px;
+  border: 1px black solid;
+  border-radius: 3px;
+  cursor: pointer;
+  box-shadow: 1px 1px gray;
+  background-color: white;
 }
 
-
-.vertical-form {
-  display: flex;
-  flex-direction: column;
-  font-family: Graphik;
+.clean-button:hover {
+  background-color: rgb(238, 238, 238);
 }
 
-.box-centered {
-  width: 30%;
-  height: 40%;
-  margin: auto;
-  margin-top: 10%;
-  align-items: center;
+.clean-button:disabled {
+  background-color: white;
+  box-shadow: none;
+  border: 1px solid lightgray;
 }
 
-.button {
-  margin-top: 20px;
-  height: 35px;
-  background-color: black;
-  color: white;
-  border: 1px solid black;
-}
-
-.input {
-  margin-bottom: 20px;
-  height: 35px;
-  padding-left: 5px;
-}
-
-.error-message {
-  font-size: 12px;
-  color: red;
+button > .clean-button:hover {
+  background-color: blue !important;
 }

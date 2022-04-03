@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ChoseMedia from 'components/Medias/components/ChoseMedia/ChoseMedia'
+import ChoseMedia from 'components/ChoseMedia/ChoseMedia'
 import './projectCoverSmall.css'
 import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
@@ -60,7 +60,7 @@ const ProjectCoverSmall = ({
                                 e.stopPropagation()
                                 setOpenChoseCover(true)
                             }}
-                            className="edit-cover-btn clean-button"
+                            className="clean-button edit-cover-btn "
                         >
                             Edit Cover
                         </button>

@@ -58,9 +58,6 @@ const HeaderAdmin = props => {
                             Projects
                         </Link>
                     </div>
-                    {/* <div className="link-box">
-            <Link to='/admin/about'>About</Link>
-          </div> */}
                 </div>
             </section>
         </section>
