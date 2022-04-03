@@ -8,13 +8,13 @@ import { useGetProjectComponents } from 'hooks/useGetProjectComponents'
 
 const componentsOptions = [
   {
-    onModel:"ProjectHeader"
+    onComponent:"ProjectHeader"
   }, 
   { 
-    onModel:"FullImageModule"
+    onComponent:"FullImageModule"
   },
   {
-    onModel:"DoublePicture"
+    onComponent:"DoublePicture"
   }
 ]
 
@@ -178,9 +178,9 @@ const ProjectEditor = () => {
             {componentsOptions.map((i, idx) => (
               <option 
                 key={idx} 
-                selected={i.onModel === selectedComponent.onModel}
+                selected={i.onComponent === selectedComponent.onComponent}
               >
-                {i.onModel}
+                {i.onComponent}
               </option>
               )
             )}

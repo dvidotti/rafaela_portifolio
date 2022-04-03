@@ -31,7 +31,7 @@ const DoublePictureEdit = (props) => {
     let body = {
       imageOne,
       imageTwo,
-      moduleId: isEdit ? props.module.module._id : props.componentsCollectionId
+      moduleId: isEdit ? props.module.module._id : props.modulesCollectionId
     }
     try{
       let res = await fetch(`${process.env.REACT_APP_API_URL}/double-picture`, {

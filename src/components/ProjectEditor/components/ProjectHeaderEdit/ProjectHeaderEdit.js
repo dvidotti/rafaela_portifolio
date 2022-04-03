@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import ChoseMedia from 'components/Medias/components/ChoseMedia/ChoseMedia'
 import { useHandleProjectHeader } from "./useHandleProjectHeader";
 
@@ -6,7 +6,13 @@ import "./ProjectHeaderEdit.css";
 
 const imageKey = process.env.REACT_APP_IMAGE_USED
 
-const ProjectHeaderEdit = (props) => {
+const ProjectHeaderEdit = ({
+  modulesCollectionId,
+  removeComponentFromList,
+  handleModules,
+  module
+
+}) => {
 
   const {
     headImg, 
@@ -22,16 +28,16 @@ const ProjectHeaderEdit = (props) => {
     changeArea,
     updateFormData,
     parseUpdateFormData,
-    componentId
+    moduleId
   } = useHandleProjectHeader(
-    props.componentsCollectionId, 
-    props.removeComponentFromList,  
-    props.handleComponents
+    modulesCollectionId, 
+    removeComponentFromList,  
+    handleModules
   )
   
   useEffect(() => {
-    updateFormData(props.component)
-  },[props.component])
+    if (!!module.component) updateFormData(module)
+  },[module])
 
   return (
     <React.Fragment>
@@ -51,7 +57,7 @@ const ProjectHeaderEdit = (props) => {
             <div className="project-header-top-container">
               <span
                 className="project-header-save-btn clean-button white-bck"
-                onClick={() => saveProjectHeader(!!componentId)}>
+                onClick={() => saveProjectHeader(!!moduleId)}>
                 {'Save Changes'}
               </span>
               <span 
@@ -142,9 +148,17 @@ const ProjectHeaderEdit = (props) => {
               >Edit Photo
             </button>
             {headImg ? 
-            <img className="project-header-image" src={headImg[imageKey]} alt={headImg.alt}/>
+            <img 
+              className="project-header-image" 
+              src={headImg[imageKey]} 
+              alt={headImg.alt}
+            />
             :
-            <img className="project-header-image" src='/imgs/default_media_image.png' alt="default image"/>
+            <img 
+              className="project-header-image"
+              src='/imgs/default_media_image.png'
+              alt="default image"
+            />
             }
           </div>
         </section>

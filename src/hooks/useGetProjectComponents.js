@@ -18,10 +18,10 @@ const initialProjectMeta = {
 }
 
 export const useGetProjectComponents = (projectId, backToProjects, isEditPage) => {
-  let [components, setComponents] = useState([])
+  let [modules, setModules] = useState([])
   let [componentsList, setCompList] = useState([])
-  let [componentsCollectionId, setComponentsCollectionId]= useState('')
-  let [selectedComponent, setSelectComponent] = useState({onModel: "ProjectHeader"})
+  let [modulesCollectionId, setModulesCollectionId]= useState('')
+  let [selectedComponent, setSelectComponent] = useState({onComponent: "ProjectHeader"})
   let [ isEdit, setIsEdit ] = useState(false)
   let [ projectMeta, setProjectMeta ] = useState(initialProjectMeta)
   let [saved, setSaved] = useState(false)
@@ -34,17 +34,18 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
 
   useEffect(() => {
     setIsEdit(isEditPage)
-    getProject()
+    if(!!projectId) getProject()
   },[])
 
 
-  const getProject = async () => {
+  const getProject = async (id) => {
+    let projId = projectId || id
     setLoading(true)
     try {
-      let res = await fetchAPI(`/project/${projectId}`)
+      let res = await fetchAPI(`/project/${projId}`)
       if(res.modules) {
         setProjectMeta(res)
-        setComponentsCollectionId(res.modules)
+        setModulesCollectionId(res.modules)
         getComponentsCollection(res.modules)
         setSaved(true)
         setLoading(false)
@@ -56,11 +57,11 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
     }
   }
 
-  const getComponentsCollection = async (componentsCollectionId) => {
+  const getComponentsCollection = async (modulesCollectionId) => {
     try {
-      const res = await fetchAPI(`/modules/${componentsCollectionId}`)
+      const res = await fetchAPI(`/modules/${modulesCollectionId}`)
       if(res.success) {
-        setComponents(res.data.modules)
+        setModules(res.data.modules)
       } else console.error("Failed to fetch components collection")
     } catch(errors) { 
       console.error(errors) 
@@ -84,21 +85,24 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
     setSaved(false)
   }
 
-  const handleSelectedComponent = (e) => setSelectComponent(e.target.value)
+  const handleSelectedComponent = (e) => {
+    let parsedSelectedComp = {onComponent: e.target.value}
+    setSelectComponent(parsedSelectedComp)
+  }
   
-  const handleComponents = (component, isUpdateComponent) => {
-    if(isUpdateComponent) {
-      setComponents(l => {
+  const handleModules = (module, isEditModule) => {
+    if(isEditModule) {
+      setModules(l => {
         let list = [...l];
-        let idx = list.findIndex(i => i._id === component._id)
-        list[idx] = component;
+        let idx = list.findIndex(i => i._id === module._id)
+        list[idx] = module;
         return list
       })
     } else {
-      setComponents(l => {
+      setModules(l => {
         let list = [...l]
         list = list.filter(i => !!i._id) // remove comp without id
-        list.push(component)
+        list.push(module)
         return list
       })
     }
@@ -106,7 +110,7 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
 
   const deleteProject = async () => {
     let body = {
-      modCollId: componentsCollectionId
+      modCollId:modulesCollectionId
     }
     let options = {
       body,
@@ -124,14 +128,6 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
     
     const body = projectMeta;
     body.projectId = projectId
-    // const body = {
-    //   name,
-    //   type,
-    //   areas,
-    //   link,
-    //   projectId,
-    //   published
-    // }
     const options = {
       body,
       method: "PUT"
@@ -145,32 +141,35 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
   }
 
 
-  const mapCollectionItemToComponent = (componentObj, idx) => {
+  const mapCollectionItemToComponent = (module, idx) => {
     let component = null;
-    // IF item still doesn't have a onModel property, it's a new component
+    // IF item still doesn't have a onComponent property, it's a new component
     // Item in this case component will be the module name (ProjectHeader, FullImageModule and so on ...)
-    let componentModelName = componentObj.onModel;
+    let componentModelName = module.onComponent;
     if(isEdit) {
       switch(componentModelName) {
         case 'ProjectHeader':
           component = 
           <ProjectHeaderEdit
-            key={componentObj._id || idx}
-            component={componentObj}
-            componentsCollectionId={componentsCollectionId}
+            key={module._id || idx}
+            module={module}
+            modulesCollectionId={modulesCollectionId}
             removeComponentFromList={removeComponentFromList}
-            handleComponents={handleComponents}         
+            handleModules={handleModules}         
           />
           break;
         case "FullImageModule":
           component = 
           <FullProjectPicturesEditor
             key={module._id || idx}
-            id={module._id}
+          // id={module._id}
+            module={module}
             // getProject={getProject} 
-            module={!module.onModel ? null : module }
-            componentsCollectionId={componentsCollectionId}
+            // module={!module.onComponent ? null : module }
+            modulesCollectionId={modulesCollectionId}
             removeComponentFromList={removeComponentFromList}
+            handleModules={handleModules}         
+
           />
           break;
         case "DoublePicture":
@@ -178,9 +177,9 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
           <DoublePictureEdit
             key={module._id || idx}
             id={module._id || idx}
-            module={typeof module.onModel === "undefined" ? null  : module}
+            module={typeof module.onComponent === "undefined" ? null  : module}
             // refProp={portPict}
-            componentsCollectionId={componentsCollectionId}
+            modulesCollectionId={modulesCollectionId}
             // getProject={getProject} 
           />
           break;
@@ -191,7 +190,7 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
           component = 
           <ProjectHeader
             refProp={portPict}
-            component={componentObj}
+            module={module}
             scrollTo={scrollTo}
           />
           break;
@@ -200,7 +199,7 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
           <FullProjectPictures
             key={module._id || idx}
             id={module._id || idx}
-            project={module}
+            module={module}
             refProp={portPict}       
           />
           break;
@@ -222,17 +221,17 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
   const createComponentsList = () => {
     // idx used as a key while creating new components
     // if item has ._id used that as key instead
-    let compList = components.map((item, idx) => mapCollectionItemToComponent(item, idx))
+    let compList = modules.map((item, idx) => mapCollectionItemToComponent(item, idx))
     setCompList(compList)
   }
   
   // Update components list when the modules list changes
   useEffect(() => {
     createComponentsList()
-  },[components])
+  },[modules])
 
   const addComponentToList = () => {
-    setComponents(l => {
+    setModules(l => {
       let list = [...l]
       list.push(selectedComponent)
       return list
@@ -242,12 +241,13 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
   // Create a new filtered list
   // Filters components without an id and the one matching the id arg.
   const removeComponentFromList = (id) => {
-    let filteredList = components.filter(item => {
+    let filteredList = modules.filter(item => {
       if(!item._id) return false;
+      if(!item.component) return false;
       if(item._id == id) return false
       else return true
     })
-    setComponents(filteredList)
+    setModules(filteredList)
   }
 
   const scrollTo = (reference) => {
@@ -257,6 +257,7 @@ export const useGetProjectComponents = (projectId, backToProjects, isEditPage) =
   return {
     getComponentsCollection,
     componentsList,
+    getProject,
     handleSelectedComponent,
     selectedComponent,
     addComponentToList,

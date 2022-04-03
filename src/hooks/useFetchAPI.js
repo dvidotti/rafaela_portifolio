@@ -20,7 +20,6 @@ export const useFetchAPI = () => {
       }
     }
    
-    console.log("PARSED OPTIONS", parsedOptions)
     try {
       let res = await fetch(`${process.env.REACT_APP_API_URL}${url}`, parsedOptions)
       let response = await res.json()

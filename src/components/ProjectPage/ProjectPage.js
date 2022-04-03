@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import { useGetProjectComponents } from "hooks/useGetProjectComponents"
-import { useGetRendersHelper } from "hooks/useGetRendersHelper";
+// import { useGetRendersHelper } from "hooks/useGetRendersHelper";
 
 const ProjectPage = React.memo(({projects, getPortfolio, handleIsProjectPage}) => {
-  useGetRendersHelper()
+  // useGetRendersHelper()
   
   let [ project, setProject] = useState(null)
   
   let params = useParams()
   let project_link = params.project_name
   const { 
-    getComponentsCollection,
+    getProject,
     componentsList
   } = useGetProjectComponents()
   
@@ -33,7 +33,7 @@ const ProjectPage = React.memo(({projects, getPortfolio, handleIsProjectPage}) =
   }
 
   useEffect(() => {
-    if(project) getComponentsCollection(project.modules)   
+    if(project) getProject(project._id)   
   }, [project])
 
 

@@ -11,7 +11,7 @@ const initialFormDataState = {
     partnership:''
 }
 
-export const useHandleProjectHeader = (componentsCollectionId, removeComponentFromList, handleComponents) => {
+export const useHandleProjectHeader = (modulesCollectionId, removeComponentFromList, handleModules) => {
 
   let [formData, setFormData ] = useState(initialFormDataState)
   let [areas, setAreas] = useState(["", "", ""]);
@@ -19,7 +19,7 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
   let [headImg, setHeadImg] = useState("")
   let [headImgOriginal, setHeadImgOriginal] = useState(null)
   let [open, setOpen] = useState(false)
-  let [componentId, setComponentId ] = useState(null)
+  let [moduleId, setModuleId ] = useState(null)
   let [projectHeaderId , setProjectHeaderId ] = useState(null)
 
   const { fetchAPI } = useFetchAPI()
@@ -34,8 +34,8 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
       date: formData.date,
       areas,
       headImg: !headImg ? null : headImg._id,
-      moduleColId: componentsCollectionId,
-      moduleId: componentId
+      moduleColId: modulesCollectionId,
+      moduleId: moduleId
     }
     if(isEdit) {
       body.projectHeaderId = projectHeaderId;
@@ -48,11 +48,12 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
     try {
       let response = await fetchAPI('/project-header', options)
       let resObj = response.module;
-      resObj.module = response.data
-      handleComponents(resObj, isEdit)
+      resObj.component = response.data
+      resObj.onComponent = "ProjectHeader"
+      handleModules(resObj, isEdit)
       updateFormData(resObj)
       if(!isEdit) {
-        setComponentId(resObj._id)
+        setModuleId(resObj._id)
       }
     } catch(error) {
       console.error(error)
@@ -60,13 +61,13 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
   }
 
   const updateMedia = () => {
-    saveProjectHeader(!!componentId)
+    saveProjectHeader(!!moduleId)
   }
 
   const deleteProjHeader = async () => {
-    // If componentId equal undefined or null -> remove it from the FE
-    if(!componentId) {
-      removeComponentFromList(componentId)
+    // If moduleId equal undefined or null -> remove it from the FE
+    if(!moduleId) {
+      removeComponentFromList(moduleId)
       return
     }
 
@@ -74,16 +75,16 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
       method: "DELETE",
       body: {
         projectHeaderId: projectHeaderId,
-        moduleId: componentId,
-        modulesCollId: componentsCollectionId
+        moduleId: moduleId,
+        modulesCollId:modulesCollectionId
       }
     }
 
     try {
       let res = await fetchAPI(`/project-header`, options)
       if(res.success) {
-        removeComponentFromList(componentId)
-        setComponentId(null)
+        removeComponentFromList(moduleId)
+        setModuleId(null)
       }
     } catch(error) {
       console.error(error)
@@ -100,21 +101,21 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
   const handleOpen = (data) => setOpen(data)
 
   
-  const updateFormData = (component) => {
-    if(!!component._id) {
+  const updateFormData = (module) => {
+    if(!!module._id) {
       let formKeys = Object.keys(initialFormDataState)
       let parentFormData = {}
       formKeys.forEach(key => { 
-        parentFormData[key] = component.module[key]
+        parentFormData[key] = module.component[key]
       })
       setFormData(parentFormData)      
-      setAreas(component.module.areas)
-      if(component.module.headImg) {
-        setHeadImgOriginal(component.module.headImg)
-        setHeadImg(component.module.headImg)
+      setAreas(module.component.areas)
+      if(module.component.headImg) {
+        setHeadImgOriginal(module.component.headImg)
+        setHeadImg(module.component.headImg)
       }
-      setComponentId(component._id)
-      setProjectHeaderId(component.module._id)
+      setModuleId(module._id)
+      setProjectHeaderId(module.component._id)
     } 
   }
   
@@ -140,6 +141,6 @@ export const useHandleProjectHeader = (componentsCollectionId, removeComponentFr
     changeArea,
     updateFormData,
     parseUpdateFormData,
-    componentId
+    moduleId
   }
 }
