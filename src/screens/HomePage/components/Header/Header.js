@@ -61,7 +61,8 @@ const Header = props => {
                                 : 'text-two-header'
                         }
                     >
-                        {headerInfo.subtitle}
+                        Experienced in Strategy, Brand, Graphic<br /> and  Digital Design
+                        {/* {headerInfo.subtitle} */}
                     </span>
                 </div>
                 <div className="arrow-down-outer-container">
