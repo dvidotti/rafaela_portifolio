@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
-import ProjectHeaderEdit from 'components/ProjectEditor/components/ProjectHeaderEdit/ProjectHeaderEdit'
-import FullProjectPicturesEditor from 'components/ProjectEditor/components/FullProjectPicturesEditor/FullProjectPicturesEditor'
-import DoublePictureEdit from 'components/ProjectEditor/components/DoublePictureEdit/DoublePictureEdit'
+import ProjectHeaderEdit from 'screens/ProjectEditor/components/ProjectHeaderEdit/ProjectHeaderEdit'
+import FullProjectPicturesEditor from 'screens/ProjectEditor/components/FullProjectPicturesEditor/FullProjectPicturesEditor'
+import DoublePictureEdit from 'screens/ProjectEditor/components/DoublePictureEdit/DoublePictureEdit'
 
-import ProjectHeader from 'components/ProjectPage/components/ProjectHeader/ProjectHeader'
-import FullProjectPictures from 'components/ProjectPage/components/FullProjectsPictures/FullProjectsPictures'
-import DoublePicture from 'components/ProjectPage/components/DoublePicture/DoublePicture'
+import ProjectHeader from 'screens/HomePage/components/ProjectPage/components/ProjectHeader/ProjectHeader'
+import FullProjectPictures from 'screens/HomePage/components/ProjectPage/components/FullProjectsPictures/FullProjectsPictures'
+import DoublePicture from 'screens/HomePage/components/ProjectPage/components/DoublePicture/DoublePicture'
 import { useFetchAPI } from './useFetchAPI'
 
 const initialProjectMeta = {
