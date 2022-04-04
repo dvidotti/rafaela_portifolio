@@ -1,0 +1,21 @@
+.full-pictures-container {
+  padding-bottom: 15px;
+}
+
+.full-pict-box {
+  width: 100%;
+  padding: 15px 0px 0px 15px;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.full-img {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+ .full-pict-box {
+    padding: 15px 15px 0px 15px;
+ }
+
+}

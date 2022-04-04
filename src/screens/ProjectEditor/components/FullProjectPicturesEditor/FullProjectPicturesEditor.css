@@ -1,0 +1,8 @@
+.relative {
+  position: relative
+}
+
+.editable-module-box {
+  border: 4px solid black;
+  margin: 20px 0px;
+}

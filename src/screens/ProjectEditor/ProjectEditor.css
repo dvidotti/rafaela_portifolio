@@ -1,0 +1,88 @@
+.project-box-input {
+  margin-right: 50px;
+  /* width: 300px; */
+}
+
+.transparent-bck {
+  background-color: transparent;
+}
+
+.horizontal-input, .horizontal-input-auto {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 260px;
+  margin-bottom: 10px;
+}
+
+.horizontal-input-auto {
+  width: 100px;
+}
+
+.horizontal-label {
+}
+
+.flex{
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between
+}
+
+.align-center {
+  align-items:center;
+}
+.half-size-container {
+  width: 50%;
+}
+
+.pR100 {
+  padding-right: 100px
+}
+
+.mgLeft60 {
+  margin-left: 60px;
+}
+
+.top-control-container {
+  padding: 30px 65px 30px 15px;
+  margin-top: 5;
+  margin-right: 2;
+  border: 4px solid black
+}
+
+.top-control-header {
+  display: flex;
+ justify-content: space-between;
+ padding-bottom: 25px;
+}
+
+.mgRight15 {
+  margin-right: 15;
+}
+
+.pdLeft40 {
+  padding-left: 40px;
+}
+
+.select-component {
+  height: 60px;
+  width: 400px;
+  font-size: 1.2rem;
+  margin: 0px 70px 0px 70px;
+  padding: 5px;
+}
+
+.component-list-container {
+  margin: 2px 2px 0px 0px;
+  border: 4px solid black;
+}
+
+.bottom-control-container {
+  display: flex;
+  align-items: center;
+  padding: 65px 65px 100px 0px;
+  border: 4px solid black;
+  margin-bottom: 50px;
+}

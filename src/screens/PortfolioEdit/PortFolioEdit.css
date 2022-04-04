@@ -1,0 +1,15 @@
+.porfolio {
+  padding-left: 20px  !important;
+  padding-right: 0px !important;
+  width: 100%;
+}
+
+.portfolio-outer-container {
+  padding: 20;
+}
+
+.control-container {
+  display: flex; 
+  justify-content: flex-end;
+  padding-right: 20px;
+}

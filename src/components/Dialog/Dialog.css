@@ -54,3 +54,8 @@
 .overlay-closed {
   display: none;
 }
+
+.children-container {
+  width: 100%;
+  height: 100%;
+}
