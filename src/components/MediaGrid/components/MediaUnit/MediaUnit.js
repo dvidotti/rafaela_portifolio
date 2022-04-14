@@ -7,7 +7,7 @@ import { useFetchAPI } from 'hooks/useFetchAPI'
 
 // TODO: put in ENV (not deleting ATM Cloudnary => statusText: "Unauthorized")
 // TODO: include delete in AWS also
-const url = '	http://api.cloudinary.com/v1_1/dw1mohoww/image/destroy'
+const url = process.env.REACT_APP_CLOUDINARY_DELETE_URL
 
 const MediaUnit = props => {
     const { fetchAPI } = useFetchAPI()
